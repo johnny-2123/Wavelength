@@ -123,15 +123,9 @@ module.exports = {
         username: 'FakeUser15',
         hashedPassword: bcrypt.hashSync('password')
       }
-    ], {});
-
+    ], options);
   },
   async down(queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+    await queryInterface.dropTable('Users');
   }
 };

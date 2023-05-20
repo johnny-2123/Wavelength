@@ -1,13 +1,13 @@
 #!/usr/bin/env node
-// backend/bin/www
 
 // Import environment variables
 require('dotenv').config();
 
 const { port } = require('../config');
-
 const app = require('../app');
 const db = require('../db/models');
+const http = require('http');
+const WebSocket = require('ws');
 
 // Check the database connection before starting the app
 db.sequelize
@@ -15,8 +15,26 @@ db.sequelize
     .then(() => {
         console.log('Database connection success! Sequelize is ready to use...');
 
+        // Create an HTTP server
+        const server = http.createServer(app);
+
+        // Create a WebSocket server
+        const wss = new WebSocket.Server({ server });
+
+        wss.on('connection', (ws) => {
+            console.log('Client connected');
+
+            ws.on('message', (message) => {
+                console.log('received: %s', message);
+            });
+
+            ws.on('close', () => {
+                console.log('Client disconnected');
+            });
+        });
+
         // Start listening for connections
-        app.listen(port, () => console.log(`Listening on port ${port}...`));
+        server.listen(port, () => console.log(`Listening on port ${port}...`));
     })
     .catch((err) => {
         console.log('Database connection failure.');
