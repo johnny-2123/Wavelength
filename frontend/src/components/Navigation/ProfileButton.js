@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
+import LoginFormModal from "../User/LoginFormModal";
+import SignupFormModal from "../User/SignUpModal";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 <script
     src="https://kit.fontawesome.com/97726b2eee.js"
@@ -66,14 +68,16 @@ function ProfileButton({ user }) {
                 ) : (
                     <>
                         <li>
-                            <NavLink to="/login" onClick={closeMenu}>
-                                Log In
-                            </NavLink>
+                            <OpenModalButton
+                                buttonText="Log In"
+                                modalComponent={<LoginFormModal />}
+                            />
                         </li>
                         <li>
-                            <NavLink to="/signup" onClick={closeMenu}>
-                                Sign Up
-                            </NavLink>
+                            <OpenModalButton
+                                buttonText="Sign Up"
+                                modalComponent={<SignupFormModal />}
+                            />
                         </li>
 
                     </>
