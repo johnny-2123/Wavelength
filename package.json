@@ -1,39 +1,33 @@
 {
-  "dependencies": {
-    "@react-google-maps/api": "^2.18.1",
-    "bcryptjs": "^2.4.3",
-    "cookie-parser": "^1.4.6",
-    "cors": "^2.8.5",
-    "csurf": "^1.11.0",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "express-async-errors": "^3.1.1",
-    "express-validator": "^6.14.2",
-    "helmet": "^6.0.1",
-    "jsonwebtoken": "^9.0.0",
-    "morgan": "^1.10.0",
-    "per-env": "^1.0.2",
-    "pg": "^8.8.0",
-    "sequelize": "^6.28.0",
-    "sequelize-cli": "^6.5.2"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "dotenv-cli": "^6.0.0",
-    "nodemon": "^2.0.20",
-    "sqlite3": "^5.1.4"
-  },
+  "name": "capstone",
+  "version": "1.0.0",
+  "description": "## Database Schema Design",
   "main": "index.js",
   "scripts": {
     "render-postbuild": "npm run build --prefix frontend",
     "install": "npm --prefix backend install backend && npm --prefix frontend install frontend",
     "dev:backend": "npm install --prefix backend start",
-    "dev:frontend": "npm install --prefix frontend start",
     "sequelize": "npm run --prefix backend sequelize",
     "sequelize-cli": "npm run --prefix backend sequelize-cli",
     "start": "npm start --prefix backend",
-    "build": "npm run build --prefix backend"
+    "build": "npm run --prefix backend build"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/helper-compilation-targets": "^7.20.7"
+  },
+  "dependencies": {
+    "@types/react-transition-group": "^4.4.5",
+    "react-alert-confirm": "^4.1.7",
+    "react-router-dom": "^6.8.2",
+    "react-slick": "^0.29.0",
+    "react-transition-group": "^4.4.5",
+    "slick-carousel": "^1.8.1",
+    "transition-hook": "^1.5.2"
   }
 }
