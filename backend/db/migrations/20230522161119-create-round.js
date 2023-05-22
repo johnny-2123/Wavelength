@@ -6,39 +6,47 @@ if (process.env.NODE_ENV === 'production') {
 }
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Games', {
+    await queryInterface.createTable('Rounds', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      user1Id: {
+      round_number: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      game_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'Users', key: 'id', onDelete: 'CASCADE' }
+        references: { model: 'Games', key: 'id', onDelete: 'CASCADE' }
       },
-      user2Id: {
+      word1_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'Users', key: 'id', onDelete: 'CASCADE' }
+        references: { model: 'Words', key: 'id', onDelete: 'CASCADE' }
       },
-      gameOver: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false
+      word2_id: {
+        type: Sequelize.INTEGER,
+        references: { model: 'Words', key: 'id', onDelete: 'CASCADE' }
+      },
+      user1_agrees: {
+        type: Sequelize.BOOLEAN
+      },
+      user2_agrees: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+        type: Sequelize.DATE
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+        type: Sequelize.DATE
       }
-    }, options);
+    });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Games');
+    await queryInterface.dropTable('Rounds');
   }
 };

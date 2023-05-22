@@ -6,39 +6,35 @@ if (process.env.NODE_ENV === 'production') {
 }
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Games', {
+    await queryInterface.createTable('Words', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      user1Id: {
+      round_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        references: { model: 'Users', key: 'id', onDelete: 'CASCADE' }
+        allowNull: false
       },
-      user2Id: {
+      user_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'Users', key: 'id', onDelete: 'CASCADE' }
+        allowNull: false
       },
-      gameOver: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false
+      word_text: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+        type: Sequelize.DATE
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+        type: Sequelize.DATE
       }
-    }, options);
+    });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Games');
+    await queryInterface.dropTable('Words');
   }
 };

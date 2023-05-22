@@ -8,6 +8,8 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       // define association here
+      User.hasMany(models.Game, { foreignKey: 'user1Id', as: "GamesStarted", onDelete: 'CASCADE', hooks: true });
+      User.hasMany(models.Game, { foreignKey: 'user2Id', as: "GamesJoined", onDelete: 'CASCADE', hooks: true });
     }
   }
   User.init({
