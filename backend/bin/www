@@ -8,6 +8,7 @@ const app = require('../app');
 const db = require('../db/models');
 const http = require('http');
 const WebSocket = require('ws');
+const { json } = require('sequelize');
 
 // Check the database connection before starting the app
 db.sequelize
@@ -21,18 +22,61 @@ db.sequelize
         // Create a WebSocket server
         const wss = new WebSocket.Server({ server });
 
+        const clients = new Map();
+
         wss.on('connection', (ws) => {
             console.log('Client connected');
 
             ws.on('message', (message) => {
                 console.log('received: %s', message);
+
+                const { type, data } = JSON.parse(message);
+                console.log('type:', type)
+                // console.log('data:', data)
+                if (type === 'join') {
+                    // Join the room
+                    const { room, username } = data;
+                    ws.room = room;
+                    console.log('ws.room:', ws.room)
+                    console.log('room:', room)
+                    console.log('username:', username)
+                    ws.username = username;
+
+                    // Store the client in the room
+                    if (!clients.has(room)) {
+                        clients.set(room, new Set());
+                    }
+                    clients.get(room).add(ws);
+                } else if (type === 'message') {
+                    // Broadcast the message to the room
+                    const room = ws.room;
+                    const username = ws.username;
+                    // console.log('clients:', clients)
+                    console.log('room:', room)
+                    // console.log('ws:', ws)
+                    if (clients.has(room)) {
+                        const roomClients = clients.get(room);
+                        roomClients.forEach((client) => {
+                            const message = JSON.stringify(`${username}: ${data.message}`);
+                            client.send(message);
+                        });
+                    }
+                }
             });
 
             ws.on('close', () => {
                 console.log('Client disconnected');
+
+                // Remove the client from the room
+                const room = ws.room;
+                if (clients.has(room)) {
+                    clients.get(room).delete(ws);
+                    if (clients.get(room).size === 0) {
+                        clients.delete(room);
+                    }
+                }
             });
         });
-
         // Start listening for connections
         server.listen(port, () => console.log(`Listening on port ${port}...`));
     })
