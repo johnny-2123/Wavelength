@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Word.belongsTo(models.Round, { foreignKey: 'round_id', onDelete: 'CASCADE', hooks: true });
+      Word.belongsTo(models.User, { foreignKey: 'user_id', onDelete: 'CASCADE', hooks: true });
     }
   }
   Word.init({

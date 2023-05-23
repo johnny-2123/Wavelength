@@ -6,25 +6,28 @@ if (process.env.NODE_ENV === 'production') {
 }
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Words', {
+    await queryInterface.createTable('Friends', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      round_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: { model: 'Rounds', key: 'id', onDelete: 'CASCADE' }
-      },
       user_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'Users', key: 'id', onDelete: 'CASCADE' }
       },
-      word_text: {
+      friend_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: 'Users', key: 'id', onDelete: 'CASCADE' }
+      },
+      status: {
         type: Sequelize.STRING
+      },
+      date_added: {
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,
@@ -39,6 +42,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Words');
+    await queryInterface.dropTable('Friends');
   }
 };

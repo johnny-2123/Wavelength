@@ -6,10 +6,59 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
 
+    toSafeObject() {
+      const { id, username, email, firstName, lastName } = this;
+      return { id, username, email, firstName, lastName };
+    };
+
+    validatePassword(password) {
+      return bcrypt.compareSync(password, this.hashedPassword.toString());
+    }
+    static getCurrentUserById(id) {
+      return User.scope('currentUser').findByPk(id);
+    }
+    static async login({ credential, password }) {
+      const { Op } = require('sequelize');
+
+      const user = await User.scope('loginUser').findOne({
+        where: {
+          [Op.or]: {
+            username: credential,
+            email: credential
+          }
+        }
+      });
+
+      if (user && user.validatePassword(password)) {
+        return await User.scope('currentUser').findByPk(user.id);
+      };
+    }
+
+    static async signup({ username, email, password, firstName, lastName }) {
+      const hashedPassword = bcrypt.hashSync(password);
+      const user = await User.create({
+        username,
+        firstName,
+        lastName,
+        email,
+        hashedPassword
+      });
+
+      return await User.scope('currentUser').findByPk(user.id);
+
+    }
+
     static associate(models) {
       // define association here
       User.hasMany(models.Game, { foreignKey: 'user1Id', as: "GamesStarted", onDelete: 'CASCADE', hooks: true });
       User.hasMany(models.Game, { foreignKey: 'user2Id', as: "GamesJoined", onDelete: 'CASCADE', hooks: true });
+      User.belongsToMany(models.User, {
+        as: "Friends",
+        through: "Friend",
+        foreignKey: "userId",
+        otherKey: "friendId"
+      })
+      User.hasMany(models.Word, { foreignKey: 'user_id', as: 'Word', onDelete: 'CASCADE', hooks: true });
     }
   }
   User.init({

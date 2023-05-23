@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Round.belongsTo(models.Game, { foreignKey: 'game_id', onDelete: 'CASCADE', hooks: true });
+      Round.hasMany(models.Word, { foreignKey: 'round_id', onDelete: 'CASCADE', hooks: true });
     }
   }
   Round.init({
