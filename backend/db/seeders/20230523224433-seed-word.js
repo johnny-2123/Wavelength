@@ -18,8 +18,6 @@ module.exports = {
       { roundId: 2, userId: 2, wordText: 'choke me' },
     ]);
 
-
-
   },
 
   async down(queryInterface, Sequelize) {
