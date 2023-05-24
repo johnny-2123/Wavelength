@@ -49,16 +49,15 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static associate(models) {
-      // define association here
       User.hasMany(models.Game, { foreignKey: 'user1Id', as: "GamesStarted", onDelete: 'CASCADE', hooks: true });
       User.hasMany(models.Game, { foreignKey: 'user2Id', as: "GamesJoined", onDelete: 'CASCADE', hooks: true });
       User.belongsToMany(models.User, {
         as: "Friends",
-        through: "Friend",
+        through: models.Friend,
         foreignKey: "userId",
         otherKey: "friendId"
       })
-      User.hasMany(models.Word, { foreignKey: 'user_id', as: 'Word', onDelete: 'CASCADE', hooks: true });
+      User.hasMany(models.Word, { foreignKey: 'userId', as: 'Word', onDelete: 'CASCADE', hooks: true });
     }
   }
   User.init({

@@ -13,12 +13,12 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      user_id: {
+      userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'Users', key: 'id', onDelete: 'CASCADE' }
       },
-      friend_id: {
+      friendId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'Users', key: 'id', onDelete: 'CASCADE' }
@@ -26,7 +26,7 @@ module.exports = {
       status: {
         type: Sequelize.STRING
       },
-      date_added: {
+      dateAdded: {
         type: Sequelize.DATE
       },
       createdAt: {

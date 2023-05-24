@@ -4,37 +4,31 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Round extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+
     static associate(models) {
       // define association here
-      Round.belongsTo(models.Game, { foreignKey: 'game_id', onDelete: 'CASCADE', hooks: true });
-      Round.hasMany(models.Word, { foreignKey: 'round_id', onDelete: 'CASCADE', hooks: true });
+      Round.belongsTo(models.Game, { foreignKey: 'gameId', onDelete: 'CASCADE', hooks: true });
+      Round.hasMany(models.Word, { foreignKey: 'roundId', onDelete: 'CASCADE', hooks: true });
     }
   }
   Round.init({
-    round_number: {
+    gameId: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    game_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+    // word1Id: {
+    //   type: DataTypes.INTEGER
+    // },
+    // word2Id: {
+    //   type: DataTypes.INTEGER
+    // },
+    user1Agrees: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     },
-    word1_id: {
-      type: DataTypes.INTEGER
-    },
-    word2_id: {
-      type: DataTypes.INTEGER
-    },
-    user1_agrees: {
-      type: DataTypes.BOOLEAN
-    },
-    user2_agrees: {
-      type: DataTypes.BOOLEAN
+    user2Agrees: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   }, {
     sequelize,

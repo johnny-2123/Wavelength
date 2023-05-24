@@ -13,28 +13,24 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      round_number: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-      },
-      game_id: {
+      gameId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'Games', key: 'id', onDelete: 'CASCADE' }
       },
-      word1_id: {
-        type: Sequelize.INTEGER,
-        references: { model: 'Words', key: 'id', onDelete: 'CASCADE' }
-      },
-      word2_id: {
-        type: Sequelize.INTEGER,
-        references: { model: 'Words', key: 'id', onDelete: 'CASCADE' }
-      },
-      user1_agrees: {
+      // word1_id: {
+      //   type: Sequelize.INTEGER,
+      //   references: { model: 'Words', key: 'id', onDelete: 'CASCADE' }
+      // },
+      // word2_id: {
+      //   type: Sequelize.INTEGER,
+      //   references: { model: 'Words', key: 'id', onDelete: 'CASCADE' }
+      // },
+      user1Agrees: {
         type: Sequelize.BOOLEAN,
         defaultValue: false
       },
-      user2_agrees: {
+      user2Agrees: {
         type: Sequelize.BOOLEAN,
         defaultValue: false
       },

@@ -13,18 +13,21 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      round_id: {
+      roundId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'Rounds', key: 'id', onDelete: 'CASCADE' }
       },
-      user_id: {
+      userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'Users', key: 'id', onDelete: 'CASCADE' }
       },
-      word_text: {
-        type: Sequelize.STRING
+      wordText: {
+        type: Sequelize.STRING,
+        validate: {
+          len: [1, 20]
+        }
       },
       createdAt: {
         allowNull: false,

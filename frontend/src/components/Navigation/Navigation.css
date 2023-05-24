@@ -8,7 +8,7 @@
     align-items: center;
     padding-left: 0;
     padding: 1rem 1rem;
-    background-color: orangered;
+    background-color: transparent;
     margin: 0;
     box-sizing: border-box;
 }
@@ -36,7 +36,7 @@
     padding-left: 0;
     padding: 1rem;
     z-index: 2;
-    background-color: #f2f2f2;
+    background-color: transparent;
     border-radius: 8px;
     width: 200px;
     font-size: 1.2rem;
@@ -51,7 +51,7 @@
     /* outline: green thin dotted; */
     border: none;
     margin: 0;
-    background-color: orangered;
+    background-color: transparent;
 }
 
 .profileButton:hover {
@@ -70,14 +70,15 @@
 .logoutButton {
     background-color: #fff;
     color: #000;
-    border: 1px solid #000;
+    border: 1px solid white;
     padding: 10px;
     border-radius: 5px;
 }
 
 .logoutButton:hover {
     cursor: pointer;
-    background-color: rgb(89, 38, 89);
+    background-color: transparent;
+    border: white 1px solid;
     color: white;
 }
 

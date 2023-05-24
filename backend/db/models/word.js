@@ -4,21 +4,28 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Word extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+
     static associate(models) {
       // define association here
-      Word.belongsTo(models.Round, { foreignKey: 'round_id', onDelete: 'CASCADE', hooks: true });
-      Word.belongsTo(models.User, { foreignKey: 'user_id', onDelete: 'CASCADE', hooks: true });
+      Word.belongsTo(models.Round, { foreignKey: 'roundId', onDelete: 'CASCADE', hooks: true });
+      Word.belongsTo(models.User, { foreignKey: 'userId', onDelete: 'CASCADE', hooks: true });
     }
   }
   Word.init({
-    round_id: DataTypes.INTEGER,
-    user_id: DataTypes.INTEGER,
-    word_text: DataTypes.STRING
+    roundId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    wordText: {
+      type: DataTypes.STRING,
+      validate: {
+        len: [1, 30]
+      }
+    }
   }, {
     sequelize,
     modelName: 'Word',
