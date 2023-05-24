@@ -25,7 +25,8 @@ module.exports = {
     options.tableName = 'Games';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      user1Id: { [Op.between]: [1, 15] }
+      id: { [Op.in]: [1, 2, 3, 4] } // IDs of the games created by the seeder
     }, {});
   }
+
 };

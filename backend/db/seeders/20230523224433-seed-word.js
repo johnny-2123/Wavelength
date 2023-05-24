@@ -59,7 +59,7 @@ module.exports = {
     options.tableName = 'Words';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      gameId: { [Op.between]: [1, 8] }
+      roundId: { [Op.between]: [1, 20] }
     }, {});
   }
 };
