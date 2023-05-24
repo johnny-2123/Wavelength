@@ -4,7 +4,6 @@ const { User, Friend } = require('../../db/models');
 
 const router = express.Router();
 
-
 router.post('/add', asyncHandler(async (req, res) => {
     const { userId, friendId } = req.body;
     const friendship = await Friend.create({ userId, friendId, status: "pending" });

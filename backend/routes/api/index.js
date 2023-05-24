@@ -3,12 +3,22 @@ const { restoreUser, setTokenCookie, requireAuth } = require("../../utils/auth.j
 const { User } = require('../../db/models');
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
+const roundRouter = require('./rounds.js');
+const friendRouter = require('./friends.js');
+const gameRouter = require('./games.js');
+
 
 router.use(restoreUser);
 
 router.use('/session', sessionRouter);
 
 router.use('/users', usersRouter);
+
+router.use('/rounds', roundRouter);
+
+router.use('/friends', friendRouter);
+
+router.use('/games', gameRouter);
 
 router.post('/test', (req, res) => {
     res.json({ requestBody: req.body });
@@ -22,13 +32,13 @@ router.get(
     }
 );
 
-router.get("/csrf/restore", (req, res) => {
-    const csrfToken = req.csrfToken();
-    res.cookie("XSRF-TOKEN", csrfToken);
-    res.status(200).json({
-        'XSRF-Token': csrfToken
+
+if (process.env.NODE_ENV !== 'production') {
+    router.get('/csrf/restore', (req, res) => {
+        res.cookie('XSRF-TOKEN', req.csrfToken());
+        return res.status(201).json({});
     });
-});
+}
 
 
 module.exports = router;
