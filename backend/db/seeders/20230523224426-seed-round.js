@@ -10,31 +10,20 @@ module.exports = {
     options.tableName = 'Rounds';
 
     await queryInterface.bulkInsert(options, [
-      { gameId: 1, user1Agrees: false, user2Agrees: false },
-      { gameId: 1, user1Agrees: false, user2Agrees: false },
-      { gameId: 1, user1Agrees: false, user2Agrees: false },
+
       { gameId: 1, user1Agrees: false, user2Agrees: false },
       { gameId: 1, user1Agrees: false, user2Agrees: false },
       { gameId: 1, user1Agrees: false, user2Agrees: false },
 
       { gameId: 2, user1Agrees: false, user2Agrees: false },
       { gameId: 2, user1Agrees: false, user2Agrees: false },
-      { gameId: 2, user1Agrees: false, user2Agrees: false },
-      { gameId: 2, user1Agrees: false, user2Agrees: false },
-      { gameId: 2, user1Agrees: false, user2Agrees: false },
-      { gameId: 2, user1Agrees: false, user2Agrees: false },
-      { gameId: 2, user1Agrees: false, user2Agrees: false },
 
-      { gameId: 3, user1Agrees: false, user2Agrees: false },
       { gameId: 3, user1Agrees: false, user2Agrees: false },
       { gameId: 3, user1Agrees: false, user2Agrees: false },
       { gameId: 3, user1Agrees: false, user2Agrees: false },
 
       { gameId: 4, user1Agrees: false, user2Agrees: false },
-      { gameId: 4, user1Agrees: false, user2Agrees: false },
-      { gameId: 4, user1Agrees: false, user2Agrees: false },
-      { gameId: 4, user1Agrees: false, user2Agrees: false },
-
+      { gameId: 4, user1Agrees: true, user2Agrees: true },
     ]);
 
   },

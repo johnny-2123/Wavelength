@@ -16,12 +16,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    // word1Id: {
-    //   type: DataTypes.INTEGER
-    // },
-    // word2Id: {
-    //   type: DataTypes.INTEGER
-    // },
     user1Agrees: {
       type: DataTypes.BOOLEAN,
       defaultValue: false

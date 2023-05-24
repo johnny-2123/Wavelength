@@ -13,12 +13,9 @@ module.exports = {
     await queryInterface.bulkInsert(options, [
       { user1Id: 1, user2Id: 2, gameOver: true },
       { user1Id: 1, user2Id: 2, gameOver: true },
-      { user1Id: 1, user2Id: 3, gameOver: true },
-      { user1Id: 1, user2Id: 3, gameOver: true },
-      { user1Id: 1, user2Id: 4, gameOver: true },
-      { user1Id: 1, user2Id: 4, gameOver: true },
       { user1Id: 2, user2Id: 1, gameOver: true },
       { user1Id: 2, user2Id: 1, gameOver: true },
+
     ], options);
 
 
