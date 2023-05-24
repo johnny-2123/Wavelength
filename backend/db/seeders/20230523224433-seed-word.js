@@ -25,32 +25,32 @@ module.exports = {
       { roundId: 3, userId: 2, wordText: 'pajamas' },
 
       // game 2 round 1
-      { roundId: 3, userId: 1, wordText: 'babe' },
-      { roundId: 3, userId: 2, wordText: 'lungs' },
+      { roundId: 4, userId: 1, wordText: 'babe' },
+      { roundId: 4, userId: 2, wordText: 'lungs' },
 
       // game 2 round 2
-      { roundId: 3, userId: 1, wordText: 'choke me' },
-      { roundId: 3, userId: 2, wordText: 'choke me' },
+      { roundId: 5, userId: 1, wordText: 'choke me' },
+      { roundId: 5, userId: 2, wordText: 'choke me' },
 
       // game 3 round 1
-      { roundId: 3, userId: 1, wordText: 'oklahoma' },
-      { roundId: 3, userId: 2, wordText: 'bread' },
+      { roundId: 6, userId: 1, wordText: 'oklahoma' },
+      { roundId: 6, userId: 2, wordText: 'bread' },
 
       // game 3 round 2
-      { roundId: 3, userId: 1, wordText: 'brett' },
-      { roundId: 3, userId: 2, wordText: 'cinnamon rolls' },
+      { roundId: 7, userId: 1, wordText: 'brett' },
+      { roundId: 7, userId: 2, wordText: 'cinnamon rolls' },
 
       // game 3 round 3
-      { roundId: 3, userId: 1, wordText: 'gay son on a honeybun' },
-      { roundId: 3, userId: 2, wordText: 'gay son on a honeybun' },
+      { roundId: 8, userId: 1, wordText: 'gay son on a honeybun' },
+      { roundId: 8, userId: 2, wordText: 'gay son on a honeybun' },
 
       // game 4 round 1
-      { roundId: 3, userId: 1, wordText: 'latino' },
-      { roundId: 3, userId: 2, wordText: 'indian' },
+      { roundId: 9, userId: 1, wordText: 'latino' },
+      { roundId: 9, userId: 2, wordText: 'indian' },
 
       // game 4 round 2
-      { roundId: 3, userId: 1, wordText: 'puja papi' },
-      { roundId: 3, userId: 2, wordText: 'pooja papi' },
+      { roundId: 10, userId: 1, wordText: 'puja papi' },
+      { roundId: 10, userId: 2, wordText: 'pooja papi' },
     ]);
 
   },

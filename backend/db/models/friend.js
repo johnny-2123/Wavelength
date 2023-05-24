@@ -7,8 +7,8 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       // define association here
-      Friend.belongsTo(models.User, { foreignKey: 'userId', as: "User" });
-      Friend.belongsTo(models.User, { foreignKey: 'friendId', as: "Friend" });
+      Friend.belongsTo(models.User, { foreignKey: 'userId', as: "RequestingUser" });
+      Friend.belongsTo(models.User, { foreignKey: 'friendId', as: "ReceivingUser" });
     }
   }
   Friend.init({
@@ -21,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     status: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM('pending', 'accepted', 'rejected'),
+      defaultValue: 'pending',
       allowNull: false
     },
     dateAdded: {

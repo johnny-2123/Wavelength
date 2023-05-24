@@ -6,7 +6,7 @@ const usersRouter = require('./users.js');
 const roundRouter = require('./rounds.js');
 const friendRouter = require('./friends.js');
 const gameRouter = require('./games.js');
-
+const wordRouter = require('./words.js');
 
 router.use(restoreUser);
 
@@ -14,11 +14,13 @@ router.use('/session', sessionRouter);
 
 router.use('/users', usersRouter);
 
-router.use('/rounds', roundRouter);
-
 router.use('/friends', friendRouter);
 
 router.use('/games', gameRouter);
+
+router.use('/rounds', roundRouter);
+
+router.use('/words', wordRouter);
 
 router.post('/test', (req, res) => {
     res.json({ requestBody: req.body });

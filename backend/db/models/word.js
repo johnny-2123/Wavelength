@@ -7,8 +7,8 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       // define association here
-      Word.belongsTo(models.Round, { foreignKey: 'roundId', onDelete: 'CASCADE', hooks: true });
-      Word.belongsTo(models.User, { foreignKey: 'userId', onDelete: 'CASCADE', hooks: true });
+      Word.belongsTo(models.Round, { foreignKey: 'roundId' });
+      Word.belongsTo(models.User, { foreignKey: 'userId' });
     }
   }
   Word.init({

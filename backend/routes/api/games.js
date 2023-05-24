@@ -1,7 +1,6 @@
 const express = require('express');
-const asyncHandler = require('express-async-handler');
 const { requireAuth } = require('../../utils/auth');
-const { Game, Round, Word } = require('../../db/models');
+const { Game, Round, Word, User } = require('../../db/models');
 
 const router = express.Router();
 
@@ -67,7 +66,7 @@ router.delete(
         }
 
         await game.destroy();
-        res.status(200).json({ message: 'Game deleted.' });
+        res.status(200).json({ message: `Game ${game.id} deleted.` });
     }
 );
 
@@ -87,6 +86,14 @@ router.get(
                                 model: Word
                             }
                         ]
+                    },
+                    {
+                        model: User,
+                        as: 'user1',
+                    },
+                    {
+                        model: User,
+                        as: 'user2',
                     }
                 ]
             }
@@ -126,8 +133,25 @@ router.get(
     async (req, res) => {
         const userId = req.user.id;
 
-        const gamesStarted = await Game.findAll({ where: { user1Id: userId } });
-        const gamesJoined = await Game.findAll({ where: { user2Id: userId } });
+        const gamesStarted = await Game.findAll(
+            {
+                where: { user1Id: userId },
+                include: [
+                    {
+                        model: User,
+                        as: 'user2',
+                    }
+                ]
+            });
+        const gamesJoined = await Game.findAll({
+            where: { user2Id: userId },
+            include: [
+                {
+                    model: User,
+                    as: 'user1',
+                }
+            ]
+        });
 
         const games = Array.from(new Set([...gamesStarted, ...gamesJoined]));
 
