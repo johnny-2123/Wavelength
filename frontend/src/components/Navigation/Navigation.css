@@ -65,7 +65,7 @@
 #profileDropdownEmail {
     border-bottom: 1px solid #E4736B;
     padding-bottom: 0.5rem;
-    margin-bottom: 0rem;
+    margin: 0rem;
 }
 
 .profile-dropdown .profile-dropdown li {
