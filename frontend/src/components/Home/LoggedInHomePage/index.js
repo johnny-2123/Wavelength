@@ -37,7 +37,7 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
         let ws;
 
         if (process.env.NODE_ENV === 'production') {
-            ws = new WebSocket("ws//https://wavelength-2hp9.onrender.com");
+            ws = new WebSocket("ws://wavelength-2hp9.onrender.com");
         }
         else {
             ws = new WebSocket(process.env.REACT_APP_WS_URL);
