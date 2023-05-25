@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { Route, Switch } from "react-router-dom";
+
 import "./LoggedInHomePage.css";
 
 const LoggedInUserHomePage = ({ sessionUser }) => {
