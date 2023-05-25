@@ -1,113 +1,86 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+#!/usr/bin/env node
 
-import "./LoggedInHomePage.css";
+// Import environment variables
+require('dotenv').config();
 
-const LoggedInUserHomePage = ({ sessionUser }) => {
-    const dispatch = useDispatch();
+const { port } = require('../config');
+const app = require('../app');
+const db = require('../db/models');
+const http = require('http');
+const WebSocket = require('ws');
+const { json } = require('sequelize');
 
-    const websocket = useRef(null);
-    const reconnectTimeout = useRef(null);
-    const reconnectDelay = 3000;
+// Check the database connection before starting the app
+db.sequelize
+    .authenticate()
+    .then(() => {
+        console.log('Database connection success! Sequelize is ready to use...');
 
-    const sendMessage = (type, data) => {
-        const message = {
-            type,
-            data,
-        };
-        if (websocket.current && websocket.current.ws.readyState === WebSocket.OPEN) {
-            websocket.current.ws.send(JSON.stringify(message));
-        } else {
-            console.log('WebSocket connection is not open.');
-        }
-    };
+        // Create an HTTP server
+        const server = http.createServer(app);
 
-    const connectWebSocket = () => {
-        let ws;
-        if (process.env.NODE_ENV === 'production') {
-            ws = new WebSocket("wss://wavelength-2hp9.onrender.com");
-        } else {
-            ws = new WebSocket(process.env.REACT_APP_WS_URL);
-        }
+        // Create a WebSocket server
+        const wss = new WebSocket.Server({ server });
 
-        ws.onopen = () => {
-            console.log('WebSocket opened');
-            if (reconnectTimeout.current) {
-                clearTimeout(reconnectTimeout.current);
-            }
-        };
+        const clients = new Map();
 
-        ws.onmessage = (e) => {
-            console.log('WebSocket message received: ', e);
-            const message = JSON.parse(e.data);
-            console.log('WebSocket message parsed: ', message);
-        };
+        wss.on('connection', (ws) => {
+            console.log('Client connected');
 
-        ws.onerror = (e) => {
-            console.log('WebSocket error: ', e);
-        };
+            ws.on('message', (message) => {
+                console.log('received: %s', message);
 
-        ws.onclose = () => {
-            console.log('WebSocket closed');
-            if (!reconnectTimeout.current) {
-                reconnectTimeout.current = setTimeout(() => {
-                    connectWebSocket();
-                }, reconnectDelay);
-            }
-        };
+                const { type, data } = JSON.parse(message);
+                console.log('type:', type)
+                // console.log('data:', data)
+                if (type === 'join') {
+                    // Join the room
+                    const { room, username } = data;
+                    ws.room = room;
+                    console.log('ws.room:', ws.room)
+                    console.log('room:', room)
+                    console.log('username:', username)
+                    ws.username = username;
 
-        websocket.current = {
-            ws,
-            sendMessage,
-        };
-    };
+                    // Store the client in the room
+                    if (!clients.has(room)) {
+                        clients.set(room, new Set());
+                    }
+                    clients.get(room).add(ws);
+                } else if (type === 'message') {
+                    // Broadcast the message to the room
+                    const room = ws.room;
+                    const username = ws.username;
+                    // console.log('clients:', clients)
+                    console.log('room:', room)
+                    // console.log('ws:', ws)
+                    if (clients.has(room)) {
+                        const roomClients = clients.get(room);
+                        roomClients.forEach((client) => {
+                            const message = JSON.stringify(`${username}: ${data.message}`);
+                            client.send(message);
+                        });
+                    }
+                }
+            });
 
-    useEffect(() => {
-        connectWebSocket();
+            ws.on('close', () => {
+                console.log('Client disconnected');
 
-        return function cleanup() {
-            if (websocket.current && websocket.current.ws.readyState === WebSocket.OPEN) {
-                websocket.current.ws.close();
-            }
-            if (reconnectTimeout.current) {
-                clearTimeout(reconnectTimeout.current);
-            }
-        }
-    }, []);
-
-    const [message, setMessage] = useState('');
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (websocket.current && websocket.current.ws.readyState === WebSocket.OPEN) {
-            const data = {
-                message,
-                username: sessionUser.username,
-            }
-            sendMessage('message', data);
-            setMessage('');
-        } else {
-            console.log('WebSocket connection is not open.');
-        }
-    }
-
-    return (
-        <div className="homePageLoggedInMainDiv">
-            <h1>Welcome User</h1>
-            <div>
-                <input
-                    type="text"
-                    placeholder="Enter a message"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                />
-                <button type="submit" onClick={handleSubmit}>
-                    Send Message
-                </button>
-            </div>
-        </div>
-    );
-};
-
-export default LoggedInUserHomePage;
+                // Remove the client from the room
+                const room = ws.room;
+                if (clients.has(room)) {
+                    clients.get(room).delete(ws);
+                    if (clients.get(room).size === 0) {
+                        clients.delete(room);
+                    }
+                }
+            });
+        });
+        // Start listening for connections
+        server.listen(port, () => console.log(`Listening on port ${port}...`));
+    })
+    .catch((err) => {
+        console.log('Database connection failure.');
+        console.error(err);
+    });
