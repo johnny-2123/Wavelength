@@ -8,6 +8,10 @@ router.use('/api', apiRouter);
 router.use(restoreUser);
 
 
+console.log('##################################################################################')
+const pathToIndex = path.resolve(__dirname, '../../frontend', 'build', 'index.html');
+
+console.log("Serving static files from: ", pathToIndex);
 
 if (process.env.NODE_ENV === 'production') {
     const path = require('path');
@@ -30,22 +34,5 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-
-
-
-if (process.env.NODE_ENV !== 'production') {
-    router.get('/api/csrf/restore', (req, res) => {
-        res.cookie('XSRF-TOKEN', req.csrfToken());
-        return res.status(201).json({});
-    });
-}
-
-router.get("/api/csrf/restore", (req, res) => {
-    const csrfToken = req.csrfToken();
-    res.cookie("XSRF-TOKEN", csrfToken);
-    res.status(200).json({
-        'XSRF-Token': csrfToken
-    });
-});
 
 module.exports = router;
