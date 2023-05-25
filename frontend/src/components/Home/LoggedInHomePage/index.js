@@ -34,12 +34,13 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
 
     useEffect(() => {
         // const ws = new WebSocket(process.env.REACT_APP_WS_URL);
+        let ws;
 
         if (process.env.NODE_ENV === 'production') {
-            websocket.current = new WebSocket(process.env.REACT_APP_WS_URL);
+            ws = new WebSocket(process.env.REACT_APP_WS_URL);
         }
         else {
-            websocket.current = new WebSocket(process.env.REACT_APP_WS_URL);
+            ws = new WebSocket(process.env.REACT_APP_WS_URL);
         }
 
         ws.onopen = () => {
