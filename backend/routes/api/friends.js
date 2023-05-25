@@ -1,7 +1,8 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
 const { requireAuth } = require('../../utils/auth');
-const { User, Friend } = require('../../db/models');
+const { User, Friend, Game } = require('../../db/models');
+const { Op } = require('sequelize');
 
 const router = express.Router();
 
@@ -15,6 +16,60 @@ const includeUsers = [
         as: 'ReceivingUser',
     }
 ];
+
+router.get(
+    '/:friendId/games',
+    requireAuth,
+    async (req, res) => {
+        const userId = req.user.id;
+        const { friendId } = req.params;
+
+        const [friendShipSent, friendShipReceived] = await Promise.all([
+            Friend.findOne({
+                where: { userId, friendId },
+                include: includeUsers
+            }),
+            Friend.findOne({
+                where: { userId: friendId, friendId: userId },
+                include: includeUsers
+            }),
+        ]);
+
+        if (!friendShipSent && !friendShipReceived) {
+            return res.status(404).json({ errors: 'Friendship not found.' });
+        }
+
+        if (friendShipSent && userId !== friendShipSent.RequestingUser.id) {
+            return res.status(401).json({ errors: 'Unauthorized.' });
+        }
+
+        if (friendShipReceived && userId !== friendShipReceived.ReceivingUser.id) {
+            return res.status(401).json({ errors: 'Unauthorized.' });
+        }
+
+        const games = await Game.findAll({
+            where: {
+                [Op.or]: [
+                    { user1Id: userId, user2Id: friendId },
+                    { user1Id: friendId, user2Id: userId }
+                ]
+            },
+            include: [
+                {
+                    model: User,
+                    as: 'user1'
+                },
+                {
+                    model: User,
+                    as: 'user2'
+                }
+            ]
+        });
+
+        res.status(200).json({ games });
+
+    }
+)
 
 router.delete(
     '/:friendId',
