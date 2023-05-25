@@ -9,10 +9,10 @@ router.use('/api', apiRouter);
 router.use(restoreUser);
 
 
-console.log('##################################################################################')
-const pathToIndex = path.resolve(__dirname, '../../frontend', 'build', 'index.html');
+// console.log('##################################################################################')
+// const pathToIndex = path.resolve(__dirname, '../../frontend', 'build', 'index.html');
 
-console.log('pathToIndex', pathToIndex)
+// console.log('pathToIndex', pathToIndex)
 
 if (process.env.NODE_ENV === 'production') {
     const path = require('path');
