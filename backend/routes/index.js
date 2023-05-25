@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const apiRouter = require('./api');
+const path = require('path');
 const { restoreUser } = require('../utils/auth.js')
 
 router.use('/api', apiRouter);
