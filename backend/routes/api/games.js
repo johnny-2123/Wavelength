@@ -122,7 +122,7 @@ router.post(
             const game = await Game.create({ user1Id, user2Id, gameOver: false });
             return res.status(201).json({ game });
         } else {
-            return res.status(400).json({ message: 'Invalid request.' });
+            return res.status(400).json({ errors: 'Invalid request.' });
         }
     }
 );

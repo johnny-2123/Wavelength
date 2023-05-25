@@ -5,30 +5,6 @@ const { User, Friend } = require('../../db/models');
 
 const router = express.Router();
 
-router.put(
-    '/:friendId',
-    requireAuth,
-    async (req, res) => {
-        const userId = req.user.id;
-        const { friendId } = req.params;
-        const { status } = req.body;
-
-        const friend = await Friend.findOne({
-            where: { userId, friendId },
-            include: includeUsers
-        });
-
-        if (!friend) {
-            return res.status(404).json({ errors: 'Friend not found.' });
-        }
-
-        friend.status = status;
-        await friend.save();
-
-        return res.status(200).json({ friend });
-    }
-)
-
 const includeUsers = [
     {
         model: User,
@@ -40,14 +16,58 @@ const includeUsers = [
     }
 ];
 
-router.post(
-    '/',
+router.delete(
+    '/:friendId',
     requireAuth,
     async (req, res) => {
         const userId = req.user.id;
-        const { friendId } = req.body;
+        const { friendId } = req.params;
 
-        const [friend, existingFriendship, friendRequested] = await Promise.all([
+        const [friendShipSent, friendShipReceived] = await Promise.all([
+            Friend.findOne({
+                where: { userId, friendId },
+                include: includeUsers
+            }),
+            Friend.findOne({
+                where: { userId: friendId, friendId: userId },
+                include: includeUsers
+            }),
+        ]);
+
+        if (!friendShipSent && !friendShipReceived) {
+            return res.status(404).json({ errors: 'Friendship not found.' });
+        }
+
+        if (friendShipSent && userId !== friendShipSent.RequestingUser.id) {
+            return res.status(401).json({ errors: 'Unauthorized.' });
+        }
+
+        if (friendShipReceived && userId !== friendShipReceived.ReceivingUser.id) {
+            return res.status(401).json({ errors: 'Unauthorized.' });
+        }
+
+        if (friendShipSent) {
+            await friendShipSent.destroy();
+            return res.status(200).json({ message: `Friendship deleted.`, friendShipSent });
+        }
+
+        if (friendShipReceived) {
+            await friendShipReceived.destroy();
+            return res.status(200).json({ message: `Friendship deleted.`, friendShipReceived });
+        }
+
+    }
+)
+
+router.put(
+    '/:friendId',
+    requireAuth,
+    async (req, res) => {
+        const userId = req.user.id;
+        const { friendId } = req.params;
+        const { status } = req.body;
+
+        const [friend, friendShipSent, friendShipReceived] = await Promise.all([
             User.findByPk(friendId),
             Friend.findOne({
                 where: { userId, friendId },
@@ -63,21 +83,65 @@ router.post(
             return res.status(404).json({ errors: 'Friend not found.' });
         }
 
-        if (existingFriendship) {
+        if (!friendShipSent && !friendShipReceived) {
+            return res.status(404).json({ errors: 'Friendship not found.' });
+        }
+
+        if (status === "accepted") {
+            if (friendShipReceived) {
+                friendShipReceived.status = "accepted";
+                await friendShipReceived.save();
+                return res.status(200).json({ message: `Friend request accepted.`, friendShipReceived });
+            }
+        }
+
+        if (status === "rejected") {
+            if (friendShipReceived) {
+                friendShipReceived.status = "rejected";
+                await friendShipReceived.destroy();
+                return res.status(200).json({ message: `Friend request rejected.`, friendShipReceived });
+            }
+        }
+    }
+)
+
+router.post(
+    '/',
+    requireAuth,
+    async (req, res) => {
+        const userId = req.user.id;
+        const { friendId } = req.body;
+
+        const [friend, friendShipSent, friendShipReceived] = await Promise.all([
+            User.findByPk(friendId),
+            Friend.findOne({
+                where: { userId, friendId },
+                include: includeUsers
+            }),
+            Friend.findOne({
+                where: { userId: friendId, friendId: userId },
+                include: includeUsers
+            }),
+        ]);
+
+        if (!friend) {
+            return res.status(404).json({ errors: 'Friend not found.' });
+        }
+
+        if (friendShipSent) {
             return res.status(400).json({ errors: 'Friendship already exists.' });
         }
 
-        if (friendRequested) {
-            friendRequested.status = "accepted";
-            await friendRequested.save();
-            const friendship = await Friend.create({ userId, friendId, status: "accepted" });
-
-            return res.status(200).json({ message: `Friend request accepted.`, friendship });
+        if (friendShipReceived) {
+            friendShipReceived.status = "accepted";
+            await friendShipReceived.save();
+            return res.status(200).json({ message: `Friend request from accepted.`, friendShipReceived });
         }
 
         const friendship = await Friend.create({ userId, friendId, status: "pending" });
+        friendship.save();
 
-        res.status(200).json({ message: `Friend request sent to ${friend.username}.`, friendship });
+        return res.status(201).json({ message: `Friend request sent to ${friend.username}.` });
     }
 )
 
@@ -86,10 +150,17 @@ router.get(
     requireAuth,
     async (req, res) => {
         const userId = req.user.id;
-        const friends = await Friend.findAll({
+        const friendsStarted = await Friend.findAll({
             where: { userId },
             include: includeUsers
         });
+
+        const friendsReceived = await Friend.findAll({
+            where: { friendId: userId },
+            include: includeUsers
+        });
+
+        const friends = friendsStarted.concat(friendsReceived);
 
         res.status(200).json({ friends });
     }
