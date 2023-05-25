@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-
-// Import environment variables
 require('dotenv').config();
 
 const { port } = require('../config');
@@ -8,18 +6,17 @@ const app = require('../app');
 const db = require('../db/models');
 const http = require('http');
 const WebSocket = require('ws');
-const { json } = require('sequelize');
+const { v4: uuidv4 } = require('uuid');
 
-// Check the database connection before starting the app
+const guid = uuidv4();
+
 db.sequelize
     .authenticate()
     .then(() => {
         console.log('Database connection success! Sequelize is ready to use...');
 
-        // Create an HTTP server
         const server = http.createServer(app);
 
-        // Create a WebSocket server
         const wss = new WebSocket.Server({ server });
 
         const clients = new Map();
@@ -36,15 +33,12 @@ db.sequelize
                 console.log('received: %s', message);
 
                 const { type, data } = JSON.parse(message);
-                console.log('type:', type)
+                console.log('type:', type);
                 // console.log('data:', data)
                 if (type === 'join') {
                     // Join the room
                     const { room, username } = data;
                     ws.room = room;
-                    console.log('ws.room:', ws.room)
-                    console.log('room:', room)
-                    console.log('username:', username)
                     ws.username = username;
 
                     // Store the client in the room
@@ -56,14 +50,15 @@ db.sequelize
                     // Broadcast the message to the room
                     const room = ws.room;
                     const username = ws.username;
-                    // console.log('clients:', clients)
-                    console.log('room:', room)
-                    // console.log('ws:', ws)
                     if (clients.has(room)) {
                         const roomClients = clients.get(room);
                         roomClients.forEach((client) => {
                             const message = JSON.stringify(`${username}: ${data.message}`);
-                            client.send(message);
+                            client.send(message, (error) => {
+                                if (error) {
+                                    console.log(`WebSocket send error: ${error}`);
+                                }
+                            });
                         });
                     }
                 }
@@ -84,6 +79,8 @@ db.sequelize
                         clients.delete(room);
                     }
                 }
+
+                const username = ws.username;
             });
         });
 
@@ -92,7 +89,7 @@ db.sequelize
                 if (!ws.isAlive) return ws.terminate();
 
                 ws.isAlive = false;
-                ws.ping(null, false, true);
+                ws.ping();
             });
         }, 30000);
 

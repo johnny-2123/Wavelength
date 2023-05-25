@@ -102,6 +102,12 @@ module.exports = (sequelize, DataTypes) => {
         len: [50, 72]
       }
     },
+    guid: {
+      type: DataTypes.UUID,
+      defaultValue: null,
+      allowNull: true,
+      unique: true,
+    },
   }, {
     sequelize,
     modelName: 'User',
