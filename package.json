@@ -13,7 +13,8 @@
     "build": "npm run --prefix backend build"
   },
   "repository": {
-    "type": "git"
+    "type": "git",
+    "url": "git+https://github.com/johnny-2123/Capstone"
   },
   "keywords": [],
   "author": "",
