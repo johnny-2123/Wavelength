@@ -6,10 +6,7 @@ import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../User/LoginFormModal";
 import SignupFormModal from "../User/SignUpModal";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
-<script
-    src="https://kit.fontawesome.com/97726b2eee.js"
-    crossorigin="anonymous"
-></script>;
+import "./Navigation.css";
 
 function ProfileButton({ user }) {
     const history = useHistory();
@@ -54,8 +51,8 @@ function ProfileButton({ user }) {
             <ul className={ulClassName} ref={ulRef}>
                 {user ? (
                     <>
-                        <li>{user.username}</li>
-                        <li>{user.email}</li>
+                        <li><h5 id="profileDropdownUsername">{user.username}</h5></li>
+                        <li><h5 id="profileDropdownEmail">{user.email}</h5></li>
                         <li>
                             <button
                                 className="logoutButton"

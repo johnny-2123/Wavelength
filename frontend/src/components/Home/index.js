@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import LoggedInUserHomePage from "./LoggedInHomePage";
+import NotLoggedInUserHomePage from "./NotLoggedInHomePage";
 import "./HomePage.css";
 
 const HomePage = () => {
@@ -22,12 +23,10 @@ const HomePage = () => {
     return (
         <>
             {loaded && loggedIn && (
-                <>
-                    <LoggedInUserHomePage sessionUser={sessionUser} />
-                </>
+                <LoggedInUserHomePage sessionUser={sessionUser} />
             )}
             {loaded && !loggedIn && (
-                <h1>Welcome Guest</h1>)}
+                <NotLoggedInUserHomePage />)}
         </>
     );
 };
