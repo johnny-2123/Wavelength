@@ -36,6 +36,12 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      guid: {
+        type: Sequelize.UUID,
+        defaultValue: null,
+        allowNull: true,
+        unique: true
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
