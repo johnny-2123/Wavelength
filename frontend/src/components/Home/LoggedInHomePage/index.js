@@ -1,75 +1,47 @@
-import React, { useEffect, useState, useRef } from "react";
-import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 
 import "./LoggedInHomePage.css";
 
 const LoggedInUserHomePage = ({ sessionUser }) => {
-    const dispatch = useDispatch();
-
     const websocket = useRef(null);
 
+    const [recipient, setRecipient] = useState("");
+    const [message, setMessage] = useState("");
+    const [receivedMessages, setReceivedMessages] = useState([]);
+
     const sendMessage = (type, data) => {
+        if (!websocket.current?.ws || websocket.current.ws.readyState !== WebSocket.OPEN) {
+            console.log("WebSocket connection is not open.");
+            return;
+        }
+
         const message = {
             type,
             data,
         };
-        console.log('websocket.current: ', websocket.current);
-        if (type === 'message' && (!websocket.current || !websocket.current.hasJoinedRoom)) {
-            // Add the 'join' message before the first 'message' message
-            const { username, id } = sessionUser; // Modify this to get the correct username and room
-            const room = id;
-            console.log('username: ', username);
-            console.log('room: ', room);
-            const joinMessage = {
-                type: 'join',
-                data: { username, room },
-            };
-            if (websocket.current && websocket.current.ws.readyState === WebSocket.OPEN) {
-                websocket.current.ws.send(JSON.stringify(joinMessage));
-                websocket.current.hasJoinedRoom = true;
-            } else {
-                console.log('WebSocket connection is not open.');
-            }
-        }
 
-        console.log('websocket message sent: ', message);
-        if (websocket.current && websocket.current.ws.readyState === WebSocket.OPEN) {
-            websocket.current.ws.send(JSON.stringify(message));
-        } else {
-            console.log('WebSocket connection is not open.');
-        }
+        websocket.current.ws.send(JSON.stringify(message));
+        console.log("websocket message sent: ", message);
     };
 
     const connect = () => {
         let ws;
 
-        if (process.env.NODE_ENV === 'production') {
-            ws = new WebSocket("wss://wavelength-2hp9.onrender.com");
+        if (process.env.NODE_ENV === "production") {
+            ws = new WebSocket(`wss://wavelength-2hp9.onrender.com?username=${sessionUser?.username}`);
         } else {
-            ws = new WebSocket(process.env.REACT_APP_WS_URL);
+            ws = new WebSocket(`${process.env.REACT_APP_WS_URL}?username=${sessionUser?.username}`);
         }
 
-        ws.onopen = () => {
-            console.log('websocket opened');
-        };
-
         ws.onmessage = (e) => {
-            console.log('websocket message received: ', e);
-
             const message = JSON.parse(e.data);
-            console.log('websocket message parsed: ', message);
+            setReceivedMessages((prevMessages) => [...prevMessages, message]);
+            console.log("websocket message received: ", e);
+            console.log("websocket message parsed: ", message);
         };
 
-        ws.onerror = (e) => {
-            console.log('websocket error: ', e);
-        };
-
-        ws.onclose = (e) => {
-            console.log('websocket closed: ', e);
+        ws.onclose = () => {
             websocket.current = null;
-            // Attempt to reconnect after 1 second
             setTimeout(connect, 1000);
         };
 
@@ -80,32 +52,42 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
     };
 
     useEffect(() => {
-        // Connect on component mount
         connect();
 
-        return function cleanup() {
-            if (websocket.current && websocket.current.ws.readyState === WebSocket.OPEN) {
+        return () => {
+            if (websocket.current?.ws && websocket.current.ws.readyState === WebSocket.OPEN) {
                 websocket.current.ws.close();
             }
         };
-    }, [sessionUser]);
+    }, [sessionUser?.username]);
 
-
-    const [message, setMessage] = useState('');
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (websocket.current && websocket.current.ws.readyState === WebSocket.OPEN) {
-            const data = {
+    const handleSubmitDirectMessage = useCallback(
+        (e) => {
+            e.preventDefault();
+            sendMessage("direct-message", {
+                recipient,
                 message,
-                username: sessionUser.username,
-            };
-            sendMessage('message', data);
-            setMessage('');
-        } else {
-            console.log('WebSocket connection is not open.');
-        }
-    };
+                username: sessionUser?.username,
+            });
+
+            setMessage("");
+            setRecipient("");
+        },
+        [recipient, message, sessionUser?.username]
+    );
+
+    const handleSubmit = useCallback(
+        (e) => {
+            e.preventDefault();
+            sendMessage("message", {
+                message,
+                username: sessionUser?.username,
+            });
+
+            setMessage("");
+        },
+        [message, sessionUser?.username]
+    );
 
     return (
         <div className="homePageLoggedInMainDiv">
@@ -117,12 +99,28 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                 />
-                <button
-                    type="submit"
-                    onClick={handleSubmit}
-                >
+                <button type="submit" onClick={handleSubmit}>
                     Send Message
                 </button>
+            </div>
+            <div>
+                <input
+                    type="text"
+                    placeholder="Enter recipient's username"
+                    value={recipient}
+                    onChange={(e) => setRecipient(e.target.value)}
+                />
+                <button type="submit" onClick={handleSubmitDirectMessage}>
+                    Send Direct Message
+                </button>
+            </div>
+            <div>
+                <h2>Received Messages</h2>
+                <ul>
+                    {receivedMessages.map((msg, index) => (
+                        <li key={index}>{msg}</li>
+                    ))}
+                </ul>
             </div>
         </div>
     );
