@@ -1,13 +1,17 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
-
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchFriends } from "../../../store/friends";
+import DirectMessageForm from "../../DirectMessageForm";
+import FriendsList from "../../Friends";
 import "./LoggedInHomePage.css";
 
 const LoggedInUserHomePage = ({ sessionUser }) => {
+    const dispatch = useDispatch();
     const websocket = useRef(null);
 
-    const [recipient, setRecipient] = useState("");
-    const [message, setMessage] = useState("");
     const [receivedMessages, setReceivedMessages] = useState([]);
+
+    const { friends } = useSelector((state) => state.friends.friends);
 
     const sendMessage = (type, data) => {
         if (!websocket.current?.ws || websocket.current.ws.readyState !== WebSocket.OPEN) {
@@ -27,6 +31,8 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
     const connect = () => {
         let ws;
 
+        // TODO: add online status to user model in db instead of using guid to track online status
+
         if (process.env.NODE_ENV === "production") {
             ws = new WebSocket(`wss://wavelength-2hp9.onrender.com?username=${sessionUser?.username}`);
         } else {
@@ -34,10 +40,17 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
         }
 
         ws.onmessage = (e) => {
-            const message = JSON.parse(e.data);
-            setReceivedMessages((prevMessages) => [...prevMessages, message]);
-            console.log("websocket message received: ", e);
-            console.log("websocket message parsed: ", message);
+            const { type, data } = JSON.parse(e.data);
+            console.log("websocket message type: ", type);
+            console.log("websocket message data: ", data);
+
+            switch (type) {
+                case "direct-message":
+                    setReceivedMessages((prev) => [...prev, data]);
+                    break;
+                default:
+                    console.log("unknown websocket message type: ", type);
+            }
         };
 
         ws.onclose = () => {
@@ -52,6 +65,11 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
     };
 
     useEffect(() => {
+        dispatch(fetchFriends());
+    }, [dispatch]);
+
+
+    useEffect(() => {
         connect();
 
         return () => {
@@ -61,67 +79,15 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
         };
     }, [sessionUser?.username]);
 
-    const handleSubmitDirectMessage = useCallback(
-        (e) => {
-            e.preventDefault();
-            sendMessage("direct-message", {
-                recipient,
-                message,
-                username: sessionUser?.username,
-            });
-
-            setMessage("");
-            setRecipient("");
-        },
-        [recipient, message, sessionUser?.username]
-    );
-
-    const handleSubmit = useCallback(
-        (e) => {
-            e.preventDefault();
-            sendMessage("message", {
-                message,
-                username: sessionUser?.username,
-            });
-
-            setMessage("");
-        },
-        [message, sessionUser?.username]
-    );
-
     return (
         <div className="homePageLoggedInMainDiv">
             <h1>Welcome User</h1>
-            <div>
-                <input
-                    type="text"
-                    placeholder="Enter a message"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                />
-                <button type="submit" onClick={handleSubmit}>
-                    Send Message
-                </button>
-            </div>
-            <div>
-                <input
-                    type="text"
-                    placeholder="Enter recipient's username"
-                    value={recipient}
-                    onChange={(e) => setRecipient(e.target.value)}
-                />
-                <button type="submit" onClick={handleSubmitDirectMessage}>
-                    Send Direct Message
-                </button>
-            </div>
-            <div>
-                <h2>Received Messages</h2>
-                <ul>
-                    {receivedMessages.map((msg, index) => (
-                        <li key={index}>{msg}</li>
-                    ))}
-                </ul>
-            </div>
+            <DirectMessageForm
+                sendMessage={sendMessage}
+                sessionUser={sessionUser}
+                receivedMessages={receivedMessages}
+            />
+            <FriendsList friends={friends} sessionUser={sessionUser} />
         </div>
     );
 };

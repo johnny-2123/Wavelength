@@ -1,151 +1,138 @@
 require('dotenv').config();
-
-const { port } = require('../config');
 const app = require('../app');
 const db = require('../db/models');
 const http = require('http');
 const WebSocket = require('ws');
+const { port } = require('../config');
 
 const clients = new Map();
 
+// const findWebSocketByUsername = (username) => {
+//     for (const [user, wsSet] of clients.entries()) {
+//         if (user === username) {
+//             return Array.from(wsSet)[0];
+//         }
+//     }
+//     return null;
+// };
+
 const findWebSocketByUsername = (username) => {
-    for (const [user, wsSet] of clients.entries()) {
-        if (user === username) {
-            return Array.from(wsSet)[0];
-        }
+    const wsSet = clients.get(username);
+    if (wsSet) {
+        return Array.from(wsSet)[0];
     }
     return null;
 };
 
-const sendDirectMessageToUsername = (username, message) => {
-    const wsSet = clients.get(username);
-    if (!wsSet) {
-        return;
-    }
-
-    wsSet.forEach(ws => {
-        if (ws.readyState === WebSocket.OPEN) {
-            ws.send(message);
-        }
-    });
-};
-
-
-const handleMessage = (message, ws) => {
-    console.log('received: %s', message);
-
+const handleMessage = async (message, ws) => {
+    console.log('Received: %s', message);
     const { type, data } = JSON.parse(message);
-    console.log('type:', type);
 
-    if (type === 'join') {
-        const { room, username } = data;
-        ws.room = room;
-        ws.username = username;
-
-        if (!clients.has(room)) {
-            clients.set(room, new Set());
-        }
-        clients.get(room).add(ws);
-    } else if (type === 'message') {
-        const room = ws.room;
-        const username = ws.username;
-
-        if (clients.has(room)) {
-            const roomClients = clients.get(room);
-            roomClients.forEach((client) => {
-                const msg = JSON.stringify(`${username}: ${data.message}`);
-                client.send(msg, (error) => {
-                    if (error) {
-                        console.log(`WebSocket send error: ${error}`);
-                    }
+    let recipientWs;
+    switch (type) {
+        case 'send-game-invite':
+            recipientWs = findWebSocketByUsername(data.recipient);
+            if (recipientWs && recipientWs.readyState === WebSocket.OPEN) {
+                const inviteMessage = JSON.stringify({
+                    type: 'game-invite',
+                    data: {
+                        sender: ws.username
+                    },
                 });
-            });
-        }
-    } else if (type === 'direct-message') {
-        const { recipient, message } = data;
-        const recipientWs = findWebSocketByUsername(recipient);
-
-        if (recipientWs && recipientWs.readyState === WebSocket.OPEN) {
-            const directMessage = JSON.stringify(`${ws.username} (direct): ${message}`);
-            recipientWs.send(directMessage, (error) => {
-                if (error) {
-                    console.log(`WebSocket send error: ${error}`);
-                }
-            });
-        }
+                recipientWs.send(inviteMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
+            } else {
+                const errorMessage = JSON.stringify({
+                    type: 'error',
+                    data: {
+                        message: `User ${data.recipient} is not online.`,
+                    },
+                });
+                ws.send(errorMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
+            }
+            break;
+        case 'join':
+            ws.room = data.room;
+            ws.username = data.username;
+            clients.set(ws.room, (clients.get(ws.room) || new Set()).add(ws));
+            break;
+        case 'direct-message':
+            recipientWs = findWebSocketByUsername(data.recipient);
+            console.log('data.recipient', data.recipient);
+            console.log('message', data.message);
+            console.log('sender', ws.username);
+            console.log('recipientWs.username', recipientWs.username);
+            console.log('recipientWs.readyState', recipientWs.readyState);
+            if (recipientWs && recipientWs.readyState === WebSocket.OPEN) {
+                const directMessage = JSON.stringify({
+                    type: 'direct-message',
+                    data: {
+                        sender: ws.username,
+                        recipient: data.recipient,
+                        message: data.message,
+                    },
+                });
+                console.log('Sending direct message: %s', directMessage);
+                recipientWs.send(directMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
+            }
+            break;
+        default:
+            console.log('Invalid message type:', type);
     }
 };
 
-db.sequelize
-    .authenticate()
-    .then(() => {
-        console.log('Database connection success! Sequelize is ready to use...');
+db.sequelize.authenticate().then(() => {
+    console.log('Database connection success! Sequelize is ready to use...');
 
-        const server = http.createServer(app);
-
-        const wss = new WebSocket.Server({
-            server,
-            verifyClient: ({ req }) => {
-                const { searchParams } = new URL(req.url, `http://${req.headers.host}`);
-                req.username = searchParams.get('username');
-                console.log('username: ', req.username);
-                return true;
-            },
-        });
-
-        wss.on('connection', (ws, req) => {
-            console.log('Client connected');
-
-            const { username } = req;
-
-            ws.username = username;
-            ws.isAlive = true;
-
-            db.User.update({ guid: ws.id }, { where: { username } });
-
-            if (!clients.has(username)) {
-                clients.set(username, new Set());
-            }
-
-            clients.get(username).add(ws);
-
-            ws.on('pong', () => {
-                ws.isAlive = true;
-            });
-
-            ws.on('message', (message) => handleMessage(message, ws));
-
-            ws.on('error', (error) => {
-                console.log(`WebSocket error: ${error}`);
-            });
-
-            ws.on('close', () => {
-                console.log('Client disconnected');
-
-                const { username } = ws;
-
-                if (clients.has(username)) {
-                    clients.get(username).delete(ws);
-                    if (clients.get(username).size === 0) {
-                        clients.delete(username);
-                    }
-                }
-
-                db.User.update({ guid: null }, { where: { username } });
-            });
-        });
-
-        setInterval(() => {
-            wss.clients.forEach((ws) => {
-                if (!ws.isAlive) return ws.terminate();
-                ws.isAlive = false;
-                ws.ping();
-            });
-        }, 30000);
-
-        server.listen(port, () => console.log(`Listening on port ${port}...`));
-    })
-    .catch((err) => {
-        console.log('Database connection failure.');
-        console.error(err);
+    const server = http.createServer(app);
+    const wss = new WebSocket.Server({
+        server,
+        verifyClient: ({ req }) => {
+            req.username = new URL(req.url, `http://${req.headers.host}`).searchParams.get('username');
+            console.log('Username: ', req.username);
+            return true;
+        },
     });
+
+    wss.on('connection', async (ws, req) => {
+        console.log('Client connected');
+        ws.username = req.username;
+        ws.isAlive = true;
+        clients.set(ws.username, (clients.get(ws.username) || new Set()).add(ws));
+
+        ws.on('pong', () => ws.isAlive = true);
+        ws.on('message', (message) => {
+            try {
+                handleMessage(message, ws);
+            } catch (error) {
+                console.error('Error while handling message:', error);
+            }
+        });
+        ws.on('error', (error) => console.log(`WebSocket error: ${error}`));
+        ws.on('close', async () => {
+            console.log('Client disconnected');
+            // Delete the client from the room set when disconnected.
+            clients.get(ws.room)?.delete(ws);
+            if ((clients.get(ws.room)?.size || 0) === 0) {
+                clients.delete(ws.room);
+            }
+            // Remove user from clients map as well
+            clients.get(ws.username)?.delete(ws);
+            if ((clients.get(ws.username)?.size || 0) === 0) {
+                clients.delete(ws.username);
+            }
+        });
+    });
+
+    setInterval(() => {
+        wss.clients.forEach((ws) => {
+            if (!ws.isAlive) ws.terminate();
+            ws.isAlive = false;
+            ws.ping();
+        });
+    }, 30000);
+
+    server.listen(port, () => console.log(`Listening on port ${port}...`));
+}).catch((err) => {
+    console.log('Database connection failure.');
+    console.error(err);
+});

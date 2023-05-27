@@ -42,6 +42,10 @@ module.exports = {
         allowNull: true,
         unique: true
       },
+      isOnline: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
