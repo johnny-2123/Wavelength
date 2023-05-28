@@ -2,6 +2,18 @@ import { csrfFetch } from "./csrf";
 
 const GET_FRIENDS = "friends/getFriends";
 const UPDATE_ONLINE_STATUS = "friends/updateOnlineStatus";
+const UPDATE_OFFLINE_STATUS = "friends/updateOfflineStatus";
+
+export const updateOfflineStatus = (userId, friendId) => {
+    console.log("running redux store updateOfflineStatus");
+    console.log("userId: ", userId);
+    console.log("friendId: ", friendId);
+    return {
+        type: UPDATE_OFFLINE_STATUS,
+        payload: { userId, friendId },
+    };
+}
+
 
 export const updateOnlineStatus = (userId, friendId) => {
     console.log("running redux store updateOnlineStatus");
@@ -28,7 +40,8 @@ export const fetchFriends = () => async (dispatch) => {
     if (response.ok) {
         const friends = await response.json();
         dispatch(getFriends(friends));
-        return friends;
+        console.log("friends fetched in redux store: ", friends.friends);
+        return friends.friends;
     } else {
         const data = await response.json();
         console.log("error in fetchFriends");
@@ -56,6 +69,16 @@ const friendsReducer = (state = initialState, action) => {
                 }
             });
             return newState;
+        case UPDATE_OFFLINE_STATUS:
+            const { userId: userId2, friendId: friendId2 } = action.payload;
+            const newState2 = { ...state };
+            newState2.friends.forEach((friend) => {
+                if (friend.RequestingUser?.id === friendId2) {
+                    friend.RequestingUser.isOnline = false;
+                } else if (friend.ReceivingUser?.id === friendId2) {
+                    friend.ReceivingUser.isOnline = false;
+                }
+            });
         default:
             return state;
     }
