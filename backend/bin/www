@@ -7,15 +7,6 @@ const { port } = require('../config');
 
 const clients = new Map();
 
-// const findWebSocketByUsername = (username) => {
-//     for (const [user, wsSet] of clients.entries()) {
-//         if (user === username) {
-//             return Array.from(wsSet)[0];
-//         }
-//     }
-//     return null;
-// };
-
 const findWebSocketByUsername = (username) => {
     const wsSet = clients.get(username);
     if (wsSet) {
@@ -59,6 +50,10 @@ const handleMessage = async (message, ws) => {
             recipientWs = findWebSocketByUsername(data.recipient);
             console.log('data.recipient', data.recipient);
             console.log('message', data.message);
+            if (!recipientWs) {
+                console.log(`No WebSocket found for recipient: ${data.recipient}`);
+                return;
+            }
             console.log('sender', ws.username);
             console.log('recipientWs.username', recipientWs.username);
             console.log('recipientWs.readyState', recipientWs.readyState);
@@ -89,6 +84,18 @@ db.sequelize.authenticate().then(() => {
         verifyClient: ({ req }) => {
             req.username = new URL(req.url, `http://${req.headers.host}`).searchParams.get('username');
             console.log('Username: ', req.username);
+            const friendsParam = new URL(req.url, `http://${req.headers.host}`).searchParams.get('friends');
+            if (!friendsParam) {
+                console.log('Friends parameter is missing');
+                return false;  // refuse the connection
+            }
+            try {
+                req.friends = JSON.parse(friendsParam);
+            } catch (e) {
+                console.log('Failed to parse friends parameter:', e);
+                req.friends = [];
+            }
+            console.log('Friends: ', req.friends);
             return true;
         },
     });
@@ -96,8 +103,30 @@ db.sequelize.authenticate().then(() => {
     wss.on('connection', async (ws, req) => {
         console.log('Client connected');
         ws.username = req.username;
+        console.log('Username: ', ws.username);
+        ws.friends = req.friends;
+        console.log('Friends: ', ws.friends);
+
         ws.isAlive = true;
         clients.set(ws.username, (clients.get(ws.username) || new Set()).add(ws));
+
+        for (const friend of ws.friends) {
+            let friendWs = findWebSocketByUsername(friend);
+            console.log('Friend in friend of friends: ', friend);
+            console.log('FriendWs: ', friendWs);
+            if (friendWs && friendWs.readyState === WebSocket.OPEN) {
+                const friendMessage = JSON.stringify({
+                    type: 'friend-online',
+                    data: {
+                        username: ws.username,
+                    },
+                });
+                console.log('Sending friend message: %s', friendMessage);
+                console.log('Friend: ', friend);
+                friendWs.send(friendMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
+            }
+        }
+
 
         ws.on('pong', () => ws.isAlive = true);
         ws.on('message', (message) => {
@@ -110,6 +139,20 @@ db.sequelize.authenticate().then(() => {
         ws.on('error', (error) => console.log(`WebSocket error: ${error}`));
         ws.on('close', async () => {
             console.log('Client disconnected');
+
+            for (const friend of ws.friends) {
+                const friendWs = findWebSocketByUsername(friend.username);
+                if (friendWs && friendWs.readyState === WebSocket.OPEN) {
+                    const friendMessage = JSON.stringify({
+                        type: 'friend-offline',
+                        data: {
+                            username: ws.username,
+                        },
+                    });
+                    friendWs.send(friendMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
+                }
+            }
+
             // Delete the client from the room set when disconnected.
             clients.get(ws.room)?.delete(ws);
             if ((clients.get(ws.room)?.size || 0) === 0) {

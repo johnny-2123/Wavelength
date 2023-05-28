@@ -82,3 +82,13 @@
     font-size: 1rem;
     color: #757575;
 }
+
+.onlineStatus {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    background-color: green;
+    border-radius: 50%;
+}

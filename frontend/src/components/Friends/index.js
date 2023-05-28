@@ -9,10 +9,13 @@ const FriendsList = ({ friends, sessionUser }) => {
 
         const friendIconId = friend.status === "accepted" ? "friendIcon" : "pendingFriendIcon";
 
+        const onlineStatus = friendUser?.isOnline ? true : false;
+
         return (
             <div key={friend.id} className="friendItem">
                 <div className="friendIconDiv">
-                    <i id={friendIconId} className="fa-regular fa-user "></i>
+                    <i id={friendIconId} className="fa-regular fa-user"></i>
+                    {onlineStatus && <div className="onlineStatus"></div>}
                 </div>
                 <div className="friendInfo">
                     <div className="friendUsername">{friendUser?.username}</div>
@@ -20,7 +23,7 @@ const FriendsList = ({ friends, sessionUser }) => {
                 </div>
             </div>
         );
-    })
+    });
 
     const pendingFriends = friends?.filter((friend) => friend.status === "pending");
 
@@ -32,7 +35,7 @@ const FriendsList = ({ friends, sessionUser }) => {
         return (
             <div key={friend.id} className="friendItem">
                 <div className="friendIconDiv">
-                    <i id={friendIconId} className="fa-regular fa-user "></i>
+                    <i id={friendIconId} className="fa-regular fa-user"></i>
                 </div>
                 <div className="friendInfo">
                     <div className="friendUsername">{friendUser?.username}</div>
@@ -40,15 +43,13 @@ const FriendsList = ({ friends, sessionUser }) => {
                 </div>
             </div>
         );
-    })
+    });
 
     return (
         <div className="friendsList">
             <h2 className="friendsListTitle">Friends List</h2>
             <div className="friendsContainer">
-
                 {acceptedFriends && acceptedFriendsMapped}
-
                 {pendingFriends && pendingFriendsMapped}
             </div>
         </div>
