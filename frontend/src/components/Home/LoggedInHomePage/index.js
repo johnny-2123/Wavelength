@@ -48,7 +48,8 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
             : `${process.env.REACT_APP_WS_URL}?username=${sessionUser?.username}&friends=${encodeURIComponent(
                 JSON.stringify(acceptedFriendsUserNamesArray)
             )}`,
-        onWebSocketMessage
+        onWebSocketMessage,
+        acceptedFriendsUserNamesArray
     );
 
     useEffect(() => {

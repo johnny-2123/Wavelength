@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-const useWebSocket = (url, onMessage) => {
+const useWebSocket = (url, onMessage, dependency) => {
     const websocket = useRef(null);
 
     useEffect(() => {
@@ -18,14 +18,16 @@ const useWebSocket = (url, onMessage) => {
             websocket.current = ws;
         };
 
-        connect();
+        if (dependency) {
+            connect();
+        }
 
         return () => {
             if (websocket.current) {
                 websocket.current.close();
             }
         };
-    }, [url]);
+    }, [dependency, url]);
 
     const sendMessage = (type, data) => {
         if (websocket.current?.readyState === WebSocket.OPEN) {
