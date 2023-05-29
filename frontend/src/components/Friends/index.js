@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./FriendsList.css";
 
-const FriendsList = ({ friends, sessionUser }) => {
+const FriendsList = ({ friends, sessionUser, sendMessage }) => {
     const acceptedFriends = friends?.filter((friend) => friend.status === "accepted");
+
+    const handleSendGameInvite = (recipient) => {
+        sendMessage("send-game-invite", {
+            recipient,
+        });
+    };
 
     const acceptedFriendsMapped = acceptedFriends?.map((friend) => {
         const friendUser = friend?.userId === sessionUser?.id ? friend?.ReceivingUser : friend?.RequestingUser;
@@ -12,15 +18,21 @@ const FriendsList = ({ friends, sessionUser }) => {
         const onlineStatus = friendUser?.isOnline ? true : false;
 
         return (
-            <div key={friend.id} className="friendItem">
+            <div key={friend.username} className="friendItem">
                 <div className="friendIconDiv">
                     <i id={friendIconId} className="fa-regular fa-user"></i>
-                    {onlineStatus && <div className="onlineStatus"></div>}
+
                 </div>
                 <div className="friendInfo">
                     <div className="friendUsername">{friendUser?.username}</div>
                     <div className="friendName">{friendUser?.firstName}</div>
                 </div>
+                {onlineStatus && <div className="onlineStatus"></div>}
+                <button
+                    onClick={() => handleSendGameInvite(friendUser.username)}
+                >
+                    Send Game invite
+                </button>
             </div>
         );
     });
@@ -44,6 +56,8 @@ const FriendsList = ({ friends, sessionUser }) => {
             </div>
         );
     });
+
+
 
     return (
         <div className="friendsList">

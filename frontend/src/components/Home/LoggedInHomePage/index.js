@@ -3,20 +3,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchFriends, updateOnlineStatus } from "../../../store/friends";
 import DirectMessageForm from "../../DirectMessageForm";
 import FriendsList from "../../Friends";
+import GameInviteRequestComponent from "../../GameInviteRequestComponent";
 import "./LoggedInHomePage.css";
 import useWebSocket from "./useWebsocket";
+import { useModal } from "../../../context/modal";
 const LoggedInUserHomePage = ({ sessionUser }) => {
     const dispatch = useDispatch();
     const [receivedMessages, setReceivedMessages] = useState([]);
     const [acceptedFriendsUserNamesArray, setAcceptedFriendsUserNamesArray] = useState([]);
     const [shouldConnect, setShouldConnect] = useState(false);
 
+    const [gameInviteSender, setGameInviteSender] = useState(false)
+
+    const { setModalContent } = useModal();
 
     const { friends } = useSelector((state) => state?.friends);
 
     const onWebSocketMessage = (message) => {
         const { type, data } = message;
         let username;
+        let friendId;
         switch (type) {
             case "direct-message":
                 setReceivedMessages((prev) => [...prev, data]);
@@ -24,14 +30,13 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
             case "friend-online":
                 console.log('friend-online data in frontend onMessage switch: ', data);
                 username = data.username;
-                let friendId;
                 friends.forEach((friend) => {
                     if (friend?.RequestingUser?.username === username) {
-                        console.log("friend.RequestingUser: ", friend.RequestingUser);
-                        friendId = friend.RequestingUser.id;
+                        console.log("friend.RequestingUser: ", friend?.RequestingUser);
+                        friendId = friend?.RequestingUser?.id;
                     } else if (friend?.ReceivingUser?.username === username) {
-                        console.log("friend.ReceivingUser: ", friend.ReceivingUser);
-                        friendId = friend.ReceivingUser.id;
+                        console.log("friend.ReceivingUser: ", friend?.ReceivingUser);
+                        friendId = friend?.ReceivingUser.id;
                     }
                 })
                 console.log("friendId: ", friendId);
@@ -43,13 +48,21 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                 username = data.username;
                 friends.forEach((friend) => {
                     if (friend?.RequestingUser?.username === username) {
-                        console.log("friend.RequestingUser: ", friend.RequestingUser);
-                        friendId = friend.RequestingUser.id;
+                        console.log("friend.RequestingUser: ", friend?.RequestingUser);
+                        friendId = friend?.RequestingUser?.id;
                     } else if (friend?.ReceivingUser?.username === username) {
                         console.log("friend.ReceivingUser: ", friend.ReceivingUser);
-                        friendId = friend.ReceivingUser.id;
+                        friendId = friend?.ReceivingUser?.id;
                     }
                 })
+                break;
+            case "game-invite":
+                console.log('received game invite');
+                const sender = data?.sender
+                console.log(`data request data`, data);
+                console.log(`game invite sender: ${sender}`);
+                setModalContent(<GameInviteRequestComponent sender={sender} />);
+                break;
             default:
                 console.log("Unknown websocket message type:", type);
         }

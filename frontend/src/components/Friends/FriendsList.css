@@ -69,8 +69,12 @@
 }
 
 .friendInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     flex-grow: 1;
 }
+
 
 .friendUsername {
     font-size: 1.2rem;
@@ -84,9 +88,9 @@
 }
 
 .onlineStatus {
-    position: absolute;
-    top: 0;
-    right: 0;
+    position: relative;
+    top: -40%;
+    left: -35%;
     width: 10px;
     height: 10px;
     background-color: green;
