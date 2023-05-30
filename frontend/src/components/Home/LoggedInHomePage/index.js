@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter as Router, Switch, Route, Link, NavLink } from "react-router-dom";
+import { Switch, Route, Link, NavLink } from "react-router-dom";
 import { fetchFriends, updateOnlineStatus, updateOfflineStatus } from "../../../store/friends";
 import DirectMessageForm from "../../DirectMessageForm";
 import { fetchSetCurrentUserOffline, fetchSetCurrentUserOnline } from "../../../store/session";
 import { fetchGames, fetchGameById } from "../../../store/game";
 import FriendsList from "../../Friends";
 import GameInviteRequestComponent from "../../GameInviteRequestComponent";
+import GamePlay from "../../GamePlay";
 import "./LoggedInHomePage.css";
 import useWebSocket from "./useWebsocket";
 import { useModal } from "../../../context/modal";
@@ -16,8 +17,9 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
     const [receivedMessages, setReceivedMessages] = useState([]);
     const [acceptedFriendsUserNamesArray, setAcceptedFriendsUserNamesArray] = useState([]);
     const [shouldConnect, setShouldConnect] = useState(false);
+    const [showGamePlay, setShowGamePlay] = useState(false)
 
-    const { setModalContent } = useModal();
+    const { setModalContent, closeModal } = useModal();
 
     const { friends } = useSelector((state) => state?.friends);
 
@@ -60,7 +62,7 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                 console.log(`user2Id: ${user2Id}`);
                 console.log(`data request data`, data);
                 console.log(`game invite sender: ${sender}`);
-                setModalContent(<GameInviteRequestComponent sender={sender} sendMessage={sendMessage} user1Id={user1Id} user2Id={user2Id} sessionUser={sessionUser} />);
+                setModalContent(<GameInviteRequestComponent sender={sender} sendMessage={sendMessage} user1Id={user1Id} user2Id={user2Id} sessionUser={sessionUser} closeModal={closeModal} />);
                 break;
             case "start-game":
                 console.log('received start game message');
@@ -76,6 +78,8 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                 }).catch((error) => {
                     console.log('error fetching game', error)
                 })
+                setShowGamePlay(true)
+                break
             default:
                 console.log("Unknown websocket message type:", type);
         }
@@ -113,22 +117,30 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
 
     return (
         <div className="homePageLoggedInMainDiv">
-            <h1>Welcome User</h1>
-            <Router>
-                <nav className="NavBar">
-                    <NavLink to="/direct-message-form" activeClassName="active-link">Direct Message Form</NavLink>
-                    <NavLink to="/friends-list" activeClassName="active-link">Friends List</NavLink>
-                </nav>
-                <Switch>
-                    <Route path="/direct-message-form">
-                        <DirectMessageForm sendMessage={sendMessage} sessionUser={sessionUser} receivedMessages={receivedMessages} />
-                    </Route>
-                    <Route path="/friends-list">
-                        <FriendsList friends={friends} sessionUser={sessionUser} sendMessage={sendMessage} />
-                    </Route>
-                </Switch>
-            </Router>
-        </div>
+            {showGamePlay && <GamePlay />}
+            {!showGamePlay &&
+                <>
+                    <h1>Welcome User</h1>
+                    <nav className="NavBar">
+                        <NavLink to="/direct-message-form" activeClassName="active-link" exact>
+                            Direct Message Form
+                        </NavLink>
+                        <NavLink to="/friends-list" activeClassName="active-link" exact>
+                            Friends List
+                        </NavLink>
+                    </nav>
+
+                    <Switch>
+                        <Route path="/direct-message-form">
+                            <DirectMessageForm sendMessage={sendMessage} sessionUser={sessionUser} receivedMessages={receivedMessages} />
+                        </Route>
+                        <Route path="/friends-list">
+                            <FriendsList friends={friends} sessionUser={sessionUser} sendMessage={sendMessage} />
+                        </Route>
+                    </Switch>
+                </>
+            }
+        </div >
     );
 };
 

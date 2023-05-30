@@ -13,7 +13,7 @@
     height: 3rem;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     padding: 1rem;
     background-color: transparent;
@@ -36,6 +36,6 @@
     font-weight: 500;
 }
 
-.active-link {
+.NavBar .active-link {
     text-decoration: underline;
 }
