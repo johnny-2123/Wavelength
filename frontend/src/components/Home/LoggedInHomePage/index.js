@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter as Router, Switch, Route, Link, NavLink } from "react-router-dom";
 import { fetchFriends, updateOnlineStatus, updateOfflineStatus } from "../../../store/friends";
 import DirectMessageForm from "../../DirectMessageForm";
 import { fetchSetCurrentUserOffline, fetchSetCurrentUserOnline } from "../../../store/session";
@@ -113,8 +114,20 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
     return (
         <div className="homePageLoggedInMainDiv">
             <h1>Welcome User</h1>
-            <DirectMessageForm sendMessage={sendMessage} sessionUser={sessionUser} receivedMessages={receivedMessages} />
-            <FriendsList friends={friends} sessionUser={sessionUser} sendMessage={sendMessage} />
+            <Router>
+                <nav className="NavBar">
+                    <NavLink to="/direct-message-form" activeClassName="active-link">Direct Message Form</NavLink>
+                    <NavLink to="/friends-list" activeClassName="active-link">Friends List</NavLink>
+                </nav>
+                <Switch>
+                    <Route path="/direct-message-form">
+                        <DirectMessageForm sendMessage={sendMessage} sessionUser={sessionUser} receivedMessages={receivedMessages} />
+                    </Route>
+                    <Route path="/friends-list">
+                        <FriendsList friends={friends} sessionUser={sessionUser} sendMessage={sendMessage} />
+                    </Route>
+                </Switch>
+            </Router>
         </div>
     );
 };
