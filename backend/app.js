@@ -43,9 +43,9 @@ app.use(
 app.use(routes);
 
 app.use((_req, _res, next) => {
-    const err = new Error(`The requested resource ${req.originalUrl} couldn't be found.`);
+    const err = new Error(`The requested resource ${_req.originalUrl} couldn't be found.`);
     err.title = "Resource Not Found";
-    err.errors = { message: `The requested resource ${req.originalUrl} couldn't be found.` };
+    err.errors = { message: `The requested resource ${_req.originalUrl} couldn't be found.` };
     err.status = 404;
     next(err);
 });

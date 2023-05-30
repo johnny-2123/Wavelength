@@ -4,9 +4,14 @@ import "./FriendsList.css";
 const FriendsList = ({ friends, sessionUser, sendMessage }) => {
     const acceptedFriends = friends?.filter((friend) => friend.status === "accepted");
 
-    const handleSendGameInvite = (recipient) => {
+    const handleSendGameInvite = (recipient, user2Id) => {
+        console.log('handling send game invite')
+        console.log('user1Id', sessionUser?.id)
+        console.log('user2Id', user2Id)
         sendMessage("send-game-invite", {
             recipient,
+            user1Id: sessionUser?.id,
+            user2Id,
         });
     };
 
@@ -18,7 +23,7 @@ const FriendsList = ({ friends, sessionUser, sendMessage }) => {
         const onlineStatus = friendUser?.isOnline ? true : false;
 
         return (
-            <div key={friend.username} className="friendItem">
+            <div key={friend.id} className="friendItem">
                 <div className="friendIconDiv">
                     <i id={friendIconId} className="fa-regular fa-user"></i>
 
@@ -29,7 +34,7 @@ const FriendsList = ({ friends, sessionUser, sendMessage }) => {
                 </div>
                 {onlineStatus && <div className="onlineStatus"></div>}
                 <button
-                    onClick={() => handleSendGameInvite(friendUser.username)}
+                    onClick={() => handleSendGameInvite(friendUser.username, friendUser.id)}
                 >
                     Send Game invite
                 </button>

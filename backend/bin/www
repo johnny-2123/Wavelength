@@ -23,11 +23,15 @@ const handleMessage = async (message, ws) => {
     switch (type) {
         case 'send-game-invite':
             recipientWs = findWebSocketByUsername(data.recipient);
+            console.log('sending game invite')
+            console.log('data', data)
             if (recipientWs && recipientWs.readyState === WebSocket.OPEN) {
                 const inviteMessage = JSON.stringify({
                     type: 'game-invite',
                     data: {
-                        sender: ws.username
+                        sender: ws.username,
+                        user1Id: data.user1Id,
+                        user2Id: data.user2Id
                     },
                 });
                 recipientWs.send(inviteMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
@@ -41,6 +45,33 @@ const handleMessage = async (message, ws) => {
                 ws.send(errorMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
             }
             break;
+        case 'accepted-game-invite':
+            const newGameId = data.newGameId;
+            console.log('newGameId', newGameId)
+            const user1 = data.user1;
+            console.log('user1', user1)
+            const user2 = data.user2;
+            console.log('user2', user2)
+            const user1WS = findWebSocketByUsername(user1);
+            console.log('user1WS:', user1WS)
+            const user2WS = findWebSocketByUsername(user2);
+            console.log('user2WS:', user2WS)
+
+            const startGameMessage = JSON.stringify({
+                type: 'start-game',
+                data: {
+                    newGameId: newGameId,
+                    user1: user1,
+                    user2: user2,
+                },
+            });
+
+            user1WS.send(startGameMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
+
+            user2WS.send(startGameMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
+            break;
+        case "start-game":
+
         case 'join':
             ws.room = data.room;
             ws.username = data.username;
@@ -113,7 +144,7 @@ db.sequelize.authenticate().then(() => {
         for (const friend of ws.friends) {
             let friendWs = findWebSocketByUsername(friend);
             console.log('Friend in friend of friends: ', friend);
-            console.log('FriendWs: ', friendWs);
+            // console.log('FriendWs.username: ', friendWs);
             if (friendWs && friendWs.readyState === WebSocket.OPEN) {
                 const friendMessage = JSON.stringify({
                     type: 'friend-online',
@@ -139,9 +170,12 @@ db.sequelize.authenticate().then(() => {
         ws.on('error', (error) => console.log(`WebSocket error: ${error}`));
         ws.on('close', async () => {
             console.log('Client disconnected');
-
+            console.log('Username: ', ws.username);
+            console.log('ws.friends', ws.friends);
             for (const friend of ws.friends) {
-                const friendWs = findWebSocketByUsername(friend.username);
+                let friendWs = findWebSocketByUsername(friend);
+                console.log('Friend in friend of friends: ', friend);
+                console.log('FriendWs.username: ', friendWs);
                 if (friendWs && friendWs.readyState === WebSocket.OPEN) {
                     const friendMessage = JSON.stringify({
                         type: 'friend-offline',
@@ -149,6 +183,8 @@ db.sequelize.authenticate().then(() => {
                             username: ws.username,
                         },
                     });
+                    console.log('Sending friend message: %s', friendMessage);
+                    console.log('Friend: ', friend);
                     friendWs.send(friendMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
                 }
             }

@@ -1,11 +1,15 @@
 import { useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { fetchSetCurrentUserOffline, fetchSetCurrentUserOnline } from "../../../store/session";
 
 const useWebSocket = (url, onMessage, dependency) => {
     const websocket = useRef(null);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const connect = () => {
             const ws = new WebSocket(url);
+            // dispatch(fetchSetCurrentUserOnline());
 
             ws.onmessage = (event) => {
                 onMessage(JSON.parse(event.data));
@@ -13,6 +17,7 @@ const useWebSocket = (url, onMessage, dependency) => {
 
             ws.onclose = () => {
                 setTimeout(connect, 1000);
+                dispatch(fetchSetCurrentUserOffline());
             };
 
             websocket.current = ws;

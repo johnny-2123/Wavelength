@@ -49,20 +49,7 @@ router.post(
     }
 );
 
-router.post(
-    '/:userId/guid',
-    requireAuth,
-    async (req, res) => {
-        const { userId } = req.params;
-        const { guid } = req.body;
-        const user = await User.findByPk(userId);
-        user.guid = guid;
-        await user.save();
-        return res.json({
-            user
-        });
-    }
-)
+
 
 
 

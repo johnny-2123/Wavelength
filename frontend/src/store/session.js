@@ -3,7 +3,56 @@ import { csrfFetch } from "./csrf";
 const SET_USER = "session/setUser";
 const REMOVE_USER = "session/removeUser";
 const SET_GUID = "session/setGuid";
+const SET_CURRENT_USER_ONLINE = "session/setCurrentUserOnline";
+const SET_CURRENT_USER_OFFLINE = "session/setCurrentUserOffline";
 
+export const fetchSetCurrentUserOffline = () => async (dispatch) => {
+    console.log("running redux store setCurrentUserOffline");
+
+    const response = await csrfFetch(`/api/session/status`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: false })
+    })
+
+    if (response.ok) {
+        console.log("fetchSetcurrentUserOffline response ok");
+        const user = await response.json();
+        console.log("user: ", user);
+        return response;
+    } else {
+        const data = await response.json();
+        console.log("error in fetchSetCurrentUserOffline");
+        console.log(data);
+        return data;
+    }
+}
+
+export const fetchSetCurrentUserOnline = () => async (dispatch) => {
+    console.log("running redux store setCurrentUserOnline");
+
+    const response = await csrfFetch(`/api/session/status`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: true })
+    })
+
+    if (response.ok) {
+        console.log("fetchSetcurrentUserOnline response ok");
+        const user = await response.json();
+        console.log("user: ", user);
+        return response;
+    } else {
+        const data = await response.json();
+        console.log("error in fetchSetCurrentUserOnline");
+        console.log(data);
+        return data;
+    }
+}
 export const fetchSetGuid = (guid, userId) => async (dispatch) => {
     console.log("running redux store fetchSetGuid", guid);
 

@@ -1,86 +1,81 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchFriends, updateOnlineStatus } from "../../../store/friends";
+import { fetchFriends, updateOnlineStatus, updateOfflineStatus } from "../../../store/friends";
 import DirectMessageForm from "../../DirectMessageForm";
+import { fetchSetCurrentUserOffline, fetchSetCurrentUserOnline } from "../../../store/session";
 import FriendsList from "../../Friends";
 import GameInviteRequestComponent from "../../GameInviteRequestComponent";
 import "./LoggedInHomePage.css";
 import useWebSocket from "./useWebsocket";
 import { useModal } from "../../../context/modal";
+
 const LoggedInUserHomePage = ({ sessionUser }) => {
     const dispatch = useDispatch();
-    const [receivedMessages, setReceivedMessages] = useState([]);
+    // const [receivedMessages, setReceivedMessages] = useState([]);
     const [acceptedFriendsUserNamesArray, setAcceptedFriendsUserNamesArray] = useState([]);
     const [shouldConnect, setShouldConnect] = useState(false);
-
-    const [gameInviteSender, setGameInviteSender] = useState(false)
 
     const { setModalContent } = useModal();
 
     const { friends } = useSelector((state) => state?.friends);
 
+    const handleFriendStatusChange = (data, statusType) => {
+        let username = data.username;
+        let friendId;
+        friends.forEach((friend) => {
+            if (friend?.RequestingUser?.username === username) {
+                friendId = friend?.RequestingUser?.id;
+            } else if (friend?.ReceivingUser?.username === username) {
+                friendId = friend?.ReceivingUser?.id;
+            }
+        });
+        if (statusType === 'online') {
+            dispatch(updateOnlineStatus(sessionUser?.id, friendId));
+        }
+        if (statusType === 'offline') {
+            dispatch(updateOfflineStatus(sessionUser?.id, friendId));
+        }
+    };
+
     const onWebSocketMessage = (message) => {
         const { type, data } = message;
-        let username;
-        let friendId;
         switch (type) {
-            case "direct-message":
-                setReceivedMessages((prev) => [...prev, data]);
-                break;
+            // case "direct-message":
+            //     setReceivedMessages((prev) => [...prev, data]);
+            //     break;
             case "friend-online":
-                console.log('friend-online data in frontend onMessage switch: ', data);
-                username = data.username;
-                friends.forEach((friend) => {
-                    if (friend?.RequestingUser?.username === username) {
-                        console.log("friend.RequestingUser: ", friend?.RequestingUser);
-                        friendId = friend?.RequestingUser?.id;
-                    } else if (friend?.ReceivingUser?.username === username) {
-                        console.log("friend.ReceivingUser: ", friend?.ReceivingUser);
-                        friendId = friend?.ReceivingUser.id;
-                    }
-                })
-                console.log("friendId: ", friendId);
-                dispatch(updateOnlineStatus(sessionUser?.id, friendId));
-                console.log("friend-online: ", username);
+                handleFriendStatusChange(data, 'online');
                 break;
             case "friend-offline":
-                console.log('friend-offline data in frontend onMessage switch: ', data);
-                username = data.username;
-                friends.forEach((friend) => {
-                    if (friend?.RequestingUser?.username === username) {
-                        console.log("friend.RequestingUser: ", friend?.RequestingUser);
-                        friendId = friend?.RequestingUser?.id;
-                    } else if (friend?.ReceivingUser?.username === username) {
-                        console.log("friend.ReceivingUser: ", friend.ReceivingUser);
-                        friendId = friend?.ReceivingUser?.id;
-                    }
-                })
+                handleFriendStatusChange(data, 'offline');
                 break;
             case "game-invite":
                 console.log('received game invite');
-                const sender = data?.sender
+                const sender = data?.sender;
+                const user1Id = data?.user1Id;
+                const user2Id = data?.user2Id;
+                console.log(`user1Id: ${user1Id}`);
+                console.log(`user2Id: ${user2Id}`);
                 console.log(`data request data`, data);
                 console.log(`game invite sender: ${sender}`);
-                setModalContent(<GameInviteRequestComponent sender={sender} />);
+                setModalContent(<GameInviteRequestComponent sender={sender} sendMessage={sendMessage} user1Id={user1Id} user2Id={user2Id} sessionUser={sessionUser} />);
                 break;
             default:
                 console.log("Unknown websocket message type:", type);
         }
     };
 
+    const generateWebSocketURL = () => {
+        const encodedFriends = encodeURIComponent(JSON.stringify(acceptedFriendsUserNamesArray));
+        const baseWebSocketURL =
+            process.env.NODE_ENV === "production"
+                ? "wss://wavelength-2hp9.onrender.com"
+                : process.env.REACT_APP_WS_URL;
 
-    const { sendMessage } = useWebSocket(
-        process.env.NODE_ENV === "production"
-            ? `wss://wavelength-2hp9.onrender.com?username=${sessionUser?.username}&friends=${encodeURIComponent(
-                JSON.stringify(acceptedFriendsUserNamesArray)
-            )}`
-            : `${process.env.REACT_APP_WS_URL}?username=${sessionUser?.username}&friends=${encodeURIComponent(
-                JSON.stringify(acceptedFriendsUserNamesArray)
-            )}`,
-        onWebSocketMessage,
-        shouldConnect
-    );
+        return `${baseWebSocketURL}?username=${sessionUser?.username}&friends=${encodedFriends}`;
+    };
 
+    const { sendMessage } = useWebSocket(generateWebSocketURL(), onWebSocketMessage, shouldConnect);
 
     useEffect(() => {
         dispatch(fetchFriends()).then((fetchedFriends) => {
@@ -89,18 +84,21 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                 ?.map((friend) =>
                     friend?.userId === sessionUser?.id ? friend?.ReceivingUser?.username : friend?.RequestingUser?.username
                 );
-
             setAcceptedFriendsUserNamesArray(acceptedFriendsUserNames);
             setShouldConnect(true);
+        }).catch((error) => {
+            console.log("An error occurred while fetching friends:", error);
         });
+
+        return () => {
+            dispatch(fetchSetCurrentUserOffline());
+        }
     }, [dispatch, sessionUser?.id]);
-
-
 
     return (
         <div className="homePageLoggedInMainDiv">
             <h1>Welcome User</h1>
-            <DirectMessageForm sendMessage={sendMessage} sessionUser={sessionUser} receivedMessages={receivedMessages} />
+            {/* <DirectMessageForm sendMessage={sendMessage} sessionUser={sessionUser} receivedMessages={receivedMessages} /> */}
             <FriendsList friends={friends} sessionUser={sessionUser} sendMessage={sendMessage} />
         </div>
     );
