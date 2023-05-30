@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { fetchCreateRound } from "../../store/rounds";
 import { useHistory } from 'react-router-dom'
 import { createGame } from '../../store/game'
 
@@ -15,6 +16,11 @@ const GameInviteRequestComponent = ({ sender, sendMessage, user1Id, user2Id, ses
         console.log(`handling accept game invite`)
         dispatch(createGame(user1Id, user2Id)).then((createdGame) => {
             console.log('createdGame', createdGame)
+            dispatch(fetchCreateRound(createdGame.id)).then(() => {
+                history.push(`/gameplay/${createdGame.id}`);
+            }).catch((error) => {
+                console.log('error creating round', error);
+            });
 
             sendMessage('accepted-game-invite', {
                 newGameId: createdGame.id,

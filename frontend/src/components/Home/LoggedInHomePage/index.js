@@ -5,6 +5,7 @@ import { fetchFriends, updateOnlineStatus, updateOfflineStatus } from "../../../
 import DirectMessageForm from "../../DirectMessageForm";
 import { fetchSetCurrentUserOffline } from "../../../store/session";
 import { fetchGameById } from "../../../store/game";
+import { fetchCreateRound } from "../../../store/rounds";
 import FriendsList from "../../Friends";
 import GameInviteRequestComponent from "../../GameInviteRequestComponent";
 import GamePlay from "../../GamePlay";
@@ -52,7 +53,7 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
             const newGameId = data?.newGameId;
             dispatch(fetchGameById(newGameId)).then((game) => {
                 setShowGamePlay(true);
-                history.push(`/gameplay/${game.id}`);
+                history.push(`/gameplay/${game?.id}`);
             }).catch((error) => {
                 console.log('error fetching game', error);
             });

@@ -10,17 +10,28 @@ const GamePlay = () => {
 
     const game = useSelector((state) => state?.games?.currentGame)
 
-
-
     useEffect(() => {
         dispatch(fetchGameById(gameId));
 
     }, [dispatch]);
 
+    const roundNumber = game?.Round?.length;
 
     return (
         <div>
-            <h1>GamePlay start</h1>
+            <h1>Round {roundNumber}</h1>
+            <div>
+                <div>
+                </div>
+                <div>
+                </div>
+            </div>
+            <div>
+                <div>
+                </div>
+                <div>
+                </div>
+            </div>
         </div>
     )
 }
