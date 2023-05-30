@@ -60,7 +60,7 @@ export const fetchGames = () => async (dispatch) => {
 }
 
 export const updateGame = (gameId, gameOver) => async (dispatch) => {
-
+    console.log("running redux store updateGame");
     const response = await csrfFetch(`/api/games/${gameId}`, {
         method: "PUT",
         body: JSON.stringify({
@@ -68,10 +68,18 @@ export const updateGame = (gameId, gameOver) => async (dispatch) => {
         }),
     });
 
-    const data = await response.json();
-    console.log("data: ", data);
-    // dispatch(createGame(data.game));
-    return response;
+    if (response.ok) {
+        const game = await response.json();
+        // dispatch(getGameById(gameId));
+        console.log("game updated in redux store: ", game.game);
+        return game.game;
+    }
+    else {
+        const data = await response.json();
+        console.log("error in updateGame");
+        console.log(data);
+        return data;
+    }
 }
 
 

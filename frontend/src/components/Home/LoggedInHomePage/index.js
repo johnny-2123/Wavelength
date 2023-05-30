@@ -24,6 +24,11 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
     const [shouldConnect, setShouldConnect] = useState(false);
     const [showGamePlay, setShowGamePlay] = useState(false);
 
+    console.log('showGamePlay', showGamePlay)
+
+    const game = useSelector((state) => state?.games?.currentGame)
+    console.log('game in home component', game)
+
     const handleFriendStatusChange = (data, statusType) => {
         let username = data.username;
         let friendId;
@@ -71,6 +76,19 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
 
     const { sendMessage } = useWebSocket(generateWebSocketURL(), messageHandlers, shouldConnect);
 
+    useEffect(() => {
+        if (game.id !== undefined && !game?.gameOver) {
+            console.log('game not over home component')
+            setShowGamePlay(true);
+            history.push(`/gameplay/${game?.id}`);
+        } else {
+            console.log('game is over home component')
+            setShowGamePlay(false);
+            history.push('/');
+        }
+    }, [game])
+
+
     // Fetch friends when the component mounts
     useEffect(() => {
         dispatch(fetchFriends()).then((fetchedFriends) => {
@@ -102,7 +120,7 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
             </nav>}
             <Switch>
                 <Route path="/gameplay/:gameId">
-                    <GamePlay sessionUser={sessionUser} sendMessage={sendMessage} />
+                    <GamePlay sessionUser={sessionUser} sendMessage={sendMessage} setShowGamePlay={setShowGamePlay} />
                 </Route>
                 <Route path="/direct-message-form">
                     <DirectMessageForm sendMessage={sendMessage} sessionUser={sessionUser} receivedMessages={receivedMessages} />
