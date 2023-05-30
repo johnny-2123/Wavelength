@@ -1,9 +1,11 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from 'react-router-dom'
 import { createGame } from '../../store/game'
 
 const GameInviteRequestComponent = ({ sender, sendMessage, user1Id, user2Id, sessionUser }) => {
     const dispatch = useDispatch();
+    const history = useHistory();
     console.log('game invite component')
     console.log('sender:', sender)
     console.log('user1:', user1Id)

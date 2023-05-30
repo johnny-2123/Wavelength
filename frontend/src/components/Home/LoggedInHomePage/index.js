@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchFriends, updateOnlineStatus, updateOfflineStatus } from "../../../store/friends";
 import DirectMessageForm from "../../DirectMessageForm";
 import { fetchSetCurrentUserOffline, fetchSetCurrentUserOnline } from "../../../store/session";
+import { fetchGames, fetchGameById } from "../../../store/game";
 import FriendsList from "../../Friends";
 import GameInviteRequestComponent from "../../GameInviteRequestComponent";
 import "./LoggedInHomePage.css";
@@ -11,7 +12,7 @@ import { useModal } from "../../../context/modal";
 
 const LoggedInUserHomePage = ({ sessionUser }) => {
     const dispatch = useDispatch();
-    // const [receivedMessages, setReceivedMessages] = useState([]);
+    const [receivedMessages, setReceivedMessages] = useState([]);
     const [acceptedFriendsUserNamesArray, setAcceptedFriendsUserNamesArray] = useState([]);
     const [shouldConnect, setShouldConnect] = useState(false);
 
@@ -40,9 +41,9 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
     const onWebSocketMessage = (message) => {
         const { type, data } = message;
         switch (type) {
-            // case "direct-message":
-            //     setReceivedMessages((prev) => [...prev, data]);
-            //     break;
+            case "direct-message":
+                setReceivedMessages((prev) => [...prev, data]);
+                break;
             case "friend-online":
                 handleFriendStatusChange(data, 'online');
                 break;
@@ -60,6 +61,20 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                 console.log(`game invite sender: ${sender}`);
                 setModalContent(<GameInviteRequestComponent sender={sender} sendMessage={sendMessage} user1Id={user1Id} user2Id={user2Id} sessionUser={sessionUser} />);
                 break;
+            case "start-game":
+                console.log('received start game message');
+                const newGameId = data?.newGameId;
+                console.log('newGameId', newGameId)
+                const user1 = data?.user1;
+                console.log('user1', user1)
+                const user2 = data?.user2;
+                console.log('user2', user2)
+                dispatch(fetchGameById(newGameId)).then((game) => {
+                    console.log('game', game)
+
+                }).catch((error) => {
+                    console.log('error fetching game', error)
+                })
             default:
                 console.log("Unknown websocket message type:", type);
         }
@@ -98,7 +113,7 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
     return (
         <div className="homePageLoggedInMainDiv">
             <h1>Welcome User</h1>
-            {/* <DirectMessageForm sendMessage={sendMessage} sessionUser={sessionUser} receivedMessages={receivedMessages} /> */}
+            <DirectMessageForm sendMessage={sendMessage} sessionUser={sessionUser} receivedMessages={receivedMessages} />
             <FriendsList friends={friends} sessionUser={sessionUser} sendMessage={sendMessage} />
         </div>
     );
