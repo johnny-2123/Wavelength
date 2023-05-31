@@ -31,21 +31,27 @@
 
 .friendsListTitle {
     font-size: 2rem;
-    font-weight: 500;
-    color: #333;
+    font-weight: 200;
+    color: white;
     margin-bottom: 1rem;
     text-align: center;
+    letter-spacing: 1px;
 }
 
 
 .friendItem {
     width: 100%;
     padding: 1rem;
-    background-color: #f2f2f2;
-    margin-bottom: .2rem;
+    background-color: white;
+    margin-bottom: .5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    transition: background-color 0.3s;
+}
+
+.friendItem:hover {
+    background-color: #e8e8e8;
 }
 
 .friendItem:last-child {
@@ -97,6 +103,11 @@
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.friendItem button:hover {
+    background-color: #d15c60;
 }
 
 .onlineStatus {

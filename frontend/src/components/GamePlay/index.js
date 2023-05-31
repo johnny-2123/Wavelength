@@ -107,7 +107,7 @@ const GamePlay = ({ setShowGamePlay, sessionUser, sendMessage, showRoundResults,
                 <div className="roundOne">
                     <div>
                         <h2>
-                            Enter any word, and in the next round, you and your game partner will try to read each other's minds and enter the same word using your previous words.
+                            Enter any word, and in the next round, you and your partner will try to sync minds and enter the same word using your previous words.
                         </h2>
                     </div>
                     <div className="wordInputDiv">
