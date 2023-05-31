@@ -6,9 +6,8 @@
 }
 
 .friendsContainer {
-    border: white 2px solid;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
+    /* border: #f2f2f2 2px solid; */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -24,7 +23,6 @@
 
 .friendsContainer::-webkit-scrollbar-thumb {
     background-color: rgb(186, 186, 186);
-    border-radius: 10px;
 }
 
 .friendsContainer::-webkit-scrollbar-thumb:hover {
@@ -33,7 +31,7 @@
 
 .friendsListTitle {
     font-size: 2rem;
-    font-weight: 600;
+    font-weight: 500;
     color: #333;
     margin-bottom: 1rem;
     text-align: center;
@@ -50,6 +48,9 @@
     justify-content: space-between;
 }
 
+.friendItem:last-child {
+    margin-bottom: 0;
+}
 
 .friendIconDiv {
     flex: 1;

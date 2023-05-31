@@ -67,7 +67,7 @@ const FriendsList = ({ friends, sessionUser, sendMessage }) => {
 
     return (
         <div className="friendsList">
-            <h2 className="friendsListTitle">Friends List</h2>
+            <h2 className="friendsListTitle">Friends</h2>
             <div className="friendsContainer">
                 {acceptedFriends && acceptedFriendsMapped}
                 {pendingFriends && pendingFriendsMapped}
