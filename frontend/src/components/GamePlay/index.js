@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchGameById, updateGame } from "../../store/game";
 import { fetchCreateWord } from "../../store/words";
 
-const GamePlay = ({ setShowGamePlay }) => {
+const GamePlay = ({ setShowGamePlay, sessionUser, sendMessage }) => {
     const dispatch = useDispatch();
     const { gameId } = useParams();
     const game = useSelector((state) => state?.games?.currentGame);
@@ -22,8 +22,18 @@ const GamePlay = ({ setShowGamePlay }) => {
             game?.Round?.[roundNumber - 1]?.Words?.[0]?.wordText ===
             game?.Round?.[roundNumber - 1]?.Words?.[1]?.wordText
         ) {
-            setShowGamePlay(false);
-            dispatch(updateGame(gameId, true));
+
+            dispatch(updateGame(gameId, true)).then((updatedGame) => {
+                console.log('updated game', updatedGame)
+                console.log('updatedGame?.User1?.username', updatedGame?.user1?.username)
+                console.log('updatedGame?.User2?.username', updatedGame?.user2?.username)
+                sendMessage('send-game-won-message', {
+                    gameId: updatedGame?.id,
+                    user1: updatedGame?.user1?.username,
+                    user2: updatedGame?.user2?.username,
+                });
+                // setShowGamePlay(false);
+            });
         }
     }, [dispatch, gameId, roundNumber, setShowGamePlay]);
 

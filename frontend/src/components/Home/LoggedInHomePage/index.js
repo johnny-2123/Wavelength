@@ -9,6 +9,7 @@ import { fetchCreateRound } from "../../../store/rounds";
 import FriendsList from "../../Friends";
 import GameInviteRequestComponent from "../../GameInviteRequestComponent";
 import GamePlay from "../../GamePlay";
+import GameResults from "../../GameResults";
 import useWebSocket from "./useWebsocket";
 import { useModal } from "../../../context/modal";
 import { generateWebSocketURL, handleFriendStatusChange } from "./utils";
@@ -25,7 +26,6 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
     const [shouldConnect, setShouldConnect] = useState(false);
 
     const game = useSelector((state) => state?.games?.currentGame);
-    console.log('game in home component', game);
 
     const [showGamePlay, setShowGamePlay] = useState(false);
 
@@ -46,9 +46,18 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                 .catch((error) => {
                     console.log('error fetching game', error);
                 });
+        },
+        "game-won": (data) => {
+            console.log('received game-won message')
+            const gameId = data?.gameId;
+            dispatch(fetchGameById(gameId))
+                .then((game) => {
+                    console.log('game won', game)
+                    setShowGamePlay(false);
+                    setModalContent(<GameResults gameId={gameId} sessionUser={sessionUser} sendMessage={sendMessage} />);
+                })
         }
     };
-
 
     const { sendMessage } = useWebSocket(
         generateWebSocketURL(sessionUser, acceptedFriendsUserNamesArray),
@@ -58,11 +67,9 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
 
     useEffect(() => {
         if (game?.id !== undefined && !game?.gameOver) {
-            console.log('game not over home component');
             setShowGamePlay(true);
             history.push(`/gameplay/${game?.id}`);
         } else {
-            console.log('game is over home component');
             setShowGamePlay(false);
             history.push('/');
         }
@@ -93,7 +100,7 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
             {!showGamePlay && (
                 <nav className="NavBar">
                     <NavLink to="/direct-message-form" activeClassName="active-link" exact>
-                        Direct Message Form
+                        Direct Messages
                     </NavLink>
                     <NavLink to="/friends-list" activeClassName="active-link" exact>
                         Friends List

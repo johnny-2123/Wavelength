@@ -70,10 +70,10 @@ export const updateGame = (gameId, gameOver) => async (dispatch) => {
 
     if (response.ok) {
         const game = await response.json();
-        dispatch({
-            type: UPDATE_GAME,
-            payload: game.game
-        });
+        // dispatch({
+        //     type: UPDATE_GAME,
+        //     payload: game.game
+        // });
         console.log("game updated in redux store: ", game.game);
         return game.game;
     }

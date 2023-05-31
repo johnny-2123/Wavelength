@@ -5,9 +5,9 @@ const UPDATE_ONLINE_STATUS = "friends/updateOnlineStatus";
 const UPDATE_OFFLINE_STATUS = "friends/updateOfflineStatus";
 
 export const updateOfflineStatus = (userId, friendId) => {
-    console.log("running redux store updateOfflineStatus");
-    console.log("userId: ", userId);
-    console.log("friendId: ", friendId);
+    // console.log("running redux store updateOfflineStatus");
+    // console.log("userId: ", userId);
+    // console.log("friendId: ", friendId);
     return {
         type: UPDATE_OFFLINE_STATUS,
         payload: { userId, friendId },
@@ -16,9 +16,9 @@ export const updateOfflineStatus = (userId, friendId) => {
 
 
 export const updateOnlineStatus = (userId, friendId) => {
-    console.log("running redux store updateOnlineStatus");
-    console.log("userId: ", userId);
-    console.log("friendId: ", friendId);
+    // console.log("running redux store updateOnlineStatus");
+    // console.log("userId: ", userId);
+    // console.log("friendId: ", friendId);
     return {
         type: UPDATE_ONLINE_STATUS,
         payload: { userId, friendId },
@@ -40,7 +40,7 @@ export const fetchFriends = () => async (dispatch) => {
     if (response.ok) {
         const friends = await response.json();
         dispatch(getFriends(friends));
-        console.log("friends fetched in redux store: ", friends.friends);
+        // console.log("friends fetched in redux store: ", friends.friends);
         return friends.friends;
     } else {
         const data = await response.json();
