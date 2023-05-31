@@ -22,12 +22,15 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
     const [receivedMessages, setReceivedMessages] = useState([]);
     const [acceptedFriendsUserNamesArray, setAcceptedFriendsUserNamesArray] = useState([]);
     const [shouldConnect, setShouldConnect] = useState(false);
-    const [showGamePlay, setShowGamePlay] = useState(false);
-
-    console.log('showGamePlay', showGamePlay)
 
     const game = useSelector((state) => state?.games?.currentGame)
     console.log('game in home component', game)
+
+    const [showGamePlay, setShowGamePlay] = useState(game?.id !== undefined && !game?.gameOver);
+
+    console.log('showGamePlay', showGamePlay)
+
+
 
     const handleFriendStatusChange = (data, statusType) => {
         let username = data.username;

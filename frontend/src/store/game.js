@@ -70,7 +70,10 @@ export const updateGame = (gameId, gameOver) => async (dispatch) => {
 
     if (response.ok) {
         const game = await response.json();
-        // dispatch(getGameById(gameId));
+        dispatch({
+            type: UPDATE_GAME,
+            payload: game.game
+        });
         console.log("game updated in redux store: ", game.game);
         return game.game;
     }
@@ -113,7 +116,8 @@ export const createGame = (user1Id, user2Id) => async (dispatch) => {
 
 const initialState = {
     games: [],
-    currentGame: {}
+    currentGame: {},
+    previousGame: {},
 };
 
 

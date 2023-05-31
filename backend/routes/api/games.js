@@ -29,7 +29,29 @@ router.put(
         const { gameId } = req.params;
         const { gameOver } = req.body;
 
-        const game = await Game.findByPk(gameId);
+        const game = await Game.findByPk(gameId,
+            {
+                include: [
+                    {
+                        model: Round,
+                        as: 'Round',
+                        include: [
+                            {
+                                model: Word
+                            }
+                        ]
+                    },
+                    {
+                        model: User,
+                        as: 'user1',
+                    },
+                    {
+                        model: User,
+                        as: 'user2',
+                    }
+                ]
+            }
+        );
 
         if (!game) {
             return res.status(404).json({ errors: 'Game not found.' });
