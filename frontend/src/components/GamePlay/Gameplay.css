@@ -1,0 +1,77 @@
+.gamePlay {
+    /* outline: red thin dotted; */
+    margin: 1rem
+}
+
+.roundOne {
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.roundOne h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.wordInputDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.wordInputDiv input {
+    width: 300px;
+    padding: 0.5rem;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.wordInputDiv button {
+    margin-left: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #E4736B;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.roundResults {
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.roundResults h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.roundResults h3 {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+}
+
+.roundResults button {
+    margin: 1rem 1rem 0 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #E4736B;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+}

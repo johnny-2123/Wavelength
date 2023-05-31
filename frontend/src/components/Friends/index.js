@@ -58,6 +58,7 @@ const FriendsList = ({ friends, sessionUser, sendMessage }) => {
                     <div className="friendUsername">{friendUser?.username}</div>
                     <div className="friendName">{friendUser?.firstName}</div>
                 </div>
+                <button>Friend Request</button>
             </div>
         );
     });

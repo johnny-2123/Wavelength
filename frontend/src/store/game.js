@@ -13,19 +13,19 @@ const getGameById = (game) => {
 }
 
 export const fetchGameById = (gameId) => async (dispatch) => {
-    console.log("running redux store fetchGameById");
-    console.log("gameId: ", gameId);
+    // console.log("running redux store fetchGameById");
+    // console.log("gameId: ", gameId);
 
     const response = await csrfFetch(`/api/games/${gameId}`)
 
     if (response.ok) {
         const game = await response.json();
         dispatch(getGameById(game));
-        console.log("game fetched in redux store: ", game.game);
+        // console.log("game fetched in redux store: ", game.game);
         return game.game;
     } else {
         const data = await response.json();
-        console.log("error in fetchGameById");
+        // console.log("error in fetchGameById");
         console.log(data);
         return data;
     }
@@ -87,9 +87,9 @@ export const updateGame = (gameId, gameOver) => async (dispatch) => {
 
 
 export const createGame = (user1Id, user2Id) => async (dispatch) => {
-    console.log("running redux store createGame");
-    console.log("user1Id: ", user1Id);
-    console.log("user2Id: ", user2Id);
+    // console.log("running redux store createGame");
+    // console.log("user1Id: ", user1Id);
+    // console.log("user2Id: ", user2Id);
 
     const response = await csrfFetch(`/api/games`, {
         method: "POST",
@@ -101,8 +101,8 @@ export const createGame = (user1Id, user2Id) => async (dispatch) => {
 
     if (response.ok) {
         const game = await response.json();
-        console.log(" succesfully created game in redux store: ", game);
-        console.log('game id', game.game.id)
+        // console.log(" succesfully created game in redux store: ", game);
+        // console.log('game id', game.game.id)
         return game.game;
     }
     else {

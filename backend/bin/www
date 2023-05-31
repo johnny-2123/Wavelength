@@ -52,15 +52,10 @@ const handleMessage = async (message, ws) => {
             break;
         case 'accepted-game-invite':
             gameId = data.newGameId;
-            console.log('newGameId', gameId)
             user1 = data.user1;
-            console.log('user1', user1);
             user2 = data.user2;
-            console.log('user2', user2)
             user1WS = findWebSocketByUsername(user1);
-            console.log('user1WS:', user1WS)
             user2WS = findWebSocketByUsername(user2);
-            console.log('user2WS:', user2WS)
 
             const startGameMessage = JSON.stringify({
                 type: 'start-game',
@@ -95,6 +90,33 @@ const handleMessage = async (message, ws) => {
 
             user1WS.send(gameWonMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
             user2WS.send(gameWonMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
+            break;
+        case 'send-round-results':
+            gameId = data.gameId;
+            console.log('gameId', gameId)
+            user1 = data.user1;
+            console.log('user1', user1)
+            user2 = data.user2;
+            console.log('user2', user2)
+
+            user1WS = findWebSocketByUsername(user1);
+            user2WS = findWebSocketByUsername(user2);
+
+            const roundResultsMessage = JSON.stringify({
+                type: 'round-results',
+                data: {
+                    gameId: gameId
+                }
+            });
+
+            if (user1WS && user1WS.readyState === WebSocket.OPEN) {
+                user1WS.send(roundResultsMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
+            }
+
+            if (user2WS && user2WS.readyState === WebSocket.OPEN) {
+                user2WS.send(roundResultsMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
+            }
+
             break;
         case 'join':
             ws.room = data.room;
@@ -139,7 +161,7 @@ db.sequelize.authenticate().then(() => {
             const friendsParam = new URL(req.url, `http://${req.headers.host}`).searchParams.get('friends');
             if (!friendsParam) {
                 console.log('Friends parameter is missing');
-                return false;  // refuse the connection
+                return false;
             }
             try {
                 req.friends = JSON.parse(friendsParam);
@@ -215,7 +237,7 @@ db.sequelize.authenticate().then(() => {
             if ((clients.get(ws.room)?.size || 0) === 0) {
                 clients.delete(ws.room);
             }
-            // Remove user from clients map as well
+            // Remove user from clients map when disconnected.
             clients.get(ws.username)?.delete(ws);
             if ((clients.get(ws.username)?.size || 0) === 0) {
                 clients.delete(ws.username);

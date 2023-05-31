@@ -1,7 +1,31 @@
 import { csrfFetch } from "./csrf";
 
 const CREATE_ROUND = "round/createRound";
+const UPDATE_ROUND = "round/updateRound";
 
+export const fetchUpdateRound = (roundId, userUpdating, status) => async (dispatch) => {
+    console.log("running redux store fetchUpdateRound");
+    console.log("roundId: ", roundId);
+
+    const response = await csrfFetch(`/api/rounds/${roundId}`, {
+        method: "PUT",
+        body: JSON.stringify({
+            userUpdating: status
+        })
+    })
+
+    if (response.ok) {
+        const round = await response.json();
+        // dispatch(updateRound(round));
+        console.log("round updated in redux store: ", round.round);
+        return round.round;
+    } else {
+        const data = await response.json();
+        console.log("error in fetchUpdateRound");
+        console.log(data);
+        return data;
+    }
+}
 const createRound = (round) => {
     return {
         type: CREATE_ROUND,

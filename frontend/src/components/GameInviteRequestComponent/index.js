@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { fetchCreateRound } from "../../store/rounds";
 import { useHistory } from 'react-router-dom'
 import { createGame } from '../../store/game'
+import './GameInviteRequest.css'
 
 const GameInviteRequestComponent = ({ sender, sendMessage, user1Id, user2Id, sessionUser, closeModal }) => {
     const dispatch = useDispatch();
@@ -39,9 +40,9 @@ const GameInviteRequestComponent = ({ sender, sendMessage, user1Id, user2Id, ses
     }
 
     return (
-        <div>
+        <div className="gameInvite">
             <h1>New Game invite from {sender}</h1>
-            <div>
+            <div className="gameInviteButtons">
                 <button
                     onClick={() => handleAcceptGameInvite()}
                 >Accept</button>

@@ -28,6 +28,7 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
     const game = useSelector((state) => state?.games?.currentGame);
 
     const [showGamePlay, setShowGamePlay] = useState(false);
+    const [showRoundResults, setShowRoundResults] = useState(false);
 
     const messageHandlers = {
         "direct-message": (data) => setReceivedMessages((prev) => [...prev, data]),
@@ -56,6 +57,17 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                     setShowGamePlay(false);
                     setModalContent(<GameResults gameId={gameId} sessionUser={sessionUser} sendMessage={sendMessage} />);
                 })
+        },
+        "round-results": (data) => {
+            console.log('received round-results message')
+            const gameId = data?.gameId;
+            dispatch(fetchGameById(gameId))
+                .then((game) => {
+                    console.log('round results', game)
+                    setShowGamePlay(true);
+                    setShowRoundResults(true);
+                })
+
         }
     };
 
@@ -98,7 +110,7 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
     return (
         <div className="homePageLoggedInMainDiv">
             {!showGamePlay && (
-                <nav className="NavBar">
+                <nav className="homeNavBar">
                     <NavLink to="/direct-message-form" activeClassName="active-link" exact>
                         Direct Messages
                     </NavLink>
@@ -109,7 +121,7 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
             )}
             <Switch>
                 <Route path="/gameplay/:gameId">
-                    <GamePlay sessionUser={sessionUser} sendMessage={sendMessage} setShowGamePlay={setShowGamePlay} />
+                    <GamePlay sessionUser={sessionUser} sendMessage={sendMessage} setShowGamePlay={setShowGamePlay} showRoundResults={showRoundResults} setShowRoundResults={setShowRoundResults} />
                 </Route>
                 <Route path="/direct-message-form">
                     <DirectMessageForm sendMessage={sendMessage} sessionUser={sessionUser} receivedMessages={receivedMessages} />
