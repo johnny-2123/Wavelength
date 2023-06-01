@@ -28,6 +28,7 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
     const game = useSelector((state) => state?.games?.currentGame);
 
     const [showGamePlay, setShowGamePlay] = useState(false);
+    const [playerReady, setPlayerReady] = useState(false);
     const [showRoundResults, setShowRoundResults] = useState(false);
 
     const messageHandlers = {
@@ -66,6 +67,7 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                     console.log('game results', game)
                     setShowGamePlay(true);
                     setShowRoundResults(true);
+                    setPlayerReady(false);
                 })
 
         },
@@ -77,6 +79,7 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                     console.log('game results', game)
                     setShowGamePlay(true);
                     setShowRoundResults(false);
+                    setPlayerReady(false);
                 }
                 )
         },
@@ -132,7 +135,7 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
             )}
             <Switch>
                 <Route path="/gameplay/:gameId">
-                    <GamePlay sessionUser={sessionUser} sendMessage={sendMessage} setShowGamePlay={setShowGamePlay} showRoundResults={showRoundResults} setShowRoundResults={setShowRoundResults} />
+                    <GamePlay sessionUser={sessionUser} sendMessage={sendMessage} setShowGamePlay={setShowGamePlay} showRoundResults={showRoundResults} setShowRoundResults={setShowRoundResults} playerReady={playerReady} setPlayerReady={setPlayerReady} />
                 </Route>
                 <Route path="/direct-message-form">
                     <DirectMessageForm sendMessage={sendMessage} sessionUser={sessionUser} receivedMessages={receivedMessages} />

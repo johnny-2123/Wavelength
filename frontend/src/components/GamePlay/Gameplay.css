@@ -1,6 +1,6 @@
 .gamePlay {
     /* outline: red thin dotted; */
-    margin: 1rem
+    margin: 1rem;
 }
 
 .roundOne {
@@ -74,4 +74,43 @@
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
+}
+
+.followingRounds {
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.followingRounds h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.previousWords {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.partnerPreviousWord,
+.yourPreviousWord {
+    flex: 1;
+}
+
+.partnerPreviousWord h2,
+.yourPreviousWord h2 {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+}
+
+.followingRounds .wordInputDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
 }
