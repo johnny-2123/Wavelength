@@ -12,8 +12,11 @@ const GamePlay = ({ setShowGamePlay, sessionUser, sendMessage, showRoundResults 
 
     const [wordText, setWordText] = useState("");
     const [submittedWord, setSubmittedWord] = useState(false);
+    console.log('submittedWord', submittedWord)
+    console.log('showRoundResults', showRoundResults)
     const [playerReady, setPlayerReady] = useState(false);
     const roundNumber = game?.Round?.length;
+    console.log('roundNumber', roundNumber)
     const round = game?.Round?.[roundNumber - 1];
     const roundId = round?.id;
     const roundWords = round?.Words;
@@ -21,6 +24,7 @@ const GamePlay = ({ setShowGamePlay, sessionUser, sendMessage, showRoundResults 
     const friendWord = roundWords?.find(word => word?.userId !== sessionUser?.id);
     const friendWordText = friendWord?.wordText;
     const userWord = roundWords?.find(word => word?.userId === sessionUser?.id);
+
     const userWordText = userWord?.wordText;
 
     const handleGameStatus = useCallback((game) => {
@@ -120,7 +124,7 @@ const GamePlay = ({ setShowGamePlay, sessionUser, sendMessage, showRoundResults 
     return (
         <div className="gamePlay">
             <h1>Round {roundNumber}</h1>
-            {!submittedWord && !userWord && !showRoundResults && roundNumber === 1 && (
+            {!userWord && !showRoundResults && roundNumber === 1 && (
                 <div className="roundOne">
                     <div>
                         <h2>
@@ -143,7 +147,7 @@ const GamePlay = ({ setShowGamePlay, sessionUser, sendMessage, showRoundResults 
                 </div>
             )}
 
-            {!submittedWord && !showRoundResults && roundNumber > 1 && (
+            {!userWord && !showRoundResults && roundNumber > 1 && (
                 <div className="followingRounds">
                     <div>
                         <h2>
