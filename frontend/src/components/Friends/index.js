@@ -38,7 +38,7 @@ const FriendsList = ({ friends, sessionUser, sendMessage }) => {
                 <button
                     onClick={() => handleSendGameInvite(friendUser.username, friendUser.id)}
                 >
-                    Send Game invite
+                    New Game
                 </button>
             </div>
         );

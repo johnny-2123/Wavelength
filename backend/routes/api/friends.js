@@ -97,21 +97,26 @@ router.put('/:friendId', requireAuth, asyncHandler(async (req, res) => {
 
 router.post('/', requireAuth, asyncHandler(async (req, res) => {
     const userId = req.user.id;
-    const { usercredential } = req.body;
+    const { friendCredential } = req.body;
 
-    console.log('usercredential', usercredential);
+    console.log('friendCredential', friendCredential);
 
     const friendUser = await User.findOne({
         where: {
             [Op.or]: [
-                { username: usercredential },
-                { email: usercredential }
+                { username: friendCredential },
+                { email: friendCredential }
             ]
         },
         attributes: ['id']
     });
 
-    console.log('friendId', friendUser.id);
+
+    if (!friendUser) {
+        return res.status(404).json({ errors: 'Friend not found.' });
+    }
+
+    console.log('friendId', friendUser?.id);
 
     const [friend, friendShipSent, friendShipReceived] = await Promise.all([
         User.findByPk(friendUser.id),
@@ -123,7 +128,7 @@ router.post('/', requireAuth, asyncHandler(async (req, res) => {
         return res.status(404).json({ errors: 'Friend not found.' });
 
     if (friendShipSent)
-        return res.status(400).json({ errors: 'Friendship already exists.' });
+        return res.status(400).json({ errors: 'Friendship already sent.' });
 
     if (friendShipReceived) {
         friendShipReceived.status = 'accepted';

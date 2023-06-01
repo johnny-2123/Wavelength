@@ -1,0 +1,53 @@
+.addFriendMainDiv {
+    margin: 0;
+    padding: 1rem 0;
+    background-color: #ffffff;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.addFriendMainDiv h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #e4736b;
+}
+
+.addFriendMainDiv form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.addFriendMainDiv input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.addFriendMainDiv input::placeholder {
+    color: #aaa;
+}
+
+.addFriendMainDiv button {
+    padding: 0.7rem 2rem;
+    background-color: #e4736b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.addFriendMainDiv button:hover {
+    background-color: #d65e55;
+}

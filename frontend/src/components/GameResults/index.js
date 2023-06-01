@@ -61,7 +61,6 @@ const GameResults = ({ gameId, sessionUser }) => {
                 <div className={styles.FinalWordsDiv}>
                     <h2>Final Words</h2>
                     <div className={styles.PartnerWordDiv}>
-
                         <h3>Partner's Word: {friendWordText}</h3>
                     </div>
                     <div className={styles.UserWordDiv}>

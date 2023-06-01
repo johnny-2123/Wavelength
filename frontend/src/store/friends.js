@@ -6,6 +6,27 @@ const UPDATE_OFFLINE_STATUS = "friends/updateOfflineStatus";
 const SEND_FRIEND_REQUEST = "friends/sendFriendRequest";
 
 
+export const fetchSendFriendRequest = (friendCredential) => async (dispatch) => {
+    console.log("running redux store sendFriendRequest");
+    console.log("friendCredential: ", friendCredential);
+
+    const response = await csrfFetch(`/api/friends`, {
+        method: "POST",
+        body: JSON.stringify({ friendCredential }),
+    });
+
+    if (response.ok) {
+        const friend = await response.json();
+        console.log("friend request sent in redux store: ", friend);
+        // dispatch(sendFriendRequestAction(friend));
+        return friend;
+    } else {
+        const data = await response.json();
+        console.log("error in sendFriendRequest");
+        console.log(data);
+        return data;
+    }
+}
 
 export const updateOfflineStatus = (userId, friendId) => {
     // console.log("running redux store updateOfflineStatus");
