@@ -1,20 +1,24 @@
 import React from 'react';
-
+import './FollowingRounds.css';
 const FollowingRoundsForm = ({ onSubmit, wordText, setWordText, friendUser, previousRoundFriendWordText, previousRoundUserWordText }) => (
     <div className="followingRounds">
         <div className="previousWords">
-            <div className="partnerPreviousWord">
-                <h2>
-                    {friendUser?.username}'s Previous Word:{" "}
-                    {previousRoundFriendWordText}
-                </h2>
-            </div>
-            <div className="yourPreviousWord">
-                <h2>Your Previous Word: {previousRoundUserWordText}</h2>
+            <h1>Previous Words</h1>
+            <div className="previousWordsSubDiv">
+                <div className="partnerPreviousWord">
+                    <h2>
+                        {friendUser?.username}:
+                    </h2>
+                    <h3>{previousRoundFriendWordText}</h3>
+                </div>
+                <div className="yourPreviousWord">
+                    <h2>You: </h2>
+                    <h3>{previousRoundUserWordText}</h3>
+                </div>
             </div>
         </div>
-        <div>
-            <h2>
+        <div className='followingRoundDirectionsDiv'>
+            <h2 className='followingRoundsDirections'>
                 Enter a word related to yours and your partner's previous words
                 that you think your partner will also enter.
             </h2>

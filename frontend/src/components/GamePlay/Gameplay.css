@@ -1,12 +1,11 @@
 .gamePlay {
-    /* outline: red thin dotted; */
     margin: 1rem;
 }
 
 .roundOne {
     margin: 2rem auto;
     padding: 2rem;
-    background-color: #f2f2f2;
+    background-color: #ffffff;
     border-radius: 10px;
     text-align: center;
 }
@@ -15,6 +14,7 @@
     font-size: 1.5rem;
     font-weight: 500;
     margin-bottom: 1rem;
+    color: darkslategray
 }
 
 .wordInputDiv {
@@ -33,10 +33,10 @@
 }
 
 .wordInputDiv button {
-    margin-top: .5rem;
+    margin-top: 0.5rem;
     margin-left: 0.5rem;
     padding: 0.5rem 1rem;
-    background-color: #E4736B;
+    background-color: #e4736b;
     color: white;
     border: none;
     border-radius: 5px;
@@ -48,7 +48,7 @@
 .roundResults {
     margin: 2rem auto;
     padding: 2rem;
-    background-color: #f2f2f2;
+    background-color: #ffffff;
     border-radius: 10px;
     text-align: center;
 }
@@ -57,61 +57,24 @@
     font-size: 1.5rem;
     font-weight: 500;
     margin-bottom: 1rem;
+    color: #e4736b;
 }
 
 .roundResults h3 {
     font-size: 1rem;
     font-weight: 400;
     margin-bottom: 0.5rem;
+    color: #555;
 }
 
 .roundResults button {
     margin: 1rem 1rem 0 1rem;
     padding: 0.5rem 1rem;
-    background-color: #E4736B;
+    background-color: #e4736b;
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
-}
-
-.followingRounds {
-    margin: 2rem auto;
-    padding: 2rem;
-    background-color: #f2f2f2;
-    border-radius: 10px;
-    text-align: center;
-}
-
-.followingRounds h2 {
-    font-size: 1.5rem;
-    font-weight: 500;
-    margin-bottom: 1rem;
-}
-
-.previousWords {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-}
-
-.partnerPreviousWord,
-.yourPreviousWord {
-    flex: 1;
-}
-
-.partnerPreviousWord h2,
-.yourPreviousWord h2 {
-    font-size: 1rem;
-    font-weight: 400;
-    margin-bottom: 0.5rem;
-}
-
-.followingRounds .wordInputDiv {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1rem;
 }

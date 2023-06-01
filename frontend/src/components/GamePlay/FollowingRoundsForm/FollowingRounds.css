@@ -1,0 +1,87 @@
+.followingRounds {
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.previousWords {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-top: #5A5A5A 1px solid;
+    border-bottom: #5A5A5A 1px solid;
+    width: 100%;
+}
+
+.previousWords h1 {
+    margin: .5rem 1rem;
+    font-size: 1.6rem;
+    font-weight: 400;
+    padding-bottom: .5rem;
+    width: 100%;
+    width: 60%;
+    color: #E97F70;
+}
+
+.previousWords h2 {
+    margin: .5rem 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.previousWords h3 {
+    margin: .5rem 1rem;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #E97F70;
+}
+
+.previousWordsSubDiv {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+}
+
+.partnerPreviousWord,
+.yourPreviousWord {
+    flex: 1;
+}
+
+.partnerPreviousWord h2,
+.yourPreviousWord h2 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+.followingRoundDirectionsDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2.followingRoundsDirections {
+    font-size: 1.2rem;
+    width: 60%;
+    font-weight: 500;
+    margin: 0 0 .5rem 0;
+    color: darkslategray;
+}
+
+
+
+.followingRounds .wordInputDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}

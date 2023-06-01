@@ -9,7 +9,7 @@ const WaitingForPartnerWord = ({ friendUser, userWordText }) => {
                 <h2 className="waitingForFriendText">Waiting for {friendUser?.username} to submit their word...
                 </h2>
             </div>
-            <div>
+            <div className="userWordDiv">
                 <h2 className="userSubmittedWord" >Your Word</h2>
                 <h3 className="userWord">{userWordText}</h3>
             </div>

@@ -1,25 +1,41 @@
 .waitingForFriend {
     margin: 2rem auto;
     padding: 2rem;
-    background-color: #f2f2f2;
+    background-color: #ffffff;
     border-radius: 10px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .waitingForFriendText {
     font-size: 1.5rem;
     font-weight: 500;
     margin-bottom: 1rem;
+    color: darkslategray;
+}
+
+.userWordDiv {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .userSubmittedWord {
-    font-size: 1rem;
+    font-size: 1.4rem;
     font-weight: 400;
     margin-bottom: 0.5rem;
+    padding-bottom: .5rem;
+    border-bottom: #e4736b 2px solid;
+    width: 27%;
+    color: darkslategray;
 }
 
 .userWord {
     font-size: 1.5rem;
-    font-weight: 500;
-    color: #E4736B;
+    font-weight: 600;
+    margin-top: .5rem;
+    color: #e4736b;
 }
