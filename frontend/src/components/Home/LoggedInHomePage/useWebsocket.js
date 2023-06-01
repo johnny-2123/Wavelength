@@ -7,34 +7,24 @@ const useWebSocket = (url, messageHandlers, dependency) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const connect = () => {
-            const ws = new WebSocket(url);
-            // dispatch(fetchSetCurrentUserOnline());
-
-            ws.onmessage = (event) => {
+        let ws = null;
+        if (dependency) {
+            ws = new WebSocket(url);
+            ws.onmessage = event => {
                 const { type, data } = JSON.parse(event.data);
                 const handler = messageHandlers[type];
                 if (handler) {
                     handler(data);
                 }
             };
-
             ws.onclose = () => {
-                setTimeout(connect, 1000);
                 dispatch(fetchSetCurrentUserOffline());
             };
-
             websocket.current = ws;
-        };
-
-        if (dependency) {
-            connect();
         }
 
         return () => {
-            if (websocket.current) {
-                websocket.current.close();
-            }
+            if (ws) ws.close();
         };
     }, [dependency, url]);
 

@@ -8,6 +8,7 @@ import { fetchGameById } from "../../../store/game";
 import { fetchCreateRound } from "../../../store/rounds";
 import FriendsList from "../../Friends";
 import GameInviteRequestComponent from "../../GameInviteRequestComponent";
+import Routes from "./Routes";
 import GamePlay from "../../GamePlay";
 import GameResults from "../../GameResults";
 import useWebSocket from "./useWebsocket";
@@ -133,17 +134,18 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                     </NavLink>
                 </nav>
             )}
-            <Switch>
-                <Route path="/gameplay/:gameId">
-                    <GamePlay sessionUser={sessionUser} sendMessage={sendMessage} setShowGamePlay={setShowGamePlay} showRoundResults={showRoundResults} setShowRoundResults={setShowRoundResults} playerReady={playerReady} setPlayerReady={setPlayerReady} />
-                </Route>
-                <Route path="/direct-message-form">
-                    <DirectMessageForm sendMessage={sendMessage} sessionUser={sessionUser} receivedMessages={receivedMessages} />
-                </Route>
-                <Route path="/friends-list">
-                    <FriendsList friends={friends} sessionUser={sessionUser} sendMessage={sendMessage} />
-                </Route>
-            </Switch>
+            <Routes
+                sessionUser={sessionUser}
+                sendMessage={sendMessage}
+                receivedMessages={receivedMessages}
+                friends={friends}
+                game={game}
+                showRoundResults={showRoundResults}
+                setShowRoundResults={setShowRoundResults}
+                playerReady={playerReady}
+                setPlayerReady={setPlayerReady}
+                setShowGamePlay={setShowGamePlay}
+            />
         </div>
     );
 };

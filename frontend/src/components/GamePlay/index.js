@@ -13,10 +13,10 @@ const GamePlay = ({
     showRoundResults,
     playerReady,
     setPlayerReady,
+    game
 }) => {
     const dispatch = useDispatch();
     const { gameId } = useParams();
-    const game = useSelector((state) => state.games.currentGame);
 
     const [wordText, setWordText] = useState("");
     const [submittedWord, setSubmittedWord] = useState(false);
