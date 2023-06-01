@@ -28,14 +28,14 @@
     font-weight: 400;
     margin-bottom: 0.5rem;
     padding-bottom: .5rem;
-    border-bottom: #e4736b 2px solid;
+    border-bottom: #e4736b 1px solid;
     width: 80%;
     color: darkslategray;
 }
 
 .userWord {
     font-size: 1.5rem;
-    font-weight: 600;
+    font-weight: 400;
     margin-top: .5rem;
     color: #e4736b;
 }
