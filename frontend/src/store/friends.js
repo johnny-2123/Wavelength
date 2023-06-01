@@ -3,6 +3,9 @@ import { csrfFetch } from "./csrf";
 const GET_FRIENDS = "friends/getFriends";
 const UPDATE_ONLINE_STATUS = "friends/updateOnlineStatus";
 const UPDATE_OFFLINE_STATUS = "friends/updateOfflineStatus";
+const SEND_FRIEND_REQUEST = "friends/sendFriendRequest";
+
+
 
 export const updateOfflineStatus = (userId, friendId) => {
     // console.log("running redux store updateOfflineStatus");

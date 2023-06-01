@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import OpenModalButton from "../OpenModalButton";
+import AddFriend from "./AddFriendForm";
 import "./FriendsList.css";
 
 const FriendsList = ({ friends, sessionUser, sendMessage }) => {
@@ -56,7 +58,7 @@ const FriendsList = ({ friends, sessionUser, sendMessage }) => {
                 </div>
                 <div className="friendInfo">
                     <div className="friendUsername">{friendUser?.username}</div>
-                    <div className="friendName">{friendUser?.firstName}</div>
+                    <div className="friendName"> {friendUser?.firstName}</div>
                 </div>
                 <button>Friend Request</button>
             </div>
@@ -68,6 +70,12 @@ const FriendsList = ({ friends, sessionUser, sendMessage }) => {
     return (
         <div className="friendsList">
             <h2 className="friendsListTitle">Friends</h2>
+            <div className="openFriendModalDiv">
+                <OpenModalButton
+                    modalComponent={<AddFriend />}
+                    buttonText={<i className="fa-solid fa-user-plus" />}
+                />
+            </div>
             <div className="friendsContainer">
                 {acceptedFriends && acceptedFriendsMapped}
                 {pendingFriends && pendingFriendsMapped}

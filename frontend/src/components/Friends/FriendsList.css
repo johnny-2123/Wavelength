@@ -7,7 +7,6 @@
 
 .friendsContainer {
     /* border: #f2f2f2 2px solid; */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -33,17 +32,43 @@
     font-size: 2rem;
     font-weight: 200;
     color: white;
-    margin-bottom: 1rem;
+    margin-bottom: 0rem;
     text-align: center;
     letter-spacing: 1px;
 }
 
+.openFriendModalDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.openFriendModalDiv button {
+    background-color: transparent;
+    border: none;
+}
+
+.fa-user-plus {
+    color: white;
+    font-size: 1.7rem;
+    cursor: pointer;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+    margin-right: 1rem;
+    margin-bottom: .2rem;
+}
+
+.fa-user-plus:hover {
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.47);
+}
 
 .friendItem {
     width: 100%;
     padding: 1rem;
-    background-color: white;
-    margin-bottom: .5rem;
+    background-color: transparent;
+    box-shadow: 0 0 1.5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -51,7 +76,7 @@
 }
 
 .friendItem:hover {
-    background-color: #e8e8e8;
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .friendItem:last-child {
@@ -82,8 +107,9 @@
 }
 
 .friendUsername {
-    font-size: 1.2rem;
-    font-weight: 500;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: white;
 }
 
 .friendName {
@@ -95,10 +121,9 @@
     flex: 2;
     padding: 0.5rem 1rem;
     margin-right: 1rem;
-    ;
-    background-color: #E4736B;
+    background-color: transparent;
     color: white;
-    border: none;
+    border: transparent 2px solid;
     border-radius: 5px;
     font-size: 1rem;
     font-weight: 500;
@@ -107,7 +132,10 @@
 }
 
 .friendItem button:hover {
-    background-color: #d15c60;
+    border: white 2px solid;
+    border-radius: 5px;
+    background-color: white;
+    color: #E4736B;
 }
 
 .onlineStatus {

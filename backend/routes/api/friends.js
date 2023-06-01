@@ -94,14 +94,29 @@ router.put('/:friendId', requireAuth, asyncHandler(async (req, res) => {
     }
 }));
 
+
 router.post('/', requireAuth, asyncHandler(async (req, res) => {
     const userId = req.user.id;
-    const { friendId } = req.body;
+    const { usercredential } = req.body;
+
+    console.log('usercredential', usercredential);
+
+    const friendUser = await User.findOne({
+        where: {
+            [Op.or]: [
+                { username: usercredential },
+                { email: usercredential }
+            ]
+        },
+        attributes: ['id']
+    });
+
+    console.log('friendId', friendUser.id);
 
     const [friend, friendShipSent, friendShipReceived] = await Promise.all([
-        User.findByPk(friendId),
-        Friend.findOne({ where: { userId, friendId }, include: includeUsers }),
-        Friend.findOne({ where: { userId: friendId, friendId: userId }, include: includeUsers })
+        User.findByPk(friendUser.id),
+        Friend.findOne({ where: { userId, friendId: friendUser.id }, include: includeUsers }),
+        Friend.findOne({ where: { userId: friendUser.id, friendId: userId }, include: includeUsers })
     ]);
 
     if (!friend)
@@ -116,7 +131,7 @@ router.post('/', requireAuth, asyncHandler(async (req, res) => {
         return res.status(200).json({ message: 'Friend request accepted.', friendship: friendShipReceived });
     }
 
-    const friendship = await Friend.create({ userId, friendId, status: 'pending' });
+    const friendship = await Friend.create({ userId, friendId: friendUser.id, status: 'pending' });
     friendship.save();
     res.status(201).json({ message: `Friend request sent to ${friend.username}.` });
 }));

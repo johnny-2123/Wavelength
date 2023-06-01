@@ -8,6 +8,9 @@ import { restoreCSRF, csrfFetch } from './store/csrf';
 import * as sessionActions from './store/session'
 import configureStore from './store';
 import { Modal, ModalProvider } from './context/modal';
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital@1&family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+</style>
 const store = configureStore();
 
 if (process.env.NODE_ENV !== 'production') {
