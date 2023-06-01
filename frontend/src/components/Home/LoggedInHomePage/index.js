@@ -114,7 +114,7 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
             });
 
         return () => {
-            dispatch(fetchSetCurrentUserOffline());
+            // dispatch(fetchSetCurrentUserOffline());
         };
     }, [dispatch, sessionUser]);
 

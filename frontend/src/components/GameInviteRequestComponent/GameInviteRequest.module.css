@@ -12,6 +12,7 @@
 
 .gameInviteButtons {
     display: flex;
+    flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
     margin-top: 1rem;
@@ -30,4 +31,5 @@
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
+    width: 100%;
 }

@@ -1,0 +1,115 @@
+.gameResults {
+    margin: 1rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+
+
+h1.gameResultsTitle {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    width: 100%;
+    color: #e4736b;
+}
+
+.gameResults h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #555;
+}
+
+.gameResults button {
+    margin: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    background-color: #e4736b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.gameResults button:hover {
+    background-color: #d65e55;
+}
+
+.gameResultHighlights {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+.FinalWordsDiv {
+    width: 100%;
+    padding: 1rem 0;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.FinalWordsDiv h2 {
+    border-bottom: #e4736b 1px solid;
+    padding-bottom: 0.5rem;
+    width: 100%;
+}
+
+.PartnerWordDiv,
+.UserWordDiv {
+    margin: 0;
+}
+
+.PartnerWordDiv h3,
+.UserWordDiv h3 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin: 0.5rem 0;
+    color: #555;
+}
+
+h2.gameRoundsTitle {
+    margin: 2rem 0;
+    padding: 1rem 0;
+    width: 100%;
+    text-align: center;
+    border-top: slategray 1px solid;
+    border-bottom: slategray 1px solid;
+}
+
+.RoundDiv {
+    margin: 2rem 0;
+    padding: 1rem;
+    width: 90%;
+    border: 1px solid #e4736b;
+    border-radius: 5px;
+}
+
+.RoundDiv h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #555;
+}
+
+.RoundDiv h3 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin: 0.5rem 0;
+    color: #555;
+}

@@ -18,7 +18,7 @@ const useWebSocket = (url, messageHandlers, dependency) => {
                 }
             };
             ws.onclose = () => {
-                dispatch(fetchSetCurrentUserOffline());
+                // dispatch(fetchSetCurrentUserOffline());
             };
             websocket.current = ws;
         }
