@@ -7,12 +7,14 @@ export const fetchUpdateRound = (roundId, userUpdating, status) => async (dispat
     console.log("running redux store fetchUpdateRound");
     console.log("roundId: ", roundId);
 
+    const body = {
+        [userUpdating]: status
+    };
+
     const response = await csrfFetch(`/api/rounds/${roundId}`, {
         method: "PUT",
-        body: JSON.stringify({
-            userUpdating: status
-        })
-    })
+        body: JSON.stringify(body)
+    });
 
     if (response.ok) {
         const round = await response.json();

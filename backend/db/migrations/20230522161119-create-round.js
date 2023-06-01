@@ -28,9 +28,17 @@ module.exports = {
       // },
       user1Agrees: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false
+        defaultValue: null
       },
       user2Agrees: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: null
+      },
+      user1Ready: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
+      user2Ready: {
         type: Sequelize.BOOLEAN,
         defaultValue: false
       },

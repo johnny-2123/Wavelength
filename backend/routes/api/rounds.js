@@ -79,8 +79,13 @@ router.put(
     requireAuth,
     async (req, res) => {
         const { roundId } = req.params;
-        const { user1Agrees, user2Agrees } = req.body;
-
+        console.log('###################################################################')
+        console.log('roundId', roundId)
+        const { user1Agrees, user2Agrees, user1Ready, user2Ready } = req.body;
+        console.log('user1Agrees', user1Agrees)
+        console.log('user2Agrees', user2Agrees)
+        console.log('user1Ready', user1Ready)
+        console.log('user2Ready', user2Ready)
         const round = await Round.findByPk(roundId);
 
         if (!round) {
@@ -95,6 +100,16 @@ router.put(
         if (user2Agrees === true || user2Agrees === false) {
             console.log('changing user2Agrees')
             round.user2Agrees = user2Agrees
+        }
+
+        if (user1Ready === true || user1Ready === false) {
+            console.log('changing user1Ready')
+            round.user1Ready = user1Ready
+        }
+
+        if (user2Ready === true || user2Ready === false) {
+            console.log('changing user2Ready')
+            round.user2Ready = user2Ready
         }
 
         await round.save();

@@ -18,9 +18,17 @@ module.exports = (sequelize, DataTypes) => {
     },
     user1Agrees: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false
+      defaultValue: null
     },
     user2Agrees: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: null
+    },
+    user1Ready: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    user2Ready: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     }

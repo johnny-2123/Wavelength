@@ -54,7 +54,8 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
             dispatch(fetchGameById(gameId))
                 .then((game) => {
                     console.log('game won', game)
-                    setShowGamePlay(false);
+                    setShowGamePlay(false)
+                    setShowRoundResults(false)
                     setModalContent(<GameResults gameId={gameId} sessionUser={sessionUser} sendMessage={sendMessage} />);
                 })
         },
@@ -63,7 +64,7 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
             const gameId = data?.gameId;
             dispatch(fetchGameById(gameId))
                 .then((game) => {
-                    console.log('round results', game)
+                    console.log('game results', game)
                     setShowGamePlay(true);
                     setShowRoundResults(true);
                 })
