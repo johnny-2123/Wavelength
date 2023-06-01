@@ -4,9 +4,7 @@ const RoundOneForm = ({ onSubmit, wordText, setWordText }) => (
     <div className="roundOne">
         <div>
             <h2>
-                Enter any word, and in the next round, you and your partner will
-                try to sync minds and enter the same word using your previous
-                words.
+                Enter any word to start the game. In following rounds, you will try to match your partner's word
             </h2>
         </div>
         <div className="wordInputDiv">

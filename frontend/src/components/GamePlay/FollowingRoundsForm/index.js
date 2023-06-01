@@ -1,29 +1,34 @@
 import React from 'react';
-import './FollowingRounds.css';
-const FollowingRoundsForm = ({ onSubmit, wordText, setWordText, friendUser, previousRoundFriendWordText, previousRoundUserWordText }) => (
-    <div className="followingRounds">
-        <div className="previousWords">
-            <h1>Previous Words</h1>
-            <div className="previousWordsSubDiv">
-                <div className="partnerPreviousWord">
-                    <h2>
-                        {friendUser?.username}:
-                    </h2>
+import styles from './FollowingRounds.module.css';
+
+const FollowingRoundsForm = ({
+    onSubmit,
+    wordText,
+    setWordText,
+    friendUser,
+    previousRoundFriendWordText,
+    previousRoundUserWordText
+}) => (
+    friendUser && <div className={styles.followingRounds}>
+        <div className={styles.previousWords}>
+            <h2 >Previous Words</h2>
+            <div className={styles.previousWordsSubDiv}>
+                <div className={styles.partnerPreviousWord}>
+                    <h2>{friendUser?.username}:</h2>
                     <h3>{previousRoundFriendWordText}</h3>
                 </div>
-                <div className="yourPreviousWord">
+                <div className={styles.yourPreviousWord}>
                     <h2>You: </h2>
                     <h3>{previousRoundUserWordText}</h3>
                 </div>
             </div>
         </div>
-        <div className='followingRoundDirectionsDiv'>
-            <h2 className='followingRoundsDirections'>
-                Enter a word related to yours and your partner's previous words
-                that you think your partner will also enter.
+        <div className={styles.followingRoundDirectionsDiv}>
+            <h2 className={styles.followingRoundsDirections}>
+                Try to enter the same word as your partner using the words from the previous round.
             </h2>
         </div>
-        <div className="wordInputDiv">
+        <div className={styles.wordInputDiv}>
             <form>
                 <input
                     type="text"

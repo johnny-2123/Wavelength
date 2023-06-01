@@ -1,5 +1,5 @@
 .followingRounds {
-    margin: 2rem auto;
+    margin: 0 auto;
     padding: 2rem;
     background-color: #ffffff;
     border-radius: 10px;
@@ -14,32 +14,20 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border-top: #5A5A5A 1px solid;
-    border-bottom: #5A5A5A 1px solid;
+    margin-bottom: .5rem;
     width: 100%;
-}
-
-.previousWords h1 {
-    margin: .5rem 1rem;
-    font-size: 1.6rem;
-    font-weight: 400;
-    padding-bottom: .5rem;
-    width: 100%;
-    width: 60%;
-    color: #E97F70;
 }
 
 .previousWords h2 {
     margin: .5rem 1rem;
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: 400;
+    color: #5A5A5A;
 }
 
 .previousWords h3 {
     margin: .5rem 1rem;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 400;
     color: #E97F70;
 }
@@ -57,7 +45,7 @@
 
 .partnerPreviousWord h2,
 .yourPreviousWord h2 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 400;
     margin-bottom: 0.5rem;
     color: #555;
@@ -67,11 +55,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-top: #5A5A5A 1px solid;
+    padding-top: 1rem;
+    width: 90%;
 }
 
 h2.followingRoundsDirections {
     font-size: 1.2rem;
-    width: 60%;
+    width: 100%;
     font-weight: 500;
     margin: 0 0 .5rem 0;
     color: darkslategray;
@@ -84,4 +75,25 @@ h2.followingRoundsDirections {
     justify-content: center;
     align-items: center;
     margin-top: 1rem;
+}
+
+.wordInputDiv input {
+    width: 300px;
+    padding: 0.5rem;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.wordInputDiv button {
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #e4736b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
 }
