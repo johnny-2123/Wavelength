@@ -13,7 +13,7 @@ const getGameById = (game) => {
 }
 
 export const fetchGameById = (gameId) => async (dispatch) => {
-    // console.log("running redux store fetchGameById");
+    console.log("running redux store fetchGameById");
     // console.log("gameId: ", gameId);
 
     const response = await csrfFetch(`/api/games/${gameId}`)

@@ -1,0 +1,25 @@
+.waitingForFriend {
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.waitingForFriendText {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.userSubmittedWord {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+}
+
+.userWord {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #E4736B;
+}

@@ -24,6 +24,8 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
 
     const game = useSelector((state) => state?.games?.currentGame);
 
+    console.log('rerender home page', game)
+
     const [showGamePlay, setShowGamePlay] = useState(false);
     const [playerReady, setPlayerReady] = useState(false);
     const [showRoundResults, setShowRoundResults] = useState(false);
