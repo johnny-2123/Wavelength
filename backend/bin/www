@@ -118,6 +118,33 @@ const handleMessage = async (message, ws) => {
             }
 
             break;
+        case 'send-start-new-round':
+            gameId = data.gameId;
+            console.log('gameId', gameId)
+            user1 = data.user1;
+            console.log('user1', user1)
+            user2 = data.user2;
+            console.log('user2', user2)
+
+            user1WS = findWebSocketByUsername(user1);
+            user2WS = findWebSocketByUsername(user2);
+
+            const startNewRoundMessage = JSON.stringify({
+                type: 'start-new-round',
+                data: {
+                    gameId: gameId
+                }
+            });
+
+            if (user1WS && user1WS.readyState === WebSocket.OPEN) {
+                user1WS.send(startNewRoundMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
+            }
+
+            if (user2WS && user2WS.readyState === WebSocket.OPEN) {
+                user2WS.send(startNewRoundMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
+            }
+
+            break;
         case 'join':
             ws.room = data.room;
             ws.username = data.username;

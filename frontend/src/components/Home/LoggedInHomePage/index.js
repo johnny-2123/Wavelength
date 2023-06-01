@@ -60,7 +60,6 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                 })
         },
         "round-results": (data) => {
-            console.log('received round-results message')
             const gameId = data?.gameId;
             dispatch(fetchGameById(gameId))
                 .then((game) => {
@@ -69,7 +68,18 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                     setShowRoundResults(true);
                 })
 
-        }
+        },
+        "start-new-round": (data) => {
+            console.log('received start-new-round message')
+            const gameId = data?.gameId;
+            dispatch(fetchGameById(gameId))
+                .then((game) => {
+                    console.log('game results', game)
+                    setShowGamePlay(true);
+                    setShowRoundResults(false);
+                }
+                )
+        },
     };
 
     const { sendMessage } = useWebSocket(

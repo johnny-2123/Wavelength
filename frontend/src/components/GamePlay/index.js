@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGameById, updateGame } from "../../store/game";
-import { fetchUpdateRound } from "../../store/rounds";
+import { fetchUpdateRound, fetchCreateRound } from "../../store/rounds";
 import { fetchCreateWord } from "../../store/words";
 import './Gameplay.css';
 const GamePlay = ({ setShowGamePlay, sessionUser, sendMessage, showRoundResults }) => {
@@ -25,8 +25,11 @@ const GamePlay = ({ setShowGamePlay, sessionUser, sendMessage, showRoundResults 
 
     const handleGameStatus = useCallback((game) => {
         const currentRound = game?.Round?.[roundNumber - 1];
-        const { user1Agrees, user2Agrees, Words } = currentRound || {};
+        const { user1Agrees, user2Agrees, user1Ready, user2Ready, Words } = currentRound || {};
         const { length } = Words || [];
+
+        console.log('user1Ready', user1Ready)
+        console.log('user2Ready', user2Ready)
 
         if (length === 2) {
             if (Words[0]?.wordText === Words[1]?.wordText) {
@@ -63,8 +66,16 @@ const GamePlay = ({ setShowGamePlay, sessionUser, sendMessage, showRoundResults 
                     user1: game?.user1?.username,
                     user2: game?.user2?.username
                 });
-            } else {
-                console.log('no users agree');
+            } else if (user1Ready && user2Ready) {
+                console.log('both users ready');
+                dispatch(fetchCreateRound(gameId))
+                    .then(() => {
+                        sendMessage('send-start-new-round', {
+                            gameId: game?.id,
+                            user1: game?.user1?.username,
+                            user2: game?.user2?.username
+                        });
+                    });
             }
         }
     }, [dispatch, gameId, roundNumber, sendMessage]);
@@ -82,7 +93,9 @@ const GamePlay = ({ setShowGamePlay, sessionUser, sendMessage, showRoundResults 
     const handleNextRoundSubmit = () => {
         const currentUserPlayerNumber = game?.user1?.username === sessionUser?.username ? 1 : 2;
         const agreementString = `user${currentUserPlayerNumber}Ready`;
-        dispatch(fetchUpdateRound(roundId, agreementString, true));
+        dispatch(fetchUpdateRound(roundId, agreementString, true))
+            .then(() => setPlayerReady(true))
+            .catch(error => console.log('error updating round with handleNextRoundSubmit', error));
     };
 
     const handleSubmitWord = e => {
@@ -107,7 +120,7 @@ const GamePlay = ({ setShowGamePlay, sessionUser, sendMessage, showRoundResults 
     return (
         <div className="gamePlay">
             <h1>Round {roundNumber}</h1>
-            {!submittedWord && !showRoundResults && roundNumber === 1 && (
+            {!submittedWord && !userWord && !showRoundResults && roundNumber === 1 && (
                 <div className="roundOne">
                     <div>
                         <h2>
@@ -129,6 +142,18 @@ const GamePlay = ({ setShowGamePlay, sessionUser, sendMessage, showRoundResults 
                     </div>
                 </div>
             )}
+
+            {!submittedWord && !showRoundResults && roundNumber > 1 && (
+                <div className="followingRounds">
+                    <div>
+                        <h2>
+                            Enter a word related to yours and your partner's previous words that you think your partner will also enter.
+                        </h2>
+                    </div>
+                </div>
+
+            )}
+
             {showRoundResults &&
                 <div className="roundResults">
                     <h2>Round Results</h2>

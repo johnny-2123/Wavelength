@@ -18,9 +18,9 @@ export const fetchSetCurrentUserOffline = () => async (dispatch) => {
     })
 
     if (response.ok) {
-        console.log("fetchSetcurrentUserOffline response ok");
+        // console.log("fetchSetcurrentUserOffline response ok");
         const user = await response.json();
-        console.log("user: ", user);
+        // console.log("user: ", user);
         return response;
     } else {
         const data = await response.json();
