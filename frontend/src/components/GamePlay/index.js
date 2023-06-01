@@ -5,7 +5,7 @@ import { fetchGameById, updateGame } from "../../store/game";
 import { fetchUpdateRound } from "../../store/rounds";
 import { fetchCreateWord } from "../../store/words";
 import './Gameplay.css';
-const GamePlay = ({ setShowGamePlay, sessionUser, sendMessage, showRoundResults, setShowRoundResults }) => {
+const GamePlay = ({ setShowGamePlay, sessionUser, sendMessage, showRoundResults }) => {
     const dispatch = useDispatch();
     const { gameId } = useParams();
     const game = useSelector(state => state.games.currentGame);
@@ -25,19 +25,11 @@ const GamePlay = ({ setShowGamePlay, sessionUser, sendMessage, showRoundResults,
 
     const handleGameStatus = useCallback((game) => {
         const currentRound = game?.Round?.[roundNumber - 1];
-        console.log('currentRound', currentRound)
-        const user1Agrees = currentRound?.user1Agrees;
-        console.log('user1Agrees', user1Agrees)
-        const user2Agrees = currentRound?.user2Agrees;
-        console.log('user2Agrees', user2Agrees)
-        const user1Ready = currentRound?.user1Ready;
-        console.log('user1Ready', user1Ready)
-        const user2Ready = currentRound?.user2Ready;
-        console.log('user2Ready', user2Ready)
-        const words = currentRound?.Words;
+        const { user1Agrees, user2Agrees, Words } = currentRound || {};
+        const { length } = Words || [];
 
-        if (words?.length === 2) {
-            if (words[0]?.wordText === words[1]?.wordText) {
+        if (length === 2) {
+            if (Words[0]?.wordText === Words[1]?.wordText) {
                 dispatch(updateGame(gameId, true)).then((updatedGame) => {
                     sendMessage('send-game-won-message', {
                         gameId: updatedGame?.id,
@@ -54,27 +46,29 @@ const GamePlay = ({ setShowGamePlay, sessionUser, sendMessage, showRoundResults,
             }
         }
 
-        if (words?.length === 2 && user1Agrees && user2Agrees) {
-            console.log('both users agree');
-            dispatch(updateGame(gameId, true)).then((updatedGame) => {
-                sendMessage('send-game-won-message', {
-                    gameId: updatedGame?.id,
-                    user1: updatedGame?.user1?.username,
-                    user2: updatedGame?.user2?.username
+        if (length === 2) {
+            if (user1Agrees && user2Agrees) {
+                console.log('both users agree');
+                dispatch(updateGame(gameId, true)).then((updatedGame) => {
+                    sendMessage('send-game-won-message', {
+                        gameId: updatedGame?.id,
+                        user1: updatedGame?.user1?.username,
+                        user2: updatedGame?.user2?.username
+                    });
                 });
-            });
-        } else if (words?.length === 2 && (user1Agrees || user2Agrees)) {
-            console.log('one user agrees');
-            sendMessage('send-round-results', {
-                gameId: game?.id,
-                user1: game?.user1?.username,
-                user2: game?.user2?.username
-            });
-        } else if (words?.length === 2 && !user1Agrees && !user2Agrees) {
-            console.log('no users agree');
-
+            } else if (user1Agrees || user2Agrees) {
+                console.log('one user agrees');
+                sendMessage('send-round-results', {
+                    gameId: game?.id,
+                    user1: game?.user1?.username,
+                    user2: game?.user2?.username
+                });
+            } else {
+                console.log('no users agree');
+            }
         }
-    }, [dispatch, gameId, roundNumber]);
+    }, [dispatch, gameId, roundNumber, sendMessage]);
+
 
     const handleCloseEnoughSubmit = () => {
         const currentUserPlayerNumber = game?.user1?.username === sessionUser?.username ? 1 : 2;
@@ -104,18 +98,16 @@ const GamePlay = ({ setShowGamePlay, sessionUser, sendMessage, showRoundResults,
             .catch(error => {
                 console.log('error fetching game', error);
             });
-    }, [dispatch, gameId, handleGameStatus, submittedWord, playerReady]);
+    }, [dispatch, gameId, submittedWord, playerReady]);
 
     useEffect(() => {
         setShowGamePlay(!game?.gameOver);
     }, [game, setShowGamePlay]);
 
-
-
     return (
         <div className="gamePlay">
             <h1>Round {roundNumber}</h1>
-            {!submittedWord && !showRoundResults && roundNumber <= 1 && (
+            {!submittedWord && !showRoundResults && roundNumber === 1 && (
                 <div className="roundOne">
                     <div>
                         <h2>
