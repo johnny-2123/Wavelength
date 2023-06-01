@@ -1,9 +1,12 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchGameById, updateGame } from "../../store/game";
 import { fetchCreateRound, fetchUpdateRound } from "../../store/rounds";
 import { fetchCreateWord } from "../../store/words";
+import RoundOneForm from "./RoundOneForm";
+import FollowingRoundsForm from "./FollowingRoundsForm";
+import RoundResults from "./RoundResults";
 import "./Gameplay.css";
 
 const GamePlay = ({
@@ -90,7 +93,6 @@ const GamePlay = ({
         }
 
         if ((user1Agrees && user2Ready) || (user1Ready && user2Agrees)) {
-            console.log('one user agrees and the other user is ready');
             sendStartNewRound();
         }
     }, [dispatch, gameId, roundNumber, sendMessage]);
@@ -142,78 +144,16 @@ const GamePlay = ({
     return (
         <div className="gamePlay">
             <h1>Round {roundNumber}</h1>
-            {!userWord && !showRoundResults && roundNumber === 1 && (
-                <div className="roundOne">
-                    <div>
-                        <h2>
-                            Enter any word, and in the next round, you and your partner will
-                            try to sync minds and enter the same word using your previous
-                            words.
-                        </h2>
-                    </div>
-                    <div className="wordInputDiv">
-                        <form>
-                            <input
-                                type="text"
-                                value={wordText}
-                                onChange={(e) => setWordText(e.target.value)}
-                                placeholder="Enter your word"
-                            />
-                            <button type="submit" onClick={handleSubmitWord}>
-                                Submit
-                            </button>
-                        </form>
-                    </div>
-                </div>
+            {!userWord && !showRoundResults && roundNumber === 1 && (<RoundOneForm onSubmit={handleSubmitWord} wordText={wordText} setWordText={setWordText} />
             )}
 
             {!userWord && !showRoundResults && previousRoundWords && roundNumber > 1 && (
-                <div className="followingRounds">
-                    <div className="previousWords">
-                        <div className="partnerPreviousWord">
-                            <h2>
-                                {friendUser?.username}'s Previous Word:{" "}
-                                {previousRoundFriendWordText}
-                            </h2>
-                        </div>
-                        <div className="yourPreviousWord">
-                            <h2>Your Previous Word: {previousRoundUserWordText}</h2>
-                        </div>
-                    </div>
-                    <div>
-                        <h2>
-                            Enter a word related to yours and your partner's previous words
-                            that you think your partner will also enter.
-                        </h2>
-                    </div>
-                    <div className="wordInputDiv">
-                        <form>
-                            <input
-                                type="text"
-                                value={wordText}
-                                onChange={(e) => setWordText(e.target.value)}
-                                placeholder="Enter your word"
-                            />
-                            <button type="submit" onClick={handleSubmitWord}>
-                                Submit
-                            </button>
-                        </form>
-                    </div>
-                </div>
+                <FollowingRoundsForm onSubmit={handleSubmitWord} wordText={wordText} setWordText={setWordText} friendUser={friendUser} previousRoundFriendWordText={previousRoundFriendWordText} previousRoundUserWordText={previousRoundUserWordText} />
             )}
 
             {showRoundResults && (
-                <div className="roundResults">
-                    <h2>Round Results</h2>
-                    <h3>
-                        {friendUser?.username}'s word: {friendWordText}
-                    </h3>
-                    <h3>Your Word: {userWordText}</h3>
-                    <div>
-                        <button onClick={handleCloseEnoughSubmit}>Close Enough</button>
-                        <button onClick={handleNextRoundSubmit}>Next Round</button>
-                    </div>
-                </div>
+                <RoundResults onCloseEnoughSubmit={handleCloseEnoughSubmit} onNextRoundSubmit={handleNextRoundSubmit} friendUser={friendUser} friendWordText={friendWordText} userWordText={userWordText} />
+
             )}
         </div>
     );

@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Switch, Route, useHistory, NavLink } from "react-router-dom";
-import { fetchFriends, updateOnlineStatus, updateOfflineStatus } from "../../../store/friends";
-import DirectMessageForm from "../../DirectMessageForm";
+import { useHistory, NavLink } from "react-router-dom";
+import { fetchFriends } from "../../../store/friends";
 import { fetchSetCurrentUserOffline } from "../../../store/session";
 import { fetchGameById } from "../../../store/game";
-import { fetchCreateRound } from "../../../store/rounds";
-import FriendsList from "../../Friends";
 import GameInviteRequestComponent from "../../GameInviteRequestComponent";
 import Routes from "./Routes";
-import GamePlay from "../../GamePlay";
 import GameResults from "../../GameResults";
 import useWebSocket from "./useWebsocket";
 import { useModal } from "../../../context/modal";
@@ -51,7 +47,6 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                 });
         },
         "game-won": (data) => {
-            console.log('received game-won message')
             const gameId = data?.gameId;
             dispatch(fetchGameById(gameId))
                 .then((game) => {
@@ -73,7 +68,6 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
 
         },
         "start-new-round": (data) => {
-            console.log('received start-new-round message')
             const gameId = data?.gameId;
             dispatch(fetchGameById(gameId))
                 .then((game) => {
