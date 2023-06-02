@@ -9,6 +9,7 @@ router.get(
     async (req, res) => {
         const { gameId } = req.params;
         const rounds = await Round.findAll({ where: { gameId } });
+
         res.status(200).json({ rounds });
     }
 );
@@ -17,6 +18,14 @@ router.post(
     '/:gameId/rounds',
     async (req, res) => {
         const { gameId } = req.params;
+
+        const rounds = await Round.findAll({ where: { gameId } });
+        const lastRound = rounds[rounds.length - 1];
+
+        if (lastRound && !lastRound.user1Ready && !lastRound.user2Ready) {
+            return res.status(201).json({ round: lastRound });
+        }
+
         const round = await Round.create({ gameId, user1Agrees: false, user2Agrees: false });
         res.status(201).json({ round });
     }
