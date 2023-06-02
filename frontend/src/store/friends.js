@@ -4,11 +4,58 @@ const GET_FRIENDS = "friends/getFriends";
 const UPDATE_ONLINE_STATUS = "friends/updateOnlineStatus";
 const UPDATE_OFFLINE_STATUS = "friends/updateOfflineStatus";
 const SEND_FRIEND_REQUEST = "friends/sendFriendRequest";
+const ACCEPT_FRIEND_REQUEST = "friends/acceptFriendRequest";
+const REJECT_FRIEND_REQUEST = "friends/rejectFriendRequest";
+
+const rejectFriend = (friend) => {
+    return {
+        type: REJECT_FRIEND_REQUEST,
+        payload: friend,
+    };
+}
+
+export const fetchRejectFriendRequest = (friendId, status) => async (dispatch) => {
+
+    const response = await csrfFetch(`/api/friends/${friendId}`, {
+        method: "PUT",
+        body: JSON.stringify({ status }),
+    });
+
+    if (response.ok) {
+        const friend = await response.json();
+        console.log("friend request rejected in redux store: ", friend.friendship.RequestingUser);
+        dispatch(rejectFriend(friend.friendship.RequestingUser));
+        return friend;
+    }
+
+}
+
+const acceptFriend = (friend) => {
+    return {
+        type: ACCEPT_FRIEND_REQUEST,
+        payload: friend,
+    };
+}
+
+export const fetchAcceptFriendRequest = (friendId, status) => async (dispatch) => {
+
+    const response = await csrfFetch(`/api/friends/${friendId}`, {
+        method: "PUT",
+        body: JSON.stringify({ status }),
+    });
+
+    if (response.ok) {
+        const friend = await response.json();
+        console.log('friend.ReceivingUser', friend.friendship.RequestingUser);
+        console.log("friend request accepted in redux store: ", friend.friendship.RequestingUser);
+        dispatch(acceptFriend(friend.friendship.RequestingUser));
+        return friend;
+    }
+
+}
 
 
 export const fetchSendFriendRequest = (friendCredential) => async (dispatch) => {
-    console.log("running redux store sendFriendRequest");
-    console.log("friendCredential: ", friendCredential);
 
     const response = await csrfFetch(`/api/friends`, {
         method: "POST",
@@ -18,15 +65,13 @@ export const fetchSendFriendRequest = (friendCredential) => async (dispatch) => 
     if (response.ok) {
         const friend = await response.json();
         console.log("friend request sent in redux store: ", friend);
-        // dispatch(sendFriendRequestAction(friend));
+        if (friend.friendship) {
+            dispatch(acceptFriend(friend.friendship.RequestingUser));
+        }
         return friend;
-    } else {
-        const data = await response.json();
-        console.log("error in sendFriendRequest");
-        console.log(data);
-        return data;
     }
-}
+
+};
 
 export const updateOfflineStatus = (userId, friendId) => {
     // console.log("running redux store updateOfflineStatus");
@@ -79,12 +124,13 @@ export const fetchFriends = () => async (dispatch) => {
 const initialState = { friends: [] };
 
 const friendsReducer = (state = initialState, action) => {
+    let newState;
     switch (action.type) {
         case GET_FRIENDS:
             return { ...state, friends: action.payload.friends };
         case UPDATE_ONLINE_STATUS:
             const { userId, friendId } = action.payload;
-            const newState = { ...state };
+            newState = { ...state };
             newState.friends.forEach((friend) => {
                 if (friend.RequestingUser?.id === friendId) {
                     friend.RequestingUser.isOnline = true;
@@ -103,6 +149,20 @@ const friendsReducer = (state = initialState, action) => {
                     friend.ReceivingUser.isOnline = false;
                 }
             });
+        case ACCEPT_FRIEND_REQUEST:
+            newState = { ...state };
+            newState.friends.forEach((friend) => {
+                if (friend.RequestingUser?.id === action.payload.id) {
+                    console.log('changing status to accepted', friend.RequestingUser);
+                    friend.status = "accepted";
+                }
+            });
+            return newState;
+        case REJECT_FRIEND_REQUEST:
+            newState = { ...state };
+            let friendToRemove = newState.friends.find((friend) => friend.RequestingUser?.id === action.payload.id);
+            newState.friends.splice(newState.friends.indexOf(friendToRemove), 1);
+            return newState;
         default:
             return state;
     }

@@ -13,22 +13,22 @@ const AddFriend = () => {
     console.log('errors', errors);
 
     const handleAddFriend = async (e) => {
-
         e.preventDefault();
-        console.log('handleAddFriend')
-        const data = await dispatch(fetchSendFriendRequest(friendCredential));
+        return dispatch(fetchSendFriendRequest(friendCredential))
+            .then(async (data) => {
+                if (data && data.message) {
+                    setErrors([]);
+                    setMessage(data.message);
+                }
 
-        if (data.errors) {
-            setErrors(data.errors);
-            setMessage("");
-        }
-
-        if (data.message) {
-            setErrors([]);
-            setMessage(data.message);
-        }
-
-    }
+                console.log('data', data);
+            })
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) setErrors(data.errors);
+                console.log('data', data.errors);
+            });
+    };
 
     return (
         <div className="addFriendMainDiv">

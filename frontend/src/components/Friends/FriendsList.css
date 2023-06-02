@@ -147,3 +147,27 @@
     background-color: green;
     border-radius: 50%;
 }
+
+.friendsNavBar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.friendsNavBar a {
+    margin-right: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+
+    color: rgba(128, 128, 128, 0.521);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    border: transparent 1px solid;
+}
+
+
+.friendsNavBar .active-link {
+    color: white;
+    font-weight: bold;
+}

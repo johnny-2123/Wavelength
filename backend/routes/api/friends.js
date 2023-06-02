@@ -23,18 +23,18 @@ const findFriendship = async (userId, friendId) => {
 
 const validateFriendship = (userId, friendShipSent, friendShipReceived) => {
     if (!friendShipSent && !friendShipReceived)
-        return { status: 404, message: 'Friendship not found.' };
+        return { status: 404, errors: ['Friendship not found.'] };
 
     if (friendShipSent && userId !== friendShipSent.RequestingUser.id)
-        return { status: 401, message: 'Unauthorized.' };
+        return { status: 401, errors: ['Unauthorized.'] };
 
     if (friendShipReceived && userId !== friendShipReceived.ReceivingUser.id)
-        return { status: 401, message: 'Unauthorized.' };
+        return { status: 401, errors: ['Unauthorized.'] };
 
     return null;
 };
 
-router.get('/:friendId/games', requireAuth, asyncHandler(async (req, res) => {
+router.get('/:friendId/games', requireAuth, (async (req, res) => {
     const userId = req.user.id;
     const { friendId } = req.params;
     const { friendShipSent, friendShipReceived } = await findFriendship(userId, friendId);
@@ -52,7 +52,7 @@ router.get('/:friendId/games', requireAuth, asyncHandler(async (req, res) => {
     res.status(200).json({ games });
 }));
 
-router.delete('/:friendId', requireAuth, asyncHandler(async (req, res) => {
+router.delete('/:friendId', requireAuth, (async (req, res) => {
     const userId = req.user.id;
     const { friendId } = req.params;
     const { friendShipSent, friendShipReceived } = await findFriendship(userId, friendId);
@@ -65,7 +65,7 @@ router.delete('/:friendId', requireAuth, asyncHandler(async (req, res) => {
     res.status(200).json({ message: 'Friendship deleted.', friendship: friendshipToDelete });
 }));
 
-router.put('/:friendId', requireAuth, asyncHandler(async (req, res) => {
+router.put('/:friendId', requireAuth, (async (req, res) => {
     const userId = req.user.id;
     const { friendId } = req.params;
     const { status } = req.body;
@@ -85,61 +85,73 @@ router.put('/:friendId', requireAuth, asyncHandler(async (req, res) => {
     if (status === 'accepted' && friendShipReceived) {
         friendShipReceived.status = 'accepted';
         await friendShipReceived.save();
-        return res.status(200).json({ message: 'Friend request accepted.', friendship: friendShipReceived });
+        return res.status(200).json({ message: [`Friend request from ${friend.username} accepted.`], friendship: friendShipReceived });
     }
 
     if (status === 'rejected' && friendShipReceived) {
         await friendShipReceived.destroy();
-        return res.status(200).json({ message: 'Friend request rejected.', friendship: friendShipReceived });
+        return res.status(200).json({ message: ['Friend request rejected.'], friendship: friendShipReceived });
     }
+
+    return res.status(400).json({ errors: ['Invalid request.'] });
 }));
 
 
-router.post('/', requireAuth, asyncHandler(async (req, res) => {
-    const userId = req.user.id;
-    const { friendCredential } = req.body;
+router.post('/',
+    requireAuth,
+    async (req, res) => {
+        const userId = req.user.id;
+        const { friendCredential } = req.body;
 
-    console.log('friendCredential', friendCredential);
+        console.log('friendCredential', friendCredential);
 
-    const friendUser = await User.findOne({
-        where: {
-            [Op.or]: [
-                { username: friendCredential },
-                { email: friendCredential }
-            ]
-        },
-        attributes: ['id']
-    });
+        const friend = await User.findOne({
+            where: {
+                [Op.or]: [
+                    { username: friendCredential },
+                    { email: friendCredential }
+                ]
+            },
+            attributes: ['id', 'username']
+        });
+
+        console.log('friend', friend);
+
+        if (!friend) {
+            return res.status(404).json({ errors: ['Friend not found.'] });
+        }
+
+        console.log('friendId', friend?.id);
+
+        const [friendShipSent, friendShipReceived] = await Promise.all([
+
+            Friend.findOne({ where: { userId, friendId: friend.id }, include: includeUsers }),
+            Friend.findOne({ where: { userId: friend.id, friendId: userId }, include: includeUsers })
+        ]);
 
 
-    if (!friendUser) {
-        return res.status(404).json({ errors: 'Friend not found.' });
+        if (friendShipSent && friendShipSent.status === 'accepted') {
+            return res.status(400).json({ errors: ['You are already friends with this user'] });
+        }
+
+        if (friendShipSent)
+            return res.status(400).json({ errors: ['Friendship already sent.'] });
+
+        if (friendShipReceived && friendShipReceived.status === 'accepted') {
+            return res.status(400).json({ errors: ['You are already friends with this user'] });
+        }
+
+        if (friendShipReceived) {
+            friendShipReceived.status = 'accepted';
+            await friendShipReceived.save();
+            return res.status(200).json({ message: [`Friend request from ${friend.username} accepted.`], friendship: friendShipReceived });
+        }
+
+        const friendship = await Friend.create({ userId, friendId: friend.id, status: 'pending' });
+        friendship.save();
+        res.status(201).json({ message: [`Friend request sent to ${friend.username}.`] });
     }
-
-    console.log('friendId', friendUser?.id);
-
-    const [friend, friendShipSent, friendShipReceived] = await Promise.all([
-        User.findByPk(friendUser.id),
-        Friend.findOne({ where: { userId, friendId: friendUser.id }, include: includeUsers }),
-        Friend.findOne({ where: { userId: friendUser.id, friendId: userId }, include: includeUsers })
-    ]);
-
-    if (!friend)
-        return res.status(404).json({ errors: 'Friend not found.' });
-
-    if (friendShipSent)
-        return res.status(400).json({ errors: 'Friendship already sent.' });
-
-    if (friendShipReceived) {
-        friendShipReceived.status = 'accepted';
-        await friendShipReceived.save();
-        return res.status(200).json({ message: 'Friend request accepted.', friendship: friendShipReceived });
-    }
-
-    const friendship = await Friend.create({ userId, friendId: friendUser.id, status: 'pending' });
-    friendship.save();
-    res.status(201).json({ message: `Friend request sent to ${friend.username}.` });
-}));
+);
 
 router.get('/', requireAuth, asyncHandler(async (req, res) => {
     const userId = req.user.id;

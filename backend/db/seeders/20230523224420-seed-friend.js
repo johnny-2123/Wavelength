@@ -17,9 +17,7 @@ module.exports = {
       { userId: 1, friendId: 3, status: accepted, dateAdded: new Date() },
       { userId: 1, friendId: 4, status: accepted, dateAdded: new Date() },
       { userId: 1, friendId: 5, status: accepted, dateAdded: new Date() },
-      { userId: 1, friendId: 8, status: accepted, dateAdded: new Date() },
-      { userId: 1, friendId: 9, status: pending },
-      { userId: 1, friendId: 10, status: pending },
+
 
       { userId: 2, friendId: 3, status: accepted, dateAdded: new Date() },
       { userId: 2, friendId: 4, status: accepted, dateAdded: new Date() },
@@ -31,9 +29,13 @@ module.exports = {
       { userId: 2, friendId: 10, status: pending },
 
 
-      { userId: 6, friendId: 1, status: pending, dateAdded: new Date() },
-      { userId: 7, friendId: 1, status: pending, dateAdded: new Date() },
-
+      { userId: 6, friendId: 1, status: pending },
+      { userId: 7, friendId: 1, status: pending },
+      { userId: 8, friendId: 1, status: pending },
+      { userId: 9, friendId: 1, status: pending },
+      { userId: 10, friendId: 1, status: pending },
+      { userId: 11, friendId: 1, status: pending },
+      { userId: 12, friendId: 1, status: pending },
     ], options);
 
 
