@@ -33,7 +33,9 @@ const AcceptedFriends = ({ friends, sessionUser, sendMessage }) => {
                     <div className="friendName">{friendUser?.firstName}</div>
                 </div>
                 {onlineStatus && <div className="onlineStatus"></div>}
-                <button onClick={() => handleSendGameInvite(friendUser.username, friendUser.id)}>New Game</button>
+                <div className="friendButtons">
+                    <button onClick={() => handleSendGameInvite(friendUser.username, friendUser.id)}>New Game</button>
+                </div>
             </div>
         );
     });

@@ -122,11 +122,11 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
         <div className="homePageLoggedInMainDiv">
             {!showGamePlay && (
                 <nav className="homeNavBar">
-                    <NavLink to="/direct-message-form" activeClassName="active-link" exact>
+                    <NavLink to="/direct-message-form" activeClassName="active-link" >
                         Direct Messages
                     </NavLink>
-                    <NavLink to="/friends-list" activeClassName="active-link" exact>
-                        Friends List
+                    <NavLink to="/friends" activeClassName="active-link">
+                        Friends
                     </NavLink>
                 </nav>
             )}

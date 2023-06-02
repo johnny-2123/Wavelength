@@ -19,19 +19,19 @@ const FriendsList = ({ friends, sessionUser, sendMessage }) => {
 
     return (
         <div className="friendsList">
+            <nav className="friendsNavBar">
+                <div className='friendNavLinks'>
+                    <NavLink to={`${url}/accepted`} activeClassName="active-link" onClick={() => handleTabClick("accepted")}>
+                        Accepted
+                    </NavLink>
+                    <NavLink to={`${url}/pending`} activeClassName="active-link" onClick={() => handleTabClick("pending")}>
+                        Pending
+                    </NavLink>
+                </div>
+            </nav>
             <div className="openFriendModalDiv">
                 <OpenModalButton modalComponent={<AddFriend />} buttonText={<i className="fa-solid fa-user-plus" />} />
             </div>
-
-            <nav className="friendsNavBar">
-                <NavLink to={`${url}/accepted`} activeClassName="active-link" onClick={() => handleTabClick("accepted")}>
-                    Accepted Friends
-                </NavLink>
-                <NavLink to={`${url}/pending`} activeClassName="active-link" onClick={() => handleTabClick("pending")}>
-                    Pending Friends
-                </NavLink>
-            </nav>
-
             <Switch>
                 <Route path={`${path}/accepted`}>
                     <AcceptedFriends friends={friends} sessionUser={sessionUser} sendMessage={sendMessage} />

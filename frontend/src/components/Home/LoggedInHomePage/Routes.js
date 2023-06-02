@@ -20,7 +20,7 @@ const Routes = ({ sessionUser, sendMessage, receivedMessages, friends, game, sho
         <Route path="/direct-message-form">
             <DirectMessageForm sendMessage={sendMessage} sessionUser={sessionUser} receivedMessages={receivedMessages} />
         </Route>
-        <Route path="/friends-list">
+        <Route path="/friends">
             <FriendsList friends={friends} sessionUser={sessionUser} sendMessage={sendMessage} />
         </Route>
     </Switch>

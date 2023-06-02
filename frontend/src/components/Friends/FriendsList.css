@@ -14,6 +14,7 @@
     height: 65vh;
     overflow-y: auto;
     overflow-x: hidden;
+    position: relative;
 }
 
 .friendsContainer::-webkit-scrollbar {
@@ -37,7 +38,45 @@
     letter-spacing: 1px;
 }
 
+
+.friendsNavBar {
+    /* outline: red dotted 1px; */
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0rem;
+}
+
+.friendNavLinks {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+}
+
+.friendsNavBar a {
+    margin-right: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: rgba(128, 128, 128, 0.521);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.friendsNavBar a:hover {
+    color: rgba(255, 255, 255, 0.818);
+}
+
+
+.friendsNavBar .active-link {
+    color: white;
+    font-weight: bold;
+}
+
+
 .openFriendModalDiv {
+    /* outline: green dotted 1px; */
+    margin: 0;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -50,12 +89,11 @@
 
 .fa-user-plus {
     color: white;
-    font-size: 1.7rem;
+    font-size: 1.4rem;
     cursor: pointer;
     background-color: transparent;
     transition: background-color 0.3s ease;
-    margin-right: 1rem;
-    margin-bottom: .2rem;
+    margin: 0 .5rem .2rem 1.4rem;
 }
 
 .fa-user-plus:hover {
@@ -73,6 +111,8 @@
     align-items: center;
     justify-content: space-between;
     transition: background-color 0.3s;
+    position: relative;
+
 }
 
 .friendItem:hover {
@@ -86,14 +126,18 @@
 .friendIconDiv {
     flex: 1;
     text-align: center;
+    position: relative;
 }
 
-#friendIcon {
-    color: #E4736B;
-}
+.onlineStatus {
+    position: absolute;
+    top: 32%;
+    left: 5.5%;
+    width: 7px;
+    height: 7px;
+    background-color: green;
+    border-radius: 50%;
 
-#pendingFriendIcon {
-    color: #ccc;
 }
 
 .fa-user {
@@ -107,7 +151,7 @@
 }
 
 .friendUsername {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 400;
     color: white;
 }
@@ -115,6 +159,13 @@
 .friendName {
     font-size: 1rem;
     color: #666;
+}
+
+
+.friendButtons {
+    width: 35%;
+    display: flex;
+    flex-direction: row;
 }
 
 .friendItem button {
@@ -131,43 +182,11 @@
     transition: background-color 0.3s;
 }
 
+
+
 .friendItem button:hover {
     border: white 2px solid;
     border-radius: 5px;
     background-color: white;
     color: #E4736B;
-}
-
-.onlineStatus {
-    position: relative;
-    top: -40%;
-    left: -35%;
-    width: 10px;
-    height: 10px;
-    background-color: green;
-    border-radius: 50%;
-}
-
-.friendsNavBar {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1rem;
-}
-
-.friendsNavBar a {
-    margin-right: 1rem;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    font-weight: bold;
-
-    color: rgba(128, 128, 128, 0.521);
-    text-decoration: none;
-    transition: color 0.3s ease;
-    border: transparent 1px solid;
-}
-
-
-.friendsNavBar .active-link {
-    color: white;
-    font-weight: bold;
 }

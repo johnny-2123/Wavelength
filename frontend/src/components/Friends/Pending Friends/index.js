@@ -28,12 +28,14 @@ const PendingFriends = ({ friends, sessionUser }) => {
                     <div className="friendUsername">{friendUser?.username}</div>
                     <div className="friendName"> {friendUser?.firstName}</div>
                 </div>
-                <button
-                    onClick={() => handleAcceptFriendRequest(friendUser.id, "accepted")}
-                >Accept Friend Request</button>
-                <button
-                    onClick={() => handleRejectFriendRequest(friendUser.id, "rejected")}
-                >Decline Friend Request</button>
+                <div className="friendButtons">
+                    <button
+                        onClick={() => handleAcceptFriendRequest(friendUser.id, "accepted")}
+                    >Accept</button>
+                    <button
+                        onClick={() => handleRejectFriendRequest(friendUser.id, "rejected")}
+                    >Decline</button>
+                </div>
             </div>
         );
     });
