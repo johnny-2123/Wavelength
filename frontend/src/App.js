@@ -6,6 +6,7 @@ import LoginFormPage from "./components/User/LoginFormPage";
 import SignupFormPage from "./components/User/SignUpFormPage";
 import Home from "./components/Home";
 import Navigation from "./components/Navigation";
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
 function App() {
   const dispatch = useDispatch();
