@@ -28,13 +28,13 @@ router.post(
         });
 
         console.log('lastRound', lastRound)
-        console.log('lastRound.Words.length', lastRound.Words.length)
+        console.log('lastRound.Words.length', lastRound?.Words?.length)
 
-        if (lastRound && lastRound.Words.length < 2) {
+        if (lastRound && lastRound?.Words?.length < 2) {
             return res.status(201).json({ round: lastRound });
         }
 
-        if (lastRound && (!lastRound.user1Ready || !lastRound.user2Ready)) {
+        if (lastRound && (!lastRound?.user1Ready || !lastRound?.user2Ready)) {
             return res.status(201).json({ round: lastRound });
         }
 
