@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import GamePlay from "../../GamePlay";
 import DirectMessageForm from "../../DirectMessageForm";
 import FriendsList from "../../Friends";
+import PastGames from "../../Past Games";
 
 const Routes = ({ sessionUser, sendMessage, receivedMessages, friends, game, showRoundResults, setShowRoundResults, playerReady, setPlayerReady, setShowGamePlay }) => (
     <Switch>
@@ -22,6 +23,9 @@ const Routes = ({ sessionUser, sendMessage, receivedMessages, friends, game, sho
         </Route>
         <Route path="/friends">
             <FriendsList friends={friends} sessionUser={sessionUser} sendMessage={sendMessage} />
+        </Route>
+        <Route path="/games">
+            <PastGames sessionUser={sessionUser} sendMessage={sendMessage} />
         </Route>
     </Switch>
 );

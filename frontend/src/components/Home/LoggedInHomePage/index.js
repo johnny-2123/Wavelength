@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, NavLink } from "react-router-dom";
 import { fetchFriends } from "../../../store/friends";
-import { fetchSetCurrentUserOffline } from "../../../store/session";
 import { fetchGameById } from "../../../store/game";
 import GameInviteRequestComponent from "../../GameInviteRequestComponent";
 import Routes from "./Routes";
@@ -122,11 +121,14 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
         <div className="homePageLoggedInMainDiv">
             {!showGamePlay && (
                 <nav className="homeNavBar">
-                    <NavLink to="/direct-message-form" activeClassName="active-link" >
+                    {/* <NavLink to="/direct-message-form" activeClassName="active-link" >
                         Direct Messages
-                    </NavLink>
+                    </NavLink> */}
                     <NavLink to="/friends" activeClassName="active-link">
                         Friends
+                    </NavLink>
+                    <NavLink to="/games" activeClassName="active-link">
+                        Games
                     </NavLink>
                 </nav>
             )}
