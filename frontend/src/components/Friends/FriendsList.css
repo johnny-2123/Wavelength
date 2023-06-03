@@ -43,7 +43,7 @@
     /* outline: red dotted 1px; */
     display: flex;
     justify-content: space-between;
-    margin-bottom: 0rem;
+    margin: 0rem;
 }
 
 .friendNavLinks {
@@ -64,12 +64,12 @@
 }
 
 .friendsNavBar a:hover {
-    color: rgba(255, 255, 255, 0.818);
+    color: #A0741B;
 }
 
 
 .friendsNavBar .active-link {
-    color: white;
+    color: #A0741B;
     font-weight: bold;
 }
 
@@ -88,7 +88,7 @@
 }
 
 .fa-user-plus {
-    color: white;
+    color: #D85F56;
     font-size: 1.4rem;
     cursor: pointer;
     background-color: transparent;
@@ -151,9 +151,9 @@
 }
 
 .friendUsername {
-    font-size: 1.2rem;
-    font-weight: 400;
-    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #334075;
 }
 
 .friendName {
@@ -173,20 +173,19 @@
     padding: 0.5rem 1rem;
     margin-right: 1rem;
     background-color: transparent;
-    color: white;
+    color: #666;
     border: transparent 2px solid;
     border-radius: 5px;
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.3s;
+    transition: font-weight 0.3s;
+    transition: color 0.3s;
 }
 
 
 
 .friendItem button:hover {
-    border: white 2px solid;
-    border-radius: 5px;
-    background-color: white;
-    color: #E4736B;
+    color: #334075;
 }

@@ -5,6 +5,7 @@ import OpenModalButton from "../OpenModalButton";
 import AddFriend from "./AddFriendForm";
 import AcceptedFriends from "./Accepted Friends";
 import PendingFriends from "./Pending Friends";
+import FriendDetails from "./Friend Details";
 import "./FriendsList.css";
 
 
@@ -38,6 +39,9 @@ const FriendsList = ({ friends, sessionUser, sendMessage }) => {
                 </Route>
                 <Route path={`${path}/pending`}>
                     <PendingFriends friends={friends} sessionUser={sessionUser} />
+                </Route>
+                <Route path={`${path}/:friendId`}>
+                    <FriendDetails sessionUser={sessionUser} sendMessage={sendMessage} />
                 </Route>
             </Switch>
         </div>

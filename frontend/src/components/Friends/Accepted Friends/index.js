@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { NavLink, Route, Switch, useParams, useRouteMatch } from "react-router-dom";
+import { NavLink, Route, Switch, useParams, useRouteMatch, useHistory } from "react-router-dom";
 import "./AcceptedFriends.css";
 
 const AcceptedFriends = ({ friends, sessionUser, sendMessage }) => {
+    const history = useHistory();
     const acceptedFriends = friends?.filter((friend) => friend.status === "accepted");
 
-    const handleSendGameInvite = (recipient, user2Id) => {
+    const handleSendGameInvite = (e, recipient, user2Id) => {
+        e.stopPropagation();
         console.log("handling send game invite");
         console.log("user1Id", sessionUser?.id);
         console.log("user2Id", user2Id);
@@ -16,6 +18,11 @@ const AcceptedFriends = ({ friends, sessionUser, sendMessage }) => {
         });
     };
 
+    const handleFriendItemClick = (friendId) => {
+        console.log("handling friend item click");
+        history.push(`/friends/${friendId}`)
+    }
+
     const acceptedFriendsMapped = acceptedFriends?.map((friend) => {
         const friendUser = friend?.userId === sessionUser?.id ? friend?.ReceivingUser : friend?.RequestingUser;
 
@@ -24,17 +31,20 @@ const AcceptedFriends = ({ friends, sessionUser, sendMessage }) => {
         const onlineStatus = friendUser?.isOnline ? true : false;
 
         return (
-            <div key={friend.id} className="friendItem">
+            <div
+                key={friend.id} className="friendItem">
                 <div className="friendIconDiv">
                     <i id={friendIconId} className="fa-regular fa-user"></i>
                 </div>
-                <div className="friendInfo">
+                <div
+                    onClick={() => handleFriendItemClick(friendUser.id)}
+                    className="friendInfo">
                     <div className="friendUsername">{friendUser?.username}</div>
                     <div className="friendName">{friendUser?.firstName}</div>
                 </div>
                 {onlineStatus && <div className="onlineStatus"></div>}
                 <div className="friendButtons">
-                    <button onClick={() => handleSendGameInvite(friendUser.username, friendUser.id)}>New Game</button>
+                    <button onClick={(e) => handleSendGameInvite(e, friendUser.username, friendUser.id)}>New Game</button>
                 </div>
             </div>
         );

@@ -1,3 +1,7 @@
 #friendIcon {
-    color: #e4736bd0;
+    color: #D85F56;
+}
+
+.friendInfo:hover {
+    cursor: pointer;
 }
