@@ -17,7 +17,7 @@ h1.gameResultsTitle {
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: 2rem;
-    width: 100%;
+    width: 80%;
     color: #e4736b;
 }
 
@@ -85,7 +85,7 @@ h1.gameResultsTitle {
 h2.gameRoundsTitle {
     margin: 2rem 0;
     padding: 1rem 0;
-    width: 100%;
+    width: 90%;
     text-align: center;
     border-top: slategray 1px solid;
     border-bottom: slategray 1px solid;
@@ -93,7 +93,7 @@ h2.gameRoundsTitle {
 
 .RoundDiv {
     margin: 2rem 0;
-    padding: 1rem;
+    padding: .5rem;
     width: 70%;
     border: 1px solid #e4736b;
     border-radius: 5px;

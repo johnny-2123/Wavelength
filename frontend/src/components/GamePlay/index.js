@@ -4,9 +4,9 @@ import { useDispatch } from "react-redux";
 import { fetchGameById } from "../../store/game";
 import { fetchUpdateRound } from "../../store/rounds";
 import { fetchCreateWord } from "../../store/words";
-import RoundOneForm from "./RoundOneForm";
+import RoundOneForm from "./Round One Form/RoundOneForm";
 import FollowingRoundsForm from "./FollowingRoundsForm";
-import RoundResults from "./RoundResults";
+import RoundResults from "./Round Results/RoundResults";
 import useGameStatus from "./useGameStatus";
 import WaitingforPartnerWord from './WaitingForPartnerWord'
 import "./Gameplay.css";

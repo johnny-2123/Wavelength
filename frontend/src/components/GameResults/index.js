@@ -3,9 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchGameById } from "../../store/game";
 import styles from "./GameResults.module.css";
 
-const GameResults = ({ gameId, sessionUser }) => {
-    const dispatch = useDispatch();
-    const game = useSelector((state) => state?.games?.currentGame);
+const GameResults = ({ game, sessionUser }) => {
 
     const friendUser = game?.user1?.username === sessionUser?.username ? game?.user2 : game?.user1;
 
@@ -45,10 +43,6 @@ const GameResults = ({ gameId, sessionUser }) => {
         )
 
     });
-    useEffect(() => {
-        dispatch(fetchGameById(gameId));
-    }, [dispatch, gameId]);
-
 
     return (
         <div className={styles.gameResults}>

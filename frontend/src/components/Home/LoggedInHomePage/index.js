@@ -56,7 +56,7 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                     console.log('game won', game)
                     setShowGamePlay(false)
                     setShowRoundResults(false)
-                    setModalContent(<GameResults gameId={gameId} sessionUser={sessionUser} sendMessage={sendMessage} />);
+                    setModalContent(<GameResults game={game} sessionUser={sessionUser} sendMessage={sendMessage} />);
                 })
         },
         "round-results": (data) => {
