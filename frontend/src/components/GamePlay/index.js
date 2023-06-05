@@ -23,7 +23,7 @@ const GamePlay = ({
     const dispatch = useDispatch();
     const { gameId } = useParams();
 
-    console.log('gameplay rerender', game)
+    // console.log('gameplay rerender', game)
 
     const [wordText, setWordText] = useState("");
     const [submittedWord, setSubmittedWord] = useState(false);

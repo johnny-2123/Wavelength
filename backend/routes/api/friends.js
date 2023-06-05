@@ -1,7 +1,7 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
 const { requireAuth } = require('../../utils/auth');
-const { User, Friend, Game } = require('../../db/models');
+const { User, Friend, Game, Round, Word } = require('../../db/models');
 const { Op } = require('sequelize');
 
 const router = express.Router();
@@ -46,11 +46,34 @@ router.get('/:friendId/games', requireAuth, (async (req, res) => {
         where: {
             [Op.or]: [{ user1Id: userId, user2Id: friendId }, { user1Id: friendId, user2Id: userId }]
         },
-        include: [{ model: User, as: 'user1' }, { model: User, as: 'user2' }]
+        include: [
+            { model: User, as: 'user1' }, { model: User, as: 'user2' }, {
+                model: Round,
+                as: 'Round',
+                include: [
+                    {
+                        model: Word
+                    }
+                ]
+            }]
     });
 
     res.status(200).json({ games });
 }));
+
+router.get('/:friendId', requireAuth, (async (req, res) => {
+    const userId = req.user.id;
+    const { friendId } = req.params;
+    const { friendShipSent, friendShipReceived } = await findFriendship(userId, friendId);
+
+    const validationError = validateFriendship(userId, friendShipSent, friendShipReceived);
+
+    if (validationError) return res.status(validationError.status).json({ errors: validationError.message });
+
+    const friend = friendShipSent ? friendShipSent.ReceivingUser : friendShipReceived.RequestingUser;
+
+    res.status(200).json({ friend });
+}))
 
 router.delete('/:friendId', requireAuth, (async (req, res) => {
     const userId = req.user.id;

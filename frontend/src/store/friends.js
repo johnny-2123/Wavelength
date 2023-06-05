@@ -6,6 +6,66 @@ const UPDATE_OFFLINE_STATUS = "friends/updateOfflineStatus";
 const SEND_FRIEND_REQUEST = "friends/sendFriendRequest";
 const ACCEPT_FRIEND_REQUEST = "friends/acceptFriendRequest";
 const REJECT_FRIEND_REQUEST = "friends/rejectFriendRequest";
+const GET_GAMES_BETWEEN_FRIENDS = "friends/getGamesBetweenFriends";
+const GET_FRIEND_DETAILS = "friends/getFriendDetails";
+const GET_WORDS_BETWEEN_FRIENDS = "friends/getWordsBetweenFriends";
+
+const getWordsBetweenFriends = (words) => {
+    return {
+        type: GET_WORDS_BETWEEN_FRIENDS,
+        payload: words,
+    };
+}
+
+export const fetchWordsBetweenFriends = (friendId) => async (dispatch) => {
+    console.log("fetching words between friends");
+    const response = await csrfFetch(`/api/words/${friendId}`);
+
+    if (response.ok) {
+        const words = await response.json();
+        console.log("words fetched in redux store: ", words.words);
+        return words;
+    }
+
+}
+
+const getFriendDetails = (friend) => {
+    return {
+        type: GET_FRIEND_DETAILS,
+        payload: friend,
+    };
+}
+
+export const fetchFriendDetails = (friendId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/friends/${friendId}`);
+
+    if (response.ok) {
+        const friend = await response.json();
+        // console.log("friend fetched in redux store: ", friend);
+        dispatch(getFriendDetails(friend.friend));
+        return friend.friend;
+    }
+}
+
+const getGamesBetweenFriends = (games) => {
+    return {
+        type: GET_GAMES_BETWEEN_FRIENDS,
+        payload: games,
+    };
+}
+
+export const fetchGamesBetweenFriends = (friendId) => async (dispatch) => {
+    // console.log("fetching games between friends");
+    const response = await csrfFetch(`/api/friends/${friendId}/games`);
+
+    if (response.ok) {
+        const games = await response.json();
+        // console.log("games fetched in redux store: ", games);
+        dispatch(getGamesBetweenFriends(games));
+        return games;
+    }
+}
+
 
 const rejectFriend = (friend) => {
     return {
@@ -74,9 +134,6 @@ export const fetchSendFriendRequest = (friendCredential) => async (dispatch) => 
 };
 
 export const updateOfflineStatus = (userId, friendId) => {
-    // console.log("running redux store updateOfflineStatus");
-    // console.log("userId: ", userId);
-    // console.log("friendId: ", friendId);
     return {
         type: UPDATE_OFFLINE_STATUS,
         payload: { userId, friendId },
@@ -121,7 +178,11 @@ export const fetchFriends = () => async (dispatch) => {
 }
 
 
-const initialState = { friends: [] };
+const initialState = {
+    friends: [],
+    currentFriend: {},
+    gamesBetweenFriends: [],
+};
 
 const friendsReducer = (state = initialState, action) => {
     let newState;
@@ -162,6 +223,14 @@ const friendsReducer = (state = initialState, action) => {
             newState = { ...state };
             let friendToRemove = newState.friends.find((friend) => friend.RequestingUser?.id === action.payload.id);
             newState.friends.splice(newState.friends.indexOf(friendToRemove), 1);
+            return newState;
+        case GET_FRIEND_DETAILS:
+            newState = { ...state };
+            newState.currentFriend = action.payload;
+            return newState;
+        case GET_GAMES_BETWEEN_FRIENDS:
+            newState = { ...state };
+            newState.gamesBetweenFriends = action.payload.games;
             return newState;
         default:
             return state;

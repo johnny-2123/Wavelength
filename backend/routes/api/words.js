@@ -39,8 +39,10 @@ router.get(
                 roundId: {
                     [Op.in]: roundIds
                 }
-            }
+            },
+            attributes: ['wordText', 'userId']
         });
+
 
         return res.status(200).json({ words });
 

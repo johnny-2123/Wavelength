@@ -23,11 +23,13 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
 
     const game = useSelector((state) => state?.games?.currentGame);
 
-    console.log('rerender home page', game)
+    // console.log('rerender home page', game)
 
     const [showGamePlay, setShowGamePlay] = useState(false);
     const [playerReady, setPlayerReady] = useState(false);
     const [showRoundResults, setShowRoundResults] = useState(false);
+
+    console.log('setShowGamePlay', showGamePlay)
 
     const messageHandlers = {
         "direct-message": (data) => setReceivedMessages((prev) => [...prev, data]),
@@ -93,7 +95,7 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
             history.push(`/gameplay/${game?.id}`);
         } else {
             setShowGamePlay(false);
-            history.push('/');
+            history.push(`/`);
         }
     }, [game, history]);
 
@@ -124,7 +126,11 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                     {/* <NavLink to="/direct-message-form" activeClassName="active-link" >
                         Direct Messages
                     </NavLink> */}
-                    <NavLink to="/friends" activeClassName="active-link">
+                    <NavLink to="/friends/accepted"
+                        activeClassName="active-link"
+                        isActive={(match, location) => {
+                            return match || location.pathname.startsWith("/friends");
+                        }}>
                         Friends
                     </NavLink>
                     <NavLink to="/games" activeClassName="active-link">

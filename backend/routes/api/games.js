@@ -34,6 +34,10 @@ router.post(
             return res.status(201).json({ round: lastRound });
         }
 
+        if (lastRound && (lastRound.user1Agrees && lastRound.user2Agrees)) {
+            return res.status(201).json({ round: lastRound });
+        }
+
         if (lastRound && (!lastRound?.user1Ready || !lastRound?.user2Ready)) {
             return res.status(201).json({ round: lastRound });
         }
