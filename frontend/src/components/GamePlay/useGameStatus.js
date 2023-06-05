@@ -26,6 +26,7 @@ export default function useGameStatus(gameId, roundNumber, sendMessage) {
             });
         };
 
+
         const sendRoundResults = () => {
             sendMessage("send-round-results", agreementObject);
         };

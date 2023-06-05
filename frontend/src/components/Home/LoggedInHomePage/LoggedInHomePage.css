@@ -1,6 +1,6 @@
 .homePageLoggedInMainDiv {
-    height: calc(100vh - 4rem);
-    margin-top: .3rem;
+    height: calc(100vh - 4.4rem);
+    margin-top: 0rem;
 }
 
 .homePageLoggedInMainDiv h1 {

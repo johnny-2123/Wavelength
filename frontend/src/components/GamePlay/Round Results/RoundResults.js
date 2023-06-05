@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { updateGame } from '../../../store/game';
+import './RoundResults.css';
 
-const RoundResults = ({ onCloseEnoughSubmit, onNextRoundSubmit, friendUser, friendWordText, userWordText }) => {
+const RoundResults = ({ onCloseEnoughSubmit, onNextRoundSubmit, friendUser, friendWordText, userWordText, sendMessage, gameId }) => {
+    const dispatch = useDispatch();
     const [timer, setTimer] = useState(5);
 
     useEffect(() => {
@@ -22,6 +26,16 @@ const RoundResults = ({ onCloseEnoughSubmit, onNextRoundSubmit, friendUser, frie
     const handleBothSubmit = () => {
         onCloseEnoughSubmit();
         onNextRoundSubmit();
+    };
+
+    const sendGameOverMessage = () => {
+        dispatch(updateGame(gameId, true)).then((updatedGame) => {
+            sendMessage("send-game-over-message", {
+                gameId: updatedGame?.id,
+                user1: updatedGame?.user1?.username,
+                user2: updatedGame?.user2?.username,
+            });
+        });
     };
 
     if (timer <= 0) {

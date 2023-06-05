@@ -23,8 +23,6 @@ const GamePlay = ({
     const dispatch = useDispatch();
     const { gameId } = useParams();
 
-    // console.log('gameplay rerender', game)
-
     const [wordText, setWordText] = useState("");
     const [submittedWord, setSubmittedWord] = useState(false);
     const roundNumber = game?.Round?.length;
@@ -101,7 +99,7 @@ const GamePlay = ({
             )}
 
             {!userWord && !showRoundResults && previousRoundWords && roundNumber > 1 && (
-                <FollowingRoundsForm onSubmit={handleSubmitWord} wordText={wordText} setWordText={setWordText} friendUser={friendUser} previousRoundFriendWordText={previousRoundFriendWordText} previousRoundUserWordText={previousRoundUserWordText} />
+                <FollowingRoundsForm onSubmit={handleSubmitWord} wordText={wordText} setWordText={setWordText} friendUser={friendUser} previousRoundFriendWordText={previousRoundFriendWordText} previousRoundUserWordText={previousRoundUserWordText} sendMessage={sendMessage} gameId={gameId} />
             )}
 
             {userWord && !showRoundResults && (
@@ -109,7 +107,7 @@ const GamePlay = ({
             )}
 
             {showRoundResults && (
-                <RoundResults onCloseEnoughSubmit={handleCloseEnoughSubmit} onNextRoundSubmit={handleNextRoundSubmit} friendUser={friendUser} friendWordText={friendWordText} userWordText={userWordText} />
+                <RoundResults onCloseEnoughSubmit={handleCloseEnoughSubmit} onNextRoundSubmit={handleNextRoundSubmit} friendUser={friendUser} friendWordText={friendWordText} userWordText={userWordText} sendMessage={sendMessage} gameId={gameId} />
 
             )}
         </div>

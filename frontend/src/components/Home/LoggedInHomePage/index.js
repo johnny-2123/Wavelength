@@ -59,6 +59,17 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                     setModalContent(<GameResults game={game} sessionUser={sessionUser} sendMessage={sendMessage} />);
                 })
         },
+        "game-over": (data) => {
+            console.log('recieved game over data', data)
+            const gameId = data?.gameId;
+            dispatch(fetchGameById(gameId))
+                .then((game) => {
+                    console.log('game over', game)
+                    setShowGamePlay(false)
+                    setShowRoundResults(false)
+                    setModalContent(<GameResults game={game} sessionUser={sessionUser} sendMessage={sendMessage} />);
+                })
+        },
         "round-results": (data) => {
             const gameId = data?.gameId;
             dispatch(fetchGameById(gameId))

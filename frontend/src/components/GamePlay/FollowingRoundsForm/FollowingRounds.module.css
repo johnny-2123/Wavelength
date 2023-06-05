@@ -77,6 +77,20 @@ h2.followingRoundsDirections {
     margin-top: 1rem;
 }
 
+.followingRounds button {
+    width: 9rem;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+    padding: 0.6rem 2rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    color: white;
+
+}
+
 .wordInputDiv input {
     width: 300px;
     padding: 0.5rem;
@@ -86,14 +100,16 @@ h2.followingRoundsDirections {
 }
 
 .wordInputDiv button {
-    margin-top: 0.5rem;
-    margin-left: 0.5rem;
-    padding: 0.5rem 1rem;
     background-color: #e4736b;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
+
+}
+
+.followingRounds button.disabledButton {
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.gameOverDiv button {
+    background-color: #d3574e;
+
 }

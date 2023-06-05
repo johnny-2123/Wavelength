@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import styles from './FollowingRounds.module.css';
+import { updateGame } from '../../../store/game';
 
 const FollowingRoundsForm = ({
     onSubmit,
@@ -7,41 +9,87 @@ const FollowingRoundsForm = ({
     setWordText,
     friendUser,
     previousRoundFriendWordText,
-    previousRoundUserWordText
-}) => (
-    friendUser && <div className={styles.followingRounds}>
-        <div className={styles.previousWords}>
-            <h2 >Previous Words</h2>
-            <div className={styles.previousWordsSubDiv}>
-                <div className={styles.partnerPreviousWord}>
-                    <h2>{friendUser?.username}:</h2>
-                    <h3>{previousRoundFriendWordText}</h3>
+    previousRoundUserWordText,
+    sendMessage,
+    gameId
+}) => {
+    const dispatch = useDispatch();
+    const [timer, setTimer] = useState(30);
+
+    useEffect(() => {
+        const countdown = setInterval(() => {
+            setTimer((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : 0));
+        }, 1000);
+
+        return () => {
+            clearInterval(countdown);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (timer === 0) {
+            sendGameOverMessage();
+        }
+    }, [timer]);
+
+    const sendGameOverMessage = () => {
+        dispatch(updateGame(gameId, true)).then((updatedGame) => {
+            sendMessage("send-game-over-message", {
+                gameId: updatedGame?.id,
+                user1: updatedGame?.user1?.username,
+                user2: updatedGame?.user2?.username,
+            });
+        });
+    };
+
+    const isSubmitButtonDisabled = wordText.trim() === "";
+    const submitButtonClassName = isSubmitButtonDisabled ? styles.disabledButton : styles.submitButton;
+
+    return (
+        friendUser && (
+            <div className={styles.followingRounds}>
+                <div className={styles.previousWords}>
+                    <h2>Previous Words</h2>
+                    <div className={styles.previousWordsSubDiv}>
+                        <div className={styles.partnerPreviousWord}>
+                            <h2>{friendUser?.username}:</h2>
+                            <h3>{previousRoundFriendWordText}</h3>
+                        </div>
+                        <div className={styles.yourPreviousWord}>
+                            <h2>You: </h2>
+                            <h3>{previousRoundUserWordText}</h3>
+                        </div>
+                    </div>
                 </div>
-                <div className={styles.yourPreviousWord}>
-                    <h2>You: </h2>
-                    <h3>{previousRoundUserWordText}</h3>
+                <div className={styles.followingRoundDirectionsDiv}>
+                    <h2 className={styles.followingRoundsDirections}>
+                        Try to enter the same word as your partner using the words from the previous round.
+                    </h2>
+                </div>
+                <div className={styles.wordInputDiv}>
+                    <form onSubmit={onSubmit}>
+                        <input
+                            type="text"
+                            value={wordText}
+                            onChange={(e) => setWordText(e.target.value)}
+                            placeholder="Enter your word"
+                        />
+                        <button
+                            type="submit"
+                            disabled={isSubmitButtonDisabled}
+                            className={submitButtonClassName}
+                        >
+                            Submit
+                        </button>
+                    </form>
+                </div>
+                <div className={styles.gameOverDiv}>
+                    <button onClick={sendGameOverMessage}>End Game</button>
+                    {timer > 0 && <p>{timer} seconds left</p>}
                 </div>
             </div>
-        </div>
-        <div className={styles.followingRoundDirectionsDiv}>
-            <h2 className={styles.followingRoundsDirections}>
-                Try to enter the same word as your partner using the words from the previous round.
-            </h2>
-        </div>
-        <div className={styles.wordInputDiv}>
-            <form>
-                <input
-                    type="text"
-                    value={wordText}
-                    onChange={(e) => setWordText(e.target.value)}
-                    placeholder="Enter your word"
-                />
-                <button type="submit" onClick={onSubmit}>
-                    Submit
-                </button>
-            </form>
-        </div>
-    </div>
-);
+        )
+    );
+};
 
 export default FollowingRoundsForm;
