@@ -1,6 +1,7 @@
 .mainFriendDetailsDiv {
     overflow-y: hidden;
     display: flex;
+    margin: 0;
     flex-direction: column;
     align-items: center;
 }
@@ -12,6 +13,7 @@
 
 .friendDetailsSubDiv {
     margin-top: .25rem;
+    margin-bottom: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
