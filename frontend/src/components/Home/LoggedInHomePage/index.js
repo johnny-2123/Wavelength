@@ -8,10 +8,12 @@ import Routes from "./Routes";
 import GameResults from "../../GameResults";
 import useWebSocket from "./useWebsocket";
 import { useModal } from "../../../context/modal";
-import { generateWebSocketURL, handleFriendStatusChange } from "./utils";
+import { generateWebSocketURL, handleFriendStatusChange }
+    from "./utils";
+import { toast, ToastContainer } from 'react-toastify';
 import './LoggedInHomePage.css';
 
-const LoggedInUserHomePage = ({ sessionUser }) => {
+const LoggedInUserHomePage = ({ sessionUser, notify }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { setModalContent, closeModal } = useModal();
@@ -23,20 +25,32 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
 
     const game = useSelector((state) => state?.games?.currentGame);
 
-    // console.log('rerender home page', game)
-
     const [showGamePlay, setShowGamePlay] = useState(false);
     const [playerReady, setPlayerReady] = useState(false);
     const [showRoundResults, setShowRoundResults] = useState(false);
 
     console.log('setShowGamePlay', showGamePlay)
 
+    const notifyOnGameInviteDeclined = () => toast("Game    Invite Declined", { hideProgressBar: true });
+
     const messageHandlers = {
         "direct-message": (data) => setReceivedMessages((prev) => [...prev, data]),
         "friend-online": (data) => handleFriendStatusChange(dispatch, sessionUser, friends, data, 'online'),
         "friend-offline": (data) => handleFriendStatusChange(dispatch, sessionUser, friends, data, 'offline'),
         "game-invite": (data) => {
-            setModalContent(<GameInviteRequestComponent sender={data?.sender} sendMessage={sendMessage} user1Id={data?.user1Id} user2Id={data?.user2Id} sessionUser={sessionUser} closeModal={closeModal} />);
+            toast(
+                <GameInviteRequestComponent
+                    sender={data?.sender}
+                    sendMessage={sendMessage}
+                    user1Id={data?.user1Id}
+                    user2Id={data?.user2Id}
+                    sessionUser={sessionUser}
+                    closeModal={toast.dismiss} />,
+                {
+                    autoClose: false,
+                    closeOnClick: false
+                }
+            );
         },
         "start-game": (data) => {
             const newGameId = data?.newGameId;
@@ -51,6 +65,7 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
         },
         "declined-game-invite": (data) => {
             console.log('declined game invite', data);
+            notifyOnGameInviteDeclined();
             closeModal();
         },
         "game-won": (data) => {

@@ -4,7 +4,7 @@ import LoggedInUserHomePage from "./LoggedInHomePage";
 import NotLoggedInUserHomePage from "./NotLoggedInHomePage";
 import "./HomePage.css";
 
-const HomePage = () => {
+const HomePage = ({notify}) => {
     const sessionUser = useSelector((state) => state.session.user);
 
     const [loggedIn, setLoggedIn] = useState(false);
@@ -23,7 +23,7 @@ const HomePage = () => {
     return (
         <>
             {loaded && loggedIn && (
-                <LoggedInUserHomePage sessionUser={sessionUser} />
+                <LoggedInUserHomePage sessionUser={sessionUser} notify={notify} />
             )}
             {loaded && !loggedIn && (
                 <NotLoggedInUserHomePage />)}
