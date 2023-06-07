@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { updateGame } from '../../../store/game';
 import './RoundResults.css';
 
-const RoundResults = ({ onCloseEnoughSubmit, onNextRoundSubmit, friendUser, friendWordText, userWordText, sendMessage, gameId }) => {
+const RoundResults = ({ onCloseEnoughSubmit, onNextRoundSubmit, friendUser, friendWordText, userWordText, sendMessage, gameId,  }) => {
     const dispatch = useDispatch();
     const [timer, setTimer] = useState(5);
 

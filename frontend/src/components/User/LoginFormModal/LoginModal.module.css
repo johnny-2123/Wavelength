@@ -1,0 +1,139 @@
+.loginModalDiv {
+    background-color: transparent;
+    border-radius: 8px;
+    margin: 1rem;
+    height: 40vh;
+}
+
+.loginModalForm {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 30vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.loginModalForm::-webkit-scrollbar {
+    width: 8px;
+}
+
+.loginModalForm::-webkit-scrollbar-thumb {
+    background-color: rgb(186, 186, 186);
+}
+
+.loginModalForm::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(186, 186, 186, 0.758);
+}
+
+.loginModalTitle {
+    font-size: 2rem;
+    font-weight: 200;
+    color: white;
+    margin-bottom: 1rem;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.loginModalForm label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    width: 95%;
+}
+
+.loginModalForm label input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.loginModalForm label input:focus {
+    outline: none;
+    border-color: #e4736a;
+    box-shadow: 0px 0px 4px rgba(228, 115, 106, 0.5);
+}
+
+.loginModalForm p {
+    color: #e4736a;
+    margin: 0.5rem 0;
+}
+
+.loginModalForm button {
+    margin: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    background-color: #e4736a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.loginModalForm button:hover {
+    background-color: #d45d54;
+}
+
+.FinalWordsDiv {
+    width: 100%;
+    padding: 1rem 0;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.FinalWordsDiv h2 {
+    border-bottom: #e4736a 1px solid;
+    padding-bottom: 0.5rem;
+    width: 100%;
+}
+
+.PartnerWordDiv,
+.UserWordDiv {
+    margin: 0;
+}
+
+.PartnerWordDiv h3,
+.UserWordDiv h3 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin: 0.5rem 0;
+    color: #555;
+}
+
+h2.gameRoundsTitle {
+    margin: 2rem 0;
+    padding: 1rem 0;
+    width: 90%;
+    text-align: center;
+    border-top: slategray 1px solid;
+    border-bottom: slategray 1px solid;
+}
+
+.RoundDiv {
+    margin: 2rem 0;
+    padding: 0.5rem;
+    width: 70%;
+    border: 1px solid #e4736a;
+    border-radius: 5px;
+}
+
+.RoundDiv h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #555;
+}
+
+.RoundDiv h3 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin: 0.5rem 0;
+    color: #555;
+}

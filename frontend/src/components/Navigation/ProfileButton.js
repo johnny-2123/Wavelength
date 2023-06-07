@@ -5,7 +5,6 @@ import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../User/LoginFormModal";
 import SignupFormModal from "../User/SignUpModal";
-import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import "./Navigation.css";
 
 function ProfileButton({ user }) {

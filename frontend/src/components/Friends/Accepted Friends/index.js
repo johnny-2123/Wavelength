@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { NavLink, Route, Switch, useParams, useRouteMatch, useHistory } from "react-router-dom";
+import React from "react";
+import { useHistory } from "react-router-dom";
 import "./AcceptedFriends.css";
 
 const AcceptedFriends = ({ friends, sessionUser, sendMessage }) => {

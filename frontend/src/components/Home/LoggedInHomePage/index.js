@@ -56,6 +56,7 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                     console.log('game won', game)
                     setShowGamePlay(false)
                     setShowRoundResults(false)
+                    history.push('/')
                     setModalContent(<GameResults game={game} sessionUser={sessionUser} sendMessage={sendMessage} />);
                 })
         },
@@ -67,7 +68,9 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                     console.log('game over', game)
                     setShowGamePlay(false)
                     setShowRoundResults(false)
+                    history.push('/')
                     setModalContent(<GameResults game={game} sessionUser={sessionUser} sendMessage={sendMessage} />);
+
                 })
         },
         "round-results": (data) => {
@@ -106,7 +109,7 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
             history.push(`/gameplay/${game?.id}`);
         } else {
             setShowGamePlay(false);
-            history.push(`/`);
+            // history.push(`/`);
         }
     }, [game, history]);
 

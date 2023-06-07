@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/modal";
 import * as sessionActions from "../../../store/session";
-import "./SignUpModal.css";
+import styles from "./SignUpModal.module.css";
 
 function SignupFormModal() {
     const dispatch = useDispatch();
@@ -37,14 +37,15 @@ function SignupFormModal() {
                 });
         }
         return setErrors({
-            confirmPassword: "Confirm Password field must be the same as the Password field"
+            confirmPassword:
+                "Confirm Password field must be the same as the Password field",
         });
     };
 
     return (
-        <>
-            <h1>Sign Up</h1>
-            <form onSubmit={handleSubmit}>
+        <div className={styles.signUpFormDiv}>
+            <h1 className={styles.signUpTitle}>Sign Up</h1>
+            <form className={styles.signUpForm} onSubmit={handleSubmit}>
                 <label>
                     Email
                     <input
@@ -104,12 +105,10 @@ function SignupFormModal() {
                         required
                     />
                 </label>
-                {errors.confirmPassword && (
-                    <p>{errors.confirmPassword}</p>
-                )}
+                {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
                 <button type="submit">Sign Up</button>
             </form>
-        </>
+        </div>
     );
 }
 

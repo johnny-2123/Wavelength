@@ -17,7 +17,7 @@ module.exports = {
       { userId: 1, friendId: 3, status: accepted, dateAdded: new Date() },
       { userId: 1, friendId: 4, status: accepted, dateAdded: new Date() },
       { userId: 1, friendId: 5, status: accepted, dateAdded: new Date() },
-
+      // { userId: 1, friendId: 16, status: accepted, dateAdded: new Date() },
 
       { userId: 2, friendId: 3, status: accepted, dateAdded: new Date() },
       { userId: 2, friendId: 4, status: accepted, dateAdded: new Date() },

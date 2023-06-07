@@ -15,6 +15,7 @@ const GamePlay = ({
     setShowGamePlay,
     sessionUser,
     sendMessage,
+setShowRoundResults,
     showRoundResults,
     playerReady,
     setPlayerReady,
@@ -50,7 +51,7 @@ const GamePlay = ({
 
     const handleRoundSubmit = (agreementString) => {
         dispatch(fetchUpdateRound(roundId, agreementString, true))
-            .then(() => setPlayerReady(true))
+            .then(() => {setPlayerReady(true)})
             .catch((error) => console.log(`error updating round with ${agreementString}`, error));
     };
 
@@ -70,7 +71,9 @@ const GamePlay = ({
     const handleSubmitWord = (e) => {
         e.preventDefault();
         dispatch(fetchCreateWord(roundId, wordText))
-            .then(() => setSubmittedWord(true))
+            .then(() => {
+                setShowRoundResults(false)
+                setSubmittedWord(true)})
             .catch((error) => console.log("error creating word", error));
     };
 
@@ -95,11 +98,11 @@ const GamePlay = ({
     return (
         <div className="gamePlay">
             <h1>Round {roundNumber}</h1>
-            {!userWord && !showRoundResults && roundNumber === 1 && (<RoundOneForm onSubmit={handleSubmitWord} wordText={wordText} setWordText={setWordText} />
+            {!userWord && !showRoundResults && roundNumber === 1 && (<RoundOneForm onSubmit={handleSubmitWord} wordText={wordText} setWordText={setWordText} setShowRoundResults={setShowRoundResults}/>
             )}
 
             {!userWord && !showRoundResults && previousRoundWords && roundNumber > 1 && (
-                <FollowingRoundsForm onSubmit={handleSubmitWord} wordText={wordText} setWordText={setWordText} friendUser={friendUser} previousRoundFriendWordText={previousRoundFriendWordText} previousRoundUserWordText={previousRoundUserWordText} sendMessage={sendMessage} gameId={gameId} />
+                <FollowingRoundsForm onSubmit={handleSubmitWord} wordText={wordText} setWordText={setWordText} friendUser={friendUser} previousRoundFriendWordText={previousRoundFriendWordText} previousRoundUserWordText={previousRoundUserWordText} sendMessage={sendMessage} gameId={gameId} setShowRoundResults={setShowRoundResults}/>
             )}
 
             {userWord && !showRoundResults && (

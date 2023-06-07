@@ -1,9 +1,8 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
-
 const { Round, Game, Word, User } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
-
+const https = require('https');
 const router = express.Router();
 
 router.post(
@@ -38,6 +37,8 @@ router.post(
         if (round.Words.length >= 2) {
             return res.status(400).json({ errors: 'Round already has two words.' });
         }
+
+
 
         const word = await Word.create({ userId, roundId, wordText });
 

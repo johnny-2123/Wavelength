@@ -1,7 +1,47 @@
-html,
-body {
+.notLoggedInHomePageMainDiv {
     margin: 0;
-    padding: 0;
-    background: #F3EBD9;
-    overflow-y: overlay;
+}
+
+.notLoggedInHomePageMainDiv h1 {
+    color: #334075;
+    font-weight: 400;
+    text-align: center;
+}
+
+.notLoggedInHomePageSubDiv {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.notLoggedInHomePageButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 60%;
+}
+
+.notLoggedInHomePageButtons button {
+    margin: 0 .5rem .5rem 1rem;
+    background-color: transparent;
+    border: #A0741B 1px solid;
+    border-radius: 15px;
+    padding: .5rem .25rem;
+    width: 8rem;
+    height: 2.2rem;
+    color: #A0741B;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.notLoggedInHomePageButtons button:hover {
+    background-color: #A0741B;
+    color: white;
+    cursor: pointer;
+}
+
+.notLoggedInHomePageButtons button:last-child {
+    margin-bottom: 0;
 }

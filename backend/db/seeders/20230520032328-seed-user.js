@@ -123,6 +123,13 @@ module.exports = {
         username: 'FakeUser15',
         hashedPassword: bcrypt.hashSync('password')
       }
+      // , {
+      //   email: 'chatGPT.io',
+      //   firstName: 'chat',
+      //   lastName: 'GPT',
+      //   username: 'chatGPT',
+      //   hashedPassword: bcrypt.hashSync('password')
+      // }
     ], options);
   },
   async down(queryInterface, Sequelize) {

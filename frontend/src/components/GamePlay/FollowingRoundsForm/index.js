@@ -11,7 +11,7 @@ const FollowingRoundsForm = ({
     previousRoundFriendWordText,
     previousRoundUserWordText,
     sendMessage,
-    gameId
+    gameId,
 }) => {
     const dispatch = useDispatch();
     const [timer, setTimer] = useState(30);
