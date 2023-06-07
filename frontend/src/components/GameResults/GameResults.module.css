@@ -1,7 +1,6 @@
 .gameResults {
-    margin: 1rem;
-    background-color: #f6f3ec;
-    border: #A0741B 1px solid;
+    margin: 0rem;
+    background-color: white;
     border-radius: 10px;
     padding: 2rem 1rem;
     display: flex;
