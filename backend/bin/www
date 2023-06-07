@@ -20,6 +20,7 @@ const handleMessage = async (message, ws) => {
     const { type, data } = JSON.parse(message);
 
     let recipientWs;
+    let senderWs;
     let user1;
     let user2;
     let gameId;
@@ -28,8 +29,20 @@ const handleMessage = async (message, ws) => {
     switch (type) {
         case 'send-game-invite':
             recipientWs = findWebSocketByUsername(data.recipient);
-            console.log('sending game invite')
+            // console.log('sending game invite')
             console.log('data', data)
+            console.log('recipientWs', recipientWs)
+            if (!recipientWs) {
+                console.log(`No WebSocket found for recipient: ${data.recipient}`);
+                const errorMessage = JSON.stringify({
+                    type: 'user-not-online',
+                    data: {
+                        message: `User ${data.recipient} is not online.`,
+                    },
+                });
+                ws.send(errorMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
+                break;
+            }
             if (recipientWs && recipientWs.readyState === WebSocket.OPEN) {
                 const inviteMessage = JSON.stringify({
                     type: 'game-invite',

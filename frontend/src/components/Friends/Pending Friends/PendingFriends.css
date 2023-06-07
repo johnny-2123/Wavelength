@@ -1,3 +1,32 @@
 #pendingFriendIcon {
     color: #44444489;
 }
+
+
+.friendButtons {
+    display: flex;
+    flex-direction: row;
+}
+
+.friendButtons button {
+    flex: 2;
+    padding: 0.5rem 1.5rem;
+    margin-right: 1rem;
+    background-color: transparent;
+    color: #666;
+    border: transparent 1px solid;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    transition: font-weight 0.3s;
+    transition: color 0.3s;
+}
+
+
+
+.friendItem button:hover {
+    color: white;
+    background-color: #334075;
+}

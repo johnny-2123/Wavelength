@@ -12,6 +12,7 @@ const useWebSocket = (url, messageHandlers, dependency) => {
             ws = new WebSocket(url);
             ws.onmessage = event => {
                 const { type, data } = JSON.parse(event.data);
+                console.log('recieved message', type, data);
                 const handler = messageHandlers[type];
                 if (handler) {
                     handler(data);

@@ -160,32 +160,3 @@
     font-size: 1rem;
     color: #666;
 }
-
-
-.friendButtons {
-    width: 35%;
-    display: flex;
-    flex-direction: row;
-}
-
-.friendItem button {
-    flex: 2;
-    padding: 0.5rem 1rem;
-    margin-right: 1rem;
-    background-color: transparent;
-    color: #666;
-    border: transparent 2px solid;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    transition: font-weight 0.3s;
-    transition: color 0.3s;
-}
-
-
-
-.friendItem button:hover {
-    color: #334075;
-}

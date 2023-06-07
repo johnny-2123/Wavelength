@@ -17,15 +17,13 @@ module.exports = {
       { user1Id: 2, user2Id: 1, gameOver: true },
 
     ], options);
-
-
   },
 
   async down(queryInterface, Sequelize) {
     options.tableName = 'Games';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      id: { [Op.in]: [1, 2, 3, 4] } // IDs of the games created by the seeder
+      id: { [Op.in]: [1, 2, 3, 4] }
     }, {});
   }
 

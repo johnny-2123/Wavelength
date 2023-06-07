@@ -42,13 +42,14 @@
     background-color: transparent;
     width: 175px;
     font-size: 1.2rem;
-    border: rgba(255, 255, 255, 0.5) 1px;
-    background-color: rgba(255, 255, 255, 0.6);
-    background-color: white;
+    border-radius: 3px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2), 0px 2px 4px 0px rgba(0, 0, 0, 0.05);
 }
 
+
 .profile-dropdown h5 {
-    background-color: white;
+    background-color: none;
     border: none;
     width: 100%;
     color: darkslategray;
@@ -63,7 +64,7 @@
 }
 
 #profileDropdownEmail {
-    border-bottom: 1px solid #E4736B;
+    border-bottom: 1px solid #D85F56;
     padding-bottom: 0.5rem;
     margin: 0rem;
 }
@@ -98,30 +99,13 @@
     font-size: 28px;
 }
 
-.logoutButton {
-    background-color: white;
-    border: none;
-    padding: .75rem 2rem;
-    width: 100%;
-    color: #E4736B;
-    font-size: 1rem;
-    font-weight: 600;
-    margin: 0;
-}
-
-.logoutButton:hover {
-    cursor: pointer;
-    background-color: #E4736B;
-    color: white;
-}
-
 .profile-dropdown button {
-    background-color: white;
+    background-color: transparent;
     border: none;
     border-radius: none;
     padding: .75rem 2rem;
     width: 100%;
-    color: #E4736B;
+    color: #D85F56;
     font-size: 1rem;
     font-weight: 600;
     margin: 0;
@@ -129,7 +113,7 @@
 
 .profile-dropdown button:hover {
     cursor: pointer;
-    background-color: #E4736B;
+    background-color: #D85F56;
     color: white;
 }
 

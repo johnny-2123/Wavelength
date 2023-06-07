@@ -10,10 +10,10 @@ import useWebSocket from "./useWebsocket";
 import { useModal } from "../../../context/modal";
 import { generateWebSocketURL, handleFriendStatusChange }
     from "./utils";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, Slide } from 'react-toastify';
 import './LoggedInHomePage.css';
 
-const LoggedInUserHomePage = ({ sessionUser, notify }) => {
+const LoggedInUserHomePage = ({ sessionUser }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { setModalContent, closeModal } = useModal();
@@ -31,7 +31,8 @@ const LoggedInUserHomePage = ({ sessionUser, notify }) => {
 
     console.log('setShowGamePlay', showGamePlay)
 
-    const notifyOnGameInviteDeclined = () => toast("Game    Invite Declined", { hideProgressBar: true });
+    const notifyOnGameInviteDeclined = () => toast("Game Invite Declined", { hideProgressBar: true });
+    const notifyUserOffline = () => toast("User is offline", { hideProgressBar: true });
 
     const messageHandlers = {
         "direct-message": (data) => setReceivedMessages((prev) => [...prev, data]),
@@ -49,7 +50,7 @@ const LoggedInUserHomePage = ({ sessionUser, notify }) => {
                 {
                     autoClose: false,
                     closeOnClick: false
-                }
+                }, { hideProgressBar: true, transition: Slide, limit: 2, autoClose: 2000 }
             );
         },
         "start-game": (data) => {
@@ -67,6 +68,10 @@ const LoggedInUserHomePage = ({ sessionUser, notify }) => {
             console.log('declined game invite', data);
             notifyOnGameInviteDeclined();
             closeModal();
+        },
+        "user-not-online": (data) => {
+            console.log('user not online', data);
+            notifyUserOffline();
         },
         "game-won": (data) => {
             const gameId = data?.gameId;
