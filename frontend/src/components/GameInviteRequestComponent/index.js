@@ -33,16 +33,22 @@ const GameInviteRequestComponent = ({ sender, sendMessage, user1Id, user2Id, ses
             });
     };
 
-    const declineGameInvite = () => {
-        console.log('decline game invite');
+    const handleDeclineGameInvite = () => {
+        console.log('handle decline game invite');
+        sendMessage('declined-game-invite', {
+            sender: sessionUser?.username,
+            recipient: sender,
+        });
+        closeModal();
     };
+
 
     return (
         <div className={styles.gameInvite}>
             <h1>Game invite from {sender}</h1>
             <div className={styles.gameInviteButtons}>
                 <button onClick={handleAcceptGameInvite}>Accept</button>
-                <button onClick={declineGameInvite}>Decline</button>
+                <button onClick={handleDeclineGameInvite}>Decline</button>
             </div>
         </div>
     );

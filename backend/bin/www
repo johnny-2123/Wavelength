@@ -70,6 +70,24 @@ const handleMessage = async (message, ws) => {
 
             user2WS.send(startGameMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
             break;
+        case 'declined-game-invite':
+            user1 = data.sender;
+            user2 = data.recipient;
+            user1WS = findWebSocketByUsername(user1);
+            user2WS = findWebSocketByUsername(user2);
+
+            const declinedGameInviteMessage = JSON.stringify({
+                type: 'declined-game-invite',
+                data: {
+                    sender: user1,
+                    recipient: user2,
+                },
+            });
+
+            // user1WS.send(declinedGameInviteMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
+
+            user2WS.send(declinedGameInviteMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
+            break;
         case 'send-game-won-message':
             gameId = data.gameId;
             console.log('gameId', gameId)

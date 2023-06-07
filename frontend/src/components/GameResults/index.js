@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchGameById } from "../../store/game";
 import styles from "./GameResults.module.css";
 
-const GameResults = ({ game, sessionUser }) => {
+const GameResults = ({ game, sessionUser, sendMessage }) => {
 
     const friendUser = game?.user1?.username === sessionUser?.username ? game?.user2 : game?.user1;
 
@@ -44,6 +44,17 @@ const GameResults = ({ game, sessionUser }) => {
 
     });
 
+    const handleSendGameInvite = (e) => {
+        e.stopPropagation();
+        console.log("handling send game invite");
+        sendMessage("send-game-invite", {
+            recipient: friendUser?.username,
+            user1Id: sessionUser?.id,
+            user2Id: friendUser?.id,
+        });
+    };
+
+
     return (
         <div className={styles.gameResults}>
             <h1 className={styles.gameResultsTitle}>Game Results</h1>
@@ -63,7 +74,9 @@ const GameResults = ({ game, sessionUser }) => {
                 </div>
             </div>
             <div className={styles.gameResultButtons}>
-                <button>Play Again</button>
+                <button
+                    onClick={(e) => handleSendGameInvite(e)}
+                >Play Again</button>
             </div>
             <h2 className={styles.gameRoundsTitle}>Game Rounds</h2>
             {gameRoundMapped}

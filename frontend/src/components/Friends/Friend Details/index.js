@@ -8,7 +8,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./FriendDetails.css";
 
-const FriendDetails = () => {
+const FriendDetails = ({ sendMessage, sessionUser }) => {
     const dispatch = useDispatch();
     const { friendId } = useParams();
     console.log("friendId: ", friendId);
@@ -18,10 +18,8 @@ const FriendDetails = () => {
     const games = useSelector((state) => state.friends.gamesBetweenFriends);
     console.log("games between friends: ", games);
 
-    const sessionUser = useSelector((state) => state.session.user);
-
     const gamesMapped = games?.map((game) => {
-        return <GameResults game={game} sessionUser={sessionUser} key={game.id} />
+        return <GameResults game={game} sessionUser={sessionUser} key={game.id} sendMessage={sendMessage} />
     });
 
 

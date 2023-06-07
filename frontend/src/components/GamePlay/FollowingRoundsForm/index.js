@@ -12,6 +12,7 @@ const FollowingRoundsForm = ({
     previousRoundUserWordText,
     sendMessage,
     gameId,
+    setShowRoundResults,
 }) => {
     const dispatch = useDispatch();
     const [timer, setTimer] = useState(30);
@@ -20,7 +21,7 @@ const FollowingRoundsForm = ({
         const countdown = setInterval(() => {
             setTimer((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : 0));
         }, 1000);
-
+        setShowRoundResults(false);
         return () => {
             clearInterval(countdown);
         };

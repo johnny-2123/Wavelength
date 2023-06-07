@@ -15,7 +15,7 @@ const GamePlay = ({
     setShowGamePlay,
     sessionUser,
     sendMessage,
-setShowRoundResults,
+    setShowRoundResults,
     showRoundResults,
     playerReady,
     setPlayerReady,
@@ -47,11 +47,13 @@ setShowRoundResults,
     const userWord = roundWords?.find((word) => word?.userId === sessionUser?.id);
     const userWordText = userWord?.wordText;
 
+    const shouldRenderFollowingRoundsForm = !userWord && !showRoundResults && previousRoundWords && roundNumber > 1;
+
     const handleGameStatus = useGameStatus(gameId, roundNumber, sendMessage);
 
     const handleRoundSubmit = (agreementString) => {
         dispatch(fetchUpdateRound(roundId, agreementString, true))
-            .then(() => {setPlayerReady(true)})
+            .then(() => { setPlayerReady(true) })
             .catch((error) => console.log(`error updating round with ${agreementString}`, error));
     };
 
@@ -73,7 +75,8 @@ setShowRoundResults,
         dispatch(fetchCreateWord(roundId, wordText))
             .then(() => {
                 setShowRoundResults(false)
-                setSubmittedWord(true)})
+                setSubmittedWord(true)
+            })
             .catch((error) => console.log("error creating word", error));
     };
 
@@ -98,19 +101,19 @@ setShowRoundResults,
     return (
         <div className="gamePlay">
             <h1>Round {roundNumber}</h1>
-            {!userWord && !showRoundResults && roundNumber === 1 && (<RoundOneForm onSubmit={handleSubmitWord} wordText={wordText} setWordText={setWordText} setShowRoundResults={setShowRoundResults}/>
+            {!userWord && !showRoundResults && roundNumber === 1 && (<RoundOneForm onSubmit={handleSubmitWord} wordText={wordText} setWordText={setWordText} setShowRoundResults={setShowRoundResults} />
             )}
 
-            {!userWord && !showRoundResults && previousRoundWords && roundNumber > 1 && (
-                <FollowingRoundsForm onSubmit={handleSubmitWord} wordText={wordText} setWordText={setWordText} friendUser={friendUser} previousRoundFriendWordText={previousRoundFriendWordText} previousRoundUserWordText={previousRoundUserWordText} sendMessage={sendMessage} gameId={gameId} setShowRoundResults={setShowRoundResults}/>
+            {shouldRenderFollowingRoundsForm && (
+                <FollowingRoundsForm onSubmit={handleSubmitWord} wordText={wordText} setWordText={setWordText} friendUser={friendUser} previousRoundFriendWordText={previousRoundFriendWordText} previousRoundUserWordText={previousRoundUserWordText} sendMessage={sendMessage} gameId={gameId} setShowRoundResults={setShowRoundResults} />
             )}
 
             {userWord && !showRoundResults && (
                 <WaitingforPartnerWord friendUser={friendUser} userWordText={userWordText} />
             )}
 
-            {showRoundResults && (
-                <RoundResults onCloseEnoughSubmit={handleCloseEnoughSubmit} onNextRoundSubmit={handleNextRoundSubmit} friendUser={friendUser} friendWordText={friendWordText} userWordText={userWordText} sendMessage={sendMessage} gameId={gameId} />
+            {showRoundResults && !shouldRenderFollowingRoundsForm && (
+                <RoundResults onCloseEnoughSubmit={handleCloseEnoughSubmit} onNextRoundSubmit={handleNextRoundSubmit} friendUser={friendUser} friendWordText={friendWordText} userWordText={userWordText} sendMessage={sendMessage} gameId={gameId} setShowRoundResults={setShowRoundResults} />
 
             )}
         </div>

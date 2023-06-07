@@ -49,6 +49,10 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                     console.log('error fetching game', error);
                 });
         },
+        "declined-game-invite": (data) => {
+            console.log('declined game invite', data);
+            closeModal();
+        },
         "game-won": (data) => {
             const gameId = data?.gameId;
             dispatch(fetchGameById(gameId))

@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { fetchSetCurrentUserOffline, fetchSetCurrentUserOnline } from "../../../store/session";
+// import { useDispatch } from "react-redux";
+// import { fetchSetCurrentUserOffline, fetchSetCurrentUserOnline } from "../../../store/session";
 
 const useWebSocket = (url, messageHandlers, dependency) => {
     const websocket = useRef(null);
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     useEffect(() => {
         let ws = null;
