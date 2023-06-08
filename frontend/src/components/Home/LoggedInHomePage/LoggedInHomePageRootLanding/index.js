@@ -7,13 +7,11 @@ import './LoggedInHomePageRootLanding.css'
 const LoggedInHomePageRootLanding = ({ game, sessionUser, sendMessage, friends }) => {
     const dispatch = useDispatch();
 
-    const mostRecentGame = useSelector((state) => state.games.mostRecentGame);
-    const mostRecentGameFinalRound = mostRecentGame?.Round[mostRecentGame?.Round?.length - 1]
-    const mostRecentGameFinalRoundWords = mostRecentGameFinalRound?.Words
-    console.log('mostRecentGameFinalRoundWords', mostRecentGameFinalRoundWords)
-    const mostRecentGameUserWord = mostRecentGameFinalRoundWords?.filter(word => word?.userId === sessionUser?.id)[0]
-    console.log('mostRecentGameUserWord', mostRecentGameUserWord)
-    const mostRecentGameFriendWord = mostRecentGameFinalRoundWords?.filter(word => word?.userId !== sessionUser?.id)[0]
+    const mostRecentGame = useSelector((state) => state.games?.mostRecentGame);
+    const mostRecentGameFinalRound = mostRecentGame?.Round?.[mostRecentGame?.Round?.length - 1];
+    const mostRecentGameFinalRoundWords = mostRecentGameFinalRound?.Words;
+    const mostRecentGameUserWord = mostRecentGameFinalRoundWords?.filter(word => word?.userId === sessionUser?.id)[0];
+    const mostRecentGameFriendWord = mostRecentGameFinalRoundWords?.filter(word => word?.userId !== sessionUser?.id)[0];
 
     const friendUser =
         game?.user1?.username === sessionUser?.username ? game?.user2 : game?.user1;
@@ -44,13 +42,10 @@ const LoggedInHomePageRootLanding = ({ game, sessionUser, sendMessage, friends }
             <div className="previousOrCurrentGameDiv">
                 {game?.gameOver === false && (
                     <div>
-                        <h2>In Progress game with {friendUser.username}</h2>
+                        <h2>In Progress game with {friendUser?.username}</h2>
                         <div>
                             <NavLink to={`/gameplay/${game?.id}`}> Resume Game </NavLink>
-                            <button
-                                onClick={handleEndGame}
-                            > End Game
-                            </button>
+                            <button onClick={handleEndGame}>End Game</button>
                         </div>
                     </div>
                 )}
@@ -59,26 +54,30 @@ const LoggedInHomePageRootLanding = ({ game, sessionUser, sendMessage, friends }
                     <div className="mostRecentSingleGame">
                         <h2>Last Game</h2>
                         <div className="mostRecentSingleGameSubDiv">
-                            <h3>                            Partner: {mostRecentGame?.user1?.username === sessionUser?.username ? mostRecentGame?.user2?.username : mostRecentGame?.user1?.username}</h3>
-                            <h3>                            Rounds: {mostRecentGame?.Round?.length}</h3>
-                            <h4>                            Final Words</h4>
+                            <h3>
+                                Partner:{" "}
+                                {mostRecentGame?.user1?.username === sessionUser?.username
+                                    ? mostRecentGame?.user2?.username
+                                    : mostRecentGame?.user1?.username}
+                            </h3>
+                            <h3>Rounds: {mostRecentGame?.Round?.length}</h3>
+                            <h4>Final Words</h4>
                             <div className="mostRecentGameFinalWords">
                                 <div>
                                     <h5>{sessionUser?.username}</h5>
                                     <h6>{mostRecentGameUserWord?.wordText}</h6>
                                 </div>
                                 <div>
-                                    <h5>{friendUser.username}</h5>
+                                    <h5>{friendUser?.username}</h5>
                                     <h6>{mostRecentGameFriendWord?.wordText}</h6>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 )}
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default LoggedInHomePageRootLanding;
