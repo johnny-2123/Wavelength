@@ -16,14 +16,14 @@ function Navigation({ isLoaded }) {
                     <FontAwesomeIcon icon={faFileWaveform} />
                 </NavLink>
             </li>
-            <li className="searchBarDiv">
+            {sessionUser?.id && <li className="searchBarDiv">
                 <div className="searchBar">
                     <input type="text" placeholder="Search" />
                     <button>
                         <FontAwesomeIcon icon={faSearch} />
                     </button>
                 </div>
-            </li>
+            </li>}
             {isLoaded && (
                 <li>
                     <ProfileButton user={sessionUser} />
