@@ -75,6 +75,7 @@ const FriendDetails = ({ sendMessage, sessionUser }) => {
 
     return (
         <div className="mainFriendDetailsDiv">
+            <div></div>
             <h1>{friend?.username}</h1>
             <div className="friendDetailsSubDiv">
                 <h2>Games Played: {games?.length}</h2>
