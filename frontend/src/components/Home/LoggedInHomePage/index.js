@@ -49,7 +49,7 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                     closeModal={toast.dismiss} />,
                 {
                     autoClose: false,
-                    closeOnClick: false
+                    closeOnClick: true
                 }, { hideProgressBar: true, transition: Slide, limit: 2, autoClose: 2000 }
             );
         },
@@ -57,6 +57,8 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
             const newGameId = data?.newGameId;
             dispatch(fetchGameById(newGameId))
                 .then((game) => {
+                    setModalContent(null);
+                    closeModal();
                     setShowGamePlay(true);
                     history.push(`/gameplay/${game?.id}`);
                 })

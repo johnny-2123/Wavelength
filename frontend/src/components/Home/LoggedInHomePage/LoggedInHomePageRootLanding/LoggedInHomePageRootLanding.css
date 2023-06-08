@@ -26,10 +26,7 @@
     font-weight: 600;
     margin-top: 0;
     margin-bottom: .75rem;
-    background-color: #334075;
-    width: 100%;
-    padding: .2rem 0;
-    color: white;
+    color: #334075;
 }
 
 .previousOrCurrentGameDiv {
@@ -51,9 +48,14 @@
 }
 
 .currentGameDiv h2 {
-    margin-bottom: 0.5rem;
+    margin: 0.5rem;
     font-size: 1.2rem;
     font-weight: 500;
+    border-top: #334075 1px solid;
+    border-bottom: #334075 1px solid;
+    color: #334075;
+    width: 100%;
+    padding: 0.5rem 0;
 }
 
 .currentGameButtons {

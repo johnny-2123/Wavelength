@@ -7,6 +7,7 @@ import styles from "./GameResults.module.css";
 
 const GameResults = ({ game, sessionUser, sendMessage }) => {
     const dispatch = useDispatch();
+
     const friendUser = game?.user1?.username === sessionUser?.username ? game?.user2 : game?.user1;
 
     const gameWon =

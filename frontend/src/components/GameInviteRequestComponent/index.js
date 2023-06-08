@@ -3,9 +3,10 @@ import { useDispatch } from 'react-redux';
 import { fetchCreateRound } from '../../store/rounds';
 import { useHistory } from 'react-router-dom';
 import { createGame } from '../../store/game';
+import { useModal } from '../../context/modal';
 import styles from './GameInviteRequest.module.css';
 
-const GameInviteRequestComponent = ({ sender, sendMessage, user1Id, user2Id, sessionUser, closeModal }) => {
+const GameInviteRequestComponent = ({ sender, sendMessage, user1Id, user2Id, sessionUser }) => {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -25,8 +26,6 @@ const GameInviteRequestComponent = ({ sender, sendMessage, user1Id, user2Id, ses
                     user1: sender,
                     user2: sessionUser?.username,
                 });
-
-                closeModal();
             })
             .catch((error) => {
                 console.log('error creating game', error);
@@ -39,7 +38,6 @@ const GameInviteRequestComponent = ({ sender, sendMessage, user1Id, user2Id, ses
             sender: sessionUser?.username,
             recipient: sender,
         });
-        closeModal();
     };
 
 

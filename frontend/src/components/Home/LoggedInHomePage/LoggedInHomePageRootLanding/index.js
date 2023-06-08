@@ -55,7 +55,7 @@ const LoggedInHomePageRootLanding = ({ game, sessionUser, sendMessage, friends }
                     </div>
                 )}
 
-                {mostRecentGame?.id && (
+                {mostRecentGame?.id && game?.gameOver !== false && (
                     <div className="mostRecentSingleGame">
                         <h2>Last Game</h2>
                         <div className="mostRecentSingleGameSubDiv">
