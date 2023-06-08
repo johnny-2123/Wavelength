@@ -8,13 +8,15 @@ const LoggedInHomePageRootLanding = ({ game, sessionUser, sendMessage, friends }
     const dispatch = useDispatch();
 
     const mostRecentGame = useSelector((state) => state.games?.mostRecentGame);
+    console.log("mostRecentGame: ", mostRecentGame);
     const mostRecentGameFinalRound = mostRecentGame?.Round?.[mostRecentGame?.Round?.length - 1];
     const mostRecentGameFinalRoundWords = mostRecentGameFinalRound?.Words;
     const mostRecentGameUserWord = mostRecentGameFinalRoundWords?.filter(word => word?.userId === sessionUser?.id)[0];
     const mostRecentGameFriendWord = mostRecentGameFinalRoundWords?.filter(word => word?.userId !== sessionUser?.id)[0];
-
     const friendUser =
-        game?.user1?.username === sessionUser?.username ? game?.user2 : game?.user1;
+        mostRecentGame?.user1Id === sessionUser?.id ? mostRecentGame?.user2 : mostRecentGame?.user1;
+
+    const friendUserCurrentGame = game?.user1Id === friendUser?.id ? game?.user1CurrentGame : game?.user2CurrentGame;
 
     const handleEndGame = () => {
         dispatch(updateGame(game?.id, true)).then((updatedGame) => {
@@ -42,7 +44,7 @@ const LoggedInHomePageRootLanding = ({ game, sessionUser, sendMessage, friends }
             <div className="previousOrCurrentGameDiv">
                 {game?.gameOver === false && (
                     <div>
-                        <h2>In Progress game with {friendUser?.username}</h2>
+                        <h2>In Progress game with {friendUserCurrentGame?.username}</h2>
                         <div>
                             <NavLink to={`/gameplay/${game?.id}`}> Resume Game </NavLink>
                             <button onClick={handleEndGame}>End Game</button>
