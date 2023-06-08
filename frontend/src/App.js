@@ -32,7 +32,7 @@ function App() {
           <Home />
         </Route>
       </Switch>
-      <ToastContainer limit={4} transition={Slide} ></ToastContainer>
+      <ToastContainer limit={4} transition={Slide} closeOnClick={true} ></ToastContainer>
     </>
   );
 }
