@@ -1,9 +1,80 @@
+.friendItem {
+    width: 92%;
+    padding: 1rem;
+    background-color: transparent;
+    margin-bottom: .4rem;
+    border-bottom: #bcbbbb 1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.3s;
+    position: relative;
+    /* transition: border 0.3s ease; */
+    transition: box-shadow 0.3s ease;
+}
+
+.friendItem:hover {}
+
+.friendItem:last-child {
+    margin-bottom: .2;
+    border-radius: 8px;
+    border-bottom: none;
+}
+
+.friendItemLeftDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 30%;
+}
+
+.friendIconDiv {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    margin-right: 1.5rem;
+}
+
+.onlineStatus {
+    position: absolute;
+    top: 32%;
+    left: 1%;
+    width: 7px;
+    height: 7px;
+    margin-right: .5rem;
+    background-color: green;
+    border-radius: 50%;
+
+}
+
+.fa-user {
+    font-size: 2rem;
+}
+
 #friendIcon {
     color: #D85F56;
 }
 
+.friendInfo {
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+}
+
 .friendInfo:hover {
     cursor: pointer;
+}
+
+
+.friendUsername {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #334075;
+}
+
+.friendName {
+    font-size: 1rem;
+    color: #666;
 }
 
 .friendButtons {

@@ -42,9 +42,9 @@
     flex: 2;
     padding: 0.5rem 1.5rem;
     margin: .25rem;
-    background-color: #334075e3;
-    color: white;
-    border: transparent 1px solid;
+    background-color: white;
+    color: #334075e3;
+    border: #334075e3 1px solid;
     border-radius: 20px;
     font-size: 1rem;
     font-weight: 500;
@@ -56,6 +56,8 @@
 }
 
 .friendDetailsTopLeftDiv button:last-child {
+    border: #e4736b 1px solid;
+    color: white;
     background-color: #e4736b;
 }
 
