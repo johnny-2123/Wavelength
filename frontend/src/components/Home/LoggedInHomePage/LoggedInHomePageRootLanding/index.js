@@ -16,7 +16,10 @@ const LoggedInHomePageRootLanding = ({ game, sessionUser, sendMessage, friends }
     const friendUser =
         mostRecentGame?.user1Id === sessionUser?.id ? mostRecentGame?.user2 : mostRecentGame?.user1;
 
-    const friendUserCurrentGame = game?.user1Id === friendUser?.id ? game?.user1CurrentGame : game?.user2CurrentGame;
+    console.log('current game: ', game)
+
+    const friendUserCurrentGame = game?.user1Id === sessionUser?.id ? game?.user2 : game?.user1;
+    console.log("friendUserCurrentGame: ", friendUserCurrentGame);
 
     const handleEndGame = () => {
         dispatch(updateGame(game?.id, true)).then((updatedGame) => {
@@ -43,9 +46,9 @@ const LoggedInHomePageRootLanding = ({ game, sessionUser, sendMessage, friends }
         <div className="loggedInHomePageRootLandingDiv">
             <div className="previousOrCurrentGameDiv">
                 {game?.gameOver === false && (
-                    <div>
+                    <div className="currentGameDiv">
                         <h2>In Progress game with {friendUserCurrentGame?.username}</h2>
-                        <div>
+                        <div className="currentGameButtons">
                             <NavLink to={`/gameplay/${game?.id}`}> Resume Game </NavLink>
                             <button onClick={handleEndGame}>End Game</button>
                         </div>
