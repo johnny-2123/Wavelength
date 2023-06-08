@@ -47,8 +47,6 @@ const PendingFriends = ({ friends, sessionUser }) => {
                     setErrors([]);
                     setMessage(data.message);
                 }
-
-                console.log('data', data);
             })
             .catch(async (res) => {
                 console.log('res', res);
@@ -65,9 +63,6 @@ const PendingFriends = ({ friends, sessionUser }) => {
                     setErrors([]);
                     setMessage(data.message);
                 }
-
-
-                console.log('data', data);
             })
             .catch(async (res) => {
                 console.log('res', res);

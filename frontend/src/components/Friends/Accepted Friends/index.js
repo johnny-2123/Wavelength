@@ -8,7 +8,6 @@ const AcceptedFriends = ({ friends, sessionUser, sendMessage }) => {
     const acceptedFriends = friends?.filter((friend) => friend.status === "accepted");
 
     const handleFriendItemClick = (friendId) => {
-        console.log("handling friend item click");
         history.push(`/friends/${friendId}`);
     };
 

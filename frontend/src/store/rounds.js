@@ -4,8 +4,6 @@ const CREATE_ROUND = "round/createRound";
 const UPDATE_ROUND = "round/updateRound";
 
 export const fetchUpdateRound = (roundId, userUpdating, status) => async (dispatch) => {
-    console.log("running redux store fetchUpdateRound");
-    console.log("roundId: ", roundId);
 
     const body = {
         [userUpdating]: status
@@ -19,7 +17,6 @@ export const fetchUpdateRound = (roundId, userUpdating, status) => async (dispat
     if (response.ok) {
         const round = await response.json();
         // dispatch(updateRound(round));
-        console.log("round updated in redux store: ", round.round);
         return round.round;
     } else {
         const data = await response.json();
@@ -37,8 +34,6 @@ const createRound = (round) => {
 }
 
 export const fetchCreateRound = (gameId) => async (dispatch) => {
-    console.log("running redux store fetchCreateRound");
-    console.log("gameId: ", gameId);
 
     const response = await csrfFetch(`/api/games/${gameId}/rounds`, {
         method: "POST"
@@ -47,7 +42,6 @@ export const fetchCreateRound = (gameId) => async (dispatch) => {
     if (response.ok) {
         const round = await response.json();
         dispatch(createRound(round));
-        console.log("round created in redux store: ", round.round);
         return round.round;
     } else {
         const data = await response.json();

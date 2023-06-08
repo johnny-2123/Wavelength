@@ -10,7 +10,6 @@ export const fetchCreateWord = (roundId, wordText) => async (dispatch) => {
 
     if (response.ok) {
         const word = await response.json();
-        console.log("word created in redux store: ", word.word);
         // dispatch(createWord(word));
         return word.word;
     } else {

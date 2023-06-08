@@ -11,9 +11,6 @@ const AcceptedFriendItem = ({ friend, sessionUser, sendMessage, handleFriendItem
 
     const handleSendGameInvite = (e) => {
         e.stopPropagation();
-        console.log("handling send game invite");
-        console.log("user1Id", sessionUser?.id);
-        console.log("user2Id", friendUser?.id);
         sendMessage("send-game-invite", {
             recipient: friendUser?.username,
             user1Id: sessionUser?.id,

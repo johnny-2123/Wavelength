@@ -15,13 +15,11 @@ const getSingleMostRecentGame = (game) => {
 }
 
 export const fetchSingleMostRecentGame = (userId) => async (dispatch) => {
-    console.log("running redux store fetchSingleMostRecentGame");
     const response = await csrfFetch(`/api/games/recentGame`);
 
     if (response.ok) {
         const game = await response.json();
         dispatch(getSingleMostRecentGame(game.game));
-        console.log("most recent single game fetched in redux store: ", game.game);
         return game.game;
     }
 }
@@ -35,7 +33,6 @@ const deleteCurrentGame = (gameId) => {
 
 
 export const fetchDeleteGame = (gameId) => async (dispatch) => {
-    console.log("running redux store fetchDeleteGame");
     const response = await csrfFetch(`/api/games/${gameId}`, {
         method: "DELETE",
     });
@@ -43,7 +40,6 @@ export const fetchDeleteGame = (gameId) => async (dispatch) => {
     if (response.ok) {
         const game = await response.json();
         dispatch(deleteCurrentGame(game?.game.id));
-        console.log("game deleted in redux store: ", game?.game.id);
         return game;
     }
 }
@@ -56,7 +52,6 @@ const getGameById = (game) => {
 }
 
 export const fetchGameById = (gameId) => async (dispatch) => {
-    console.log("running redux store fetchGameById");
     // console.log("gameId: ", gameId);
 
     const response = await csrfFetch(`/api/games/${gameId}`)
@@ -84,14 +79,11 @@ export const getGames = (games) => {
 }
 
 export const fetchGames = () => async (dispatch) => {
-    console.log("running redux store fetchGames");
-
     const response = await csrfFetch(`/api/games`)
 
     if (response.ok) {
         const games = await response.json();
         dispatch(getGames(games));
-        console.log("games fetched in redux store: ", games.games);
         return games.games;
     } else {
         const data = await response.json();
@@ -103,7 +95,6 @@ export const fetchGames = () => async (dispatch) => {
 }
 
 export const updateGame = (gameId, gameOver) => async (dispatch) => {
-    console.log("running redux store updateGame");
     const response = await csrfFetch(`/api/games/${gameId}`, {
         method: "PUT",
         body: JSON.stringify({
@@ -117,7 +108,6 @@ export const updateGame = (gameId, gameOver) => async (dispatch) => {
         //     type: UPDATE_GAME,
         //     payload: game.game
         // });
-        console.log("game updated in redux store: ", game.game);
         return game.game;
     }
     else {

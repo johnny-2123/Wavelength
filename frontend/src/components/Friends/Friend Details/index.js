@@ -11,12 +11,10 @@ import "./FriendDetails.css";
 const FriendDetails = ({ sendMessage, sessionUser }) => {
     const dispatch = useDispatch();
     const { friendId } = useParams();
-    console.log("friendId: ", friendId);
 
     const friend = useSelector((state) => state.friends.currentFriend);
 
     const games = useSelector((state) => state.friends.gamesBetweenFriends);
-    console.log("games between friends: ", games);
 
     const gamesMapped = games?.map((game) => {
         return <GameResults game={game} sessionUser={sessionUser} key={game.id} sendMessage={sendMessage} />
@@ -35,7 +33,6 @@ const FriendDetails = ({ sendMessage, sessionUser }) => {
             return acc;
         }
     }, 0);
-    console.log("numGamesWon: ", numGamesWon);
 
     const settings = {
         dots: true,
@@ -70,7 +67,6 @@ const FriendDetails = ({ sendMessage, sessionUser }) => {
         dispatch(fetchWordsBetweenFriends(friendId))
         dispatch(fetchGamesBetweenFriends(friendId))
             .then((games) => {
-                console.log("games: ", games);
             })
             .catch((err) => {
                 console.log("error fetching games: ", err)

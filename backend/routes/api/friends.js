@@ -125,9 +125,6 @@ router.post('/',
     async (req, res) => {
         const userId = req.user.id;
         const { friendCredential } = req.body;
-
-        console.log('friendCredential', friendCredential);
-
         const friend = await User.findOne({
             where: {
                 [Op.or]: [
@@ -138,13 +135,9 @@ router.post('/',
             attributes: ['id', 'username']
         });
 
-        console.log('friend', friend);
-
         if (!friend) {
             return res.status(404).json({ errors: ['Friend not found.'] });
         }
-
-        console.log('friendId', friend?.id);
 
         const [friendShipSent, friendShipReceived] = await Promise.all([
 

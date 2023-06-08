@@ -10,8 +10,6 @@ const AddFriend = () => {
     const [errors, setErrors] = useState([]);
     const [message, setMessage] = useState("");
 
-    console.log('errors', errors);
-
     const handleAddFriend = async (e) => {
         e.preventDefault();
         return dispatch(fetchSendFriendRequest(friendCredential))
@@ -21,7 +19,6 @@ const AddFriend = () => {
                     setMessage(data.message);
                 }
 
-                console.log('data', data);
             })
             .catch(async (res) => {
                 const data = await res.json();

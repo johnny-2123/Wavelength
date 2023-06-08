@@ -15,7 +15,6 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
         game?.Round?.[game?.Round?.length - 1]?.Words?.[1]?.wordText;
 
     const finalRound = game?.Round?.[game?.Round?.length - 1];
-    console.log('finalRound', finalRound);
 
     const finalRoundWords = finalRound?.Words;
 
@@ -26,11 +25,8 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
     const userWordText = userWord?.wordText;
 
     const usersAgreed = finalRound?.user1Agrees && finalRound?.user2Agrees;
-    console.log('usersAgreed', usersAgreed);
-
 
     const gameRounds = game?.Round;
-    console.log('gameRounds', gameRounds);
 
     const gameRoundMapped = gameRounds?.map((round, idx) => {
         const roundWords = round?.Words;
@@ -59,7 +55,6 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
 
     const handleSendGameInvite = (e) => {
         e.stopPropagation();
-        console.log("handling send game invite");
         sendMessage("send-game-invite", {
             recipient: friendUser?.username,
             user1Id: sessionUser?.id,

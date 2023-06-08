@@ -29,7 +29,6 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
     const [playerReady, setPlayerReady] = useState(false);
     const [showRoundResults, setShowRoundResults] = useState(false);
 
-    console.log('setShowGamePlay', showGamePlay)
 
     const notifyOnGameInviteDeclined = () => toast("Game Invite Declined", { hideProgressBar: true });
     const notifyUserOffline = () => toast("User is offline", { hideProgressBar: true });
@@ -67,19 +66,16 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                 });
         },
         "declined-game-invite": (data) => {
-            console.log('declined game invite', data);
             notifyOnGameInviteDeclined();
             closeModal();
         },
         "user-not-online": (data) => {
-            console.log('user not online', data);
             notifyUserOffline();
         },
         "game-won": (data) => {
             const gameId = data?.gameId;
             dispatch(fetchGameById(gameId))
                 .then((game) => {
-                    console.log('game won', game)
                     setShowGamePlay(false)
                     setShowRoundResults(false)
                     history.push('/')
@@ -87,7 +83,6 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                 })
         },
         "game-over": (data) => {
-            console.log('recieved game over data', data)
             const gameId = data?.gameId;
             dispatch(fetchGameById(gameId))
                 .then((game) => {
@@ -103,7 +98,6 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
             const gameId = data?.gameId;
             dispatch(fetchGameById(gameId))
                 .then((game) => {
-                    console.log('game results', game)
                     setShowGamePlay(true);
                     setShowRoundResults(true);
                     setPlayerReady(false);
@@ -114,7 +108,6 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
             const gameId = data?.gameId;
             dispatch(fetchGameById(gameId))
                 .then((game) => {
-                    console.log('game results', game)
                     setShowGamePlay(true);
                     setShowRoundResults(false);
                     setPlayerReady(false);

@@ -11,7 +11,6 @@ import "./FriendsList.css";
 
 const FriendsList = ({ friends, sessionUser, sendMessage }) => {
     const { path, url } = useRouteMatch();
-    console.log("path", path);
     const [activeTab, setActiveTab] = useState("accepted");
 
     const handleTabClick = (tab) => {

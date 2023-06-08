@@ -24,12 +24,9 @@ router.put(
     async (req, res) => {
         const userId = req.user.id
         const { status } = req.body;
-        console.log('backend route to change current user online status')
-        console.log('status:', status)
         const user = await User.findByPk(userId);
         user.isOnline = status;
         await user.save();
-        console.log('user:', user)
         return res.json({
             user
         });

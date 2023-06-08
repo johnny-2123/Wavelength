@@ -8,7 +8,6 @@ const LoggedInHomePageRootLanding = ({ game, sessionUser, sendMessage, friends }
     const dispatch = useDispatch();
 
     const mostRecentGame = useSelector((state) => state.games?.mostRecentGame);
-    console.log("mostRecentGame: ", mostRecentGame);
     const mostRecentGameFinalRound = mostRecentGame?.Round?.[mostRecentGame?.Round?.length - 1];
     const mostRecentGameFinalRoundWords = mostRecentGameFinalRound?.Words;
     const mostRecentGameUserWord = mostRecentGameFinalRoundWords?.filter(word => word?.userId === sessionUser?.id)[0];
@@ -16,10 +15,7 @@ const LoggedInHomePageRootLanding = ({ game, sessionUser, sendMessage, friends }
     const friendUser =
         mostRecentGame?.user1Id === sessionUser?.id ? mostRecentGame?.user2 : mostRecentGame?.user1;
 
-    console.log('current game: ', game)
-
     const friendUserCurrentGame = game?.user1Id === sessionUser?.id ? game?.user2 : game?.user1;
-    console.log("friendUserCurrentGame: ", friendUserCurrentGame);
 
     const handleEndGame = () => {
         dispatch(updateGame(game?.id, true)).then((updatedGame) => {
@@ -34,7 +30,6 @@ const LoggedInHomePageRootLanding = ({ game, sessionUser, sendMessage, friends }
     useEffect(() => {
         dispatch(fetchSingleMostRecentGame(sessionUser?.id))
             .then((game) => {
-                console.log("game fetched in LoggedInHomePageRootLanding: ", game);
             })
             .catch((err) => {
                 console.log("error in LoggedInHomePageRootLanding: ", err);

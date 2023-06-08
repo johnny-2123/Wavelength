@@ -33,7 +33,6 @@ const GameInviteRequestComponent = ({ sender, sendMessage, user1Id, user2Id, ses
     };
 
     const handleDeclineGameInvite = () => {
-        console.log('handle decline game invite');
         sendMessage('declined-game-invite', {
             sender: sessionUser?.username,
             recipient: sender,

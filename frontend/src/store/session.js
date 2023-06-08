@@ -7,7 +7,6 @@ const SET_CURRENT_USER_ONLINE = "session/setCurrentUserOnline";
 const SET_CURRENT_USER_OFFLINE = "session/setCurrentUserOffline";
 
 export const fetchSetCurrentUserOffline = () => async (dispatch) => {
-    console.log("running redux store setCurrentUserOffline");
 
     const response = await csrfFetch(`/api/session/status`, {
         method: "PUT",
@@ -31,8 +30,6 @@ export const fetchSetCurrentUserOffline = () => async (dispatch) => {
 }
 
 export const fetchSetCurrentUserOnline = () => async (dispatch) => {
-    console.log("running redux store setCurrentUserOnline");
-
     const response = await csrfFetch(`/api/session/status`, {
         method: "PUT",
         headers: {
@@ -42,9 +39,7 @@ export const fetchSetCurrentUserOnline = () => async (dispatch) => {
     })
 
     if (response.ok) {
-        console.log("fetchSetcurrentUserOnline response ok");
         const user = await response.json();
-        console.log("user: ", user);
         return response;
     } else {
         const data = await response.json();
@@ -54,8 +49,6 @@ export const fetchSetCurrentUserOnline = () => async (dispatch) => {
     }
 }
 export const fetchSetGuid = (guid, userId) => async (dispatch) => {
-    console.log("running redux store fetchSetGuid", guid);
-
     const response = await csrfFetch(`/api/users/${userId}/guid`, {
         method: "POST",
         headers: {

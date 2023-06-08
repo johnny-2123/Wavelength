@@ -66,7 +66,6 @@ router.post(
     '/:gameId/rounds',
     async (req, res) => {
         const { gameId } = req.params;
-        console.log('###########################################################################################################')
         const lastRound = await Round.findOne({
             order: [
                 ['createdAt', 'DESC']
@@ -74,9 +73,6 @@ router.post(
             where: { gameId },
             include: [{ model: Word }]
         });
-
-        console.log('lastRound', lastRound)
-        console.log('lastRound.Words.length', lastRound?.Words?.length)
 
         if (lastRound && lastRound?.Words?.length < 2) {
             return res.status(201).json({ round: lastRound });

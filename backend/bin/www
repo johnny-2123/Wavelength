@@ -29,9 +29,6 @@ const handleMessage = async (message, ws) => {
     switch (type) {
         case 'send-game-invite':
             recipientWs = findWebSocketByUsername(data.recipient);
-            // console.log('sending game invite')
-            console.log('data', data)
-            console.log('recipientWs', recipientWs)
             if (!recipientWs) {
                 console.log(`No WebSocket found for recipient: ${data.recipient}`);
                 const errorMessage = JSON.stringify({
@@ -97,17 +94,12 @@ const handleMessage = async (message, ws) => {
                 },
             });
 
-            // user1WS.send(declinedGameInviteMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
-
             user2WS.send(declinedGameInviteMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
             break;
         case 'send-game-won-message':
             gameId = data.gameId;
-            console.log('gameId', gameId)
             user1 = data.user1;
-            console.log('user1', user1)
             user2 = data.user2;
-            console.log('user2', user2)
 
             user1WS = findWebSocketByUsername(user1);
             user2WS = findWebSocketByUsername(user2);
@@ -124,11 +116,8 @@ const handleMessage = async (message, ws) => {
             break;
         case 'send-game-over-message':
             gameId = data.gameId;
-            console.log('gameId', gameId)
             user1 = data.user1;
-            console.log('user1', user1)
             user2 = data.user2;
-            console.log('user2', user2)
 
             user1WS = findWebSocketByUsername(user1);
             user2WS = findWebSocketByUsername(user2);
@@ -145,11 +134,8 @@ const handleMessage = async (message, ws) => {
             break;
         case 'send-round-results':
             gameId = data.gameId;
-            console.log('gameId', gameId)
             user1 = data.user1;
-            console.log('user1', user1)
             user2 = data.user2;
-            console.log('user2', user2)
 
             user1WS = findWebSocketByUsername(user1);
             user2WS = findWebSocketByUsername(user2);
@@ -172,11 +158,8 @@ const handleMessage = async (message, ws) => {
             break;
         case 'send-start-new-round':
             gameId = data.gameId;
-            console.log('gameId', gameId)
             user1 = data.user1;
-            console.log('user1', user1)
             user2 = data.user2;
-            console.log('user2', user2)
 
             user1WS = findWebSocketByUsername(user1);
             user2WS = findWebSocketByUsername(user2);
@@ -204,10 +187,7 @@ const handleMessage = async (message, ws) => {
             break;
         case 'direct-message':
             recipientWs = findWebSocketByUsername(data.recipient);
-            console.log('data.recipient', data.recipient);
-            console.log('message', data.message);
             if (!recipientWs) {
-                console.log(`No WebSocket found for recipient: ${data.recipient}`);
                 return;
             }
             if (recipientWs && recipientWs.readyState === WebSocket.OPEN) {
@@ -219,7 +199,6 @@ const handleMessage = async (message, ws) => {
                         message: data.message,
                     },
                 });
-                console.log('Sending direct message: %s', directMessage);
                 recipientWs.send(directMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
             }
             break;
@@ -266,7 +245,6 @@ db.sequelize.authenticate().then(() => {
         for (const friend of ws.friends) {
             let friendWs = findWebSocketByUsername(friend);
             console.log('Friend in friend of friends: ', friend);
-            // console.log('FriendWs.username: ', friendWs);
             if (friendWs && friendWs.readyState === WebSocket.OPEN) {
                 const friendMessage = JSON.stringify({
                     type: 'friend-online',
@@ -297,7 +275,6 @@ db.sequelize.authenticate().then(() => {
             for (const friend of ws.friends) {
                 let friendWs = findWebSocketByUsername(friend);
                 console.log('Friend in friend of friends: ', friend);
-                // console.log('FriendWs.username: ', friendWs);
                 if (friendWs && friendWs.readyState === WebSocket.OPEN) {
                     const friendMessage = JSON.stringify({
                         type: 'friend-offline',

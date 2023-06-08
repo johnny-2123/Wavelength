@@ -27,12 +27,10 @@ const getWordsBetweenFriends = (words) => {
 }
 
 export const fetchWordsBetweenFriends = (friendId) => async (dispatch) => {
-    console.log("fetching words between friends");
     const response = await csrfFetch(`/api/words/${friendId}`);
 
     if (response.ok) {
         const words = await response.json();
-        console.log("words fetched in redux store: ", words.words);
         return words;
     }
 
@@ -50,7 +48,6 @@ export const fetchFriendDetails = (friendId) => async (dispatch) => {
 
     if (response.ok) {
         const friend = await response.json();
-        // console.log("friend fetched in redux store: ", friend);
         dispatch(getFriendDetails(friend.friend));
         return friend.friend;
     }
@@ -64,12 +61,10 @@ const getGamesBetweenFriends = (games) => {
 }
 
 export const fetchGamesBetweenFriends = (friendId) => async (dispatch) => {
-    // console.log("fetching games between friends");
     const response = await csrfFetch(`/api/friends/${friendId}/games`);
 
     if (response.ok) {
         const games = await response.json();
-        // console.log("games fetched in redux store: ", games);
         dispatch(getGamesBetweenFriends(games));
         return games;
     }
@@ -92,7 +87,6 @@ export const fetchRejectFriendRequest = (friendId, status) => async (dispatch) =
 
     if (response.ok) {
         const friend = await response.json();
-        console.log("friend request rejected in redux store: ", friend.friendship.RequestingUser);
         dispatch(rejectFriend(friend.friendship.RequestingUser));
         return friend;
     }
@@ -115,8 +109,6 @@ export const fetchAcceptFriendRequest = (friendId, status) => async (dispatch) =
 
     if (response.ok) {
         const friend = await response.json();
-        console.log('friend.ReceivingUser', friend.friendship.RequestingUser);
-        console.log("friend request accepted in redux store: ", friend.friendship.RequestingUser);
         dispatch(acceptFriend(friend.friendship.RequestingUser));
         return friend;
     }
@@ -133,7 +125,6 @@ export const fetchSendFriendRequest = (friendCredential) => async (dispatch) => 
 
     if (response.ok) {
         const friend = await response.json();
-        console.log("friend request sent in redux store: ", friend);
         if (friend.friendship) {
             dispatch(acceptFriend(friend.friendship.RequestingUser));
         }
@@ -151,9 +142,6 @@ export const updateOfflineStatus = (userId, friendId) => {
 
 
 export const updateOnlineStatus = (userId, friendId) => {
-    // console.log("running redux store updateOnlineStatus");
-    // console.log("userId: ", userId);
-    // console.log("friendId: ", friendId);
     return {
         type: UPDATE_ONLINE_STATUS,
         payload: { userId, friendId },
@@ -175,7 +163,6 @@ export const fetchFriends = () => async (dispatch) => {
     if (response.ok) {
         const friends = await response.json();
         dispatch(getFriends(friends));
-        // console.log("friends fetched in redux store: ", friends.friends);
         return friends.friends;
     } else {
         const data = await response.json();
@@ -223,7 +210,6 @@ const friendsReducer = (state = initialState, action) => {
             newState = { ...state };
             newState.friends.forEach((friend) => {
                 if (friend.RequestingUser?.id === action.payload.id) {
-                    console.log('changing status to accepted', friend.RequestingUser);
                     friend.status = "accepted";
                 }
             });
