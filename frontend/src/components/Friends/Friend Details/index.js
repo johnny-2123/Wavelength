@@ -84,7 +84,7 @@ const FriendDetails = ({ sendMessage, sessionUser }) => {
                 <h2>Games Played: {games?.length}</h2>
                 <h2>Games Won: {numGamesWon}</h2>
             </div>
-            <h2 className="pasGamesTitle">Past Games</h2>
+            <h2 className="pastGamesTitle">Past Games</h2>
             <Slider className="gamesForFriendSlider"  {...settings}>{gamesMapped}</Slider>
         </div>
     )

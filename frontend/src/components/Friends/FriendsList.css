@@ -6,12 +6,13 @@
 }
 
 .friendsContainer {
-    /* border: #f2f2f2 2px solid; */
+    border: none;
+    border-radius: 8px;
     padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 65vh;
+    max-height: 65vh;
     overflow-y: auto;
     overflow-x: hidden;
     position: relative;
@@ -104,23 +105,26 @@
 .friendItem {
     width: 100%;
     padding: 1rem;
-    background-color: transparent;
-    box-shadow: 0 0 1.5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 0rem;
+    background-color: #F3F2F0;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    margin-bottom: .2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     transition: background-color 0.3s;
     position: relative;
-
+    /* transition: border 0.3s ease; */
+    transition: box-shadow 0.3s ease;
 }
 
 .friendItem:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .friendItem:last-child {
-    margin-bottom: 0;
+    margin-bottom: .2;
+    border-radius: 8px;
 }
 
 .friendIconDiv {

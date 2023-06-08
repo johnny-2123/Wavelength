@@ -1,6 +1,7 @@
 .gameResults {
     margin: .5rem;
     background-color: #f3f2f0;
+    border: #f3f2f0 2px solid;
     border-radius: 10px;
     padding: 2rem 1rem;
     display: flex;
@@ -9,6 +10,8 @@
     text-align: center;
     max-height: 60vh;
     overflow-y: auto;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+
 }
 
 
@@ -25,19 +28,19 @@
     background-color: rgba(186, 186, 186, 0.758);
 }
 
-h1.gameResultsTitle {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
+.gameResults h1.gameResultsTitle {
+    font-size: 2.1rem;
+    font-weight: 500;
+    margin-bottom: 1.2rem;
     width: 80%;
-    color: #e4736b;
+    color: #334075;
 }
 
 .gameResults h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 1.2rem;
+    font-weight: 500;
     margin-top: 0;
-    margin-bottom: 1rem;
+    margin-bottom: .25rem;
     color: #555;
 }
 
@@ -63,7 +66,7 @@ h1.gameResultsTitle {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 1.5rem;
+    margin-top: .5rem;
 }
 
 .FinalWordsDiv {
@@ -76,7 +79,8 @@ h1.gameResultsTitle {
 }
 
 .FinalWordsDiv h2 {
-    border-bottom: #e4736b 1px solid;
+    color: #d65e55;
+    border-bottom: #d65e55 1px solid;
     padding-bottom: 0.5rem;
     width: 100%;
 }

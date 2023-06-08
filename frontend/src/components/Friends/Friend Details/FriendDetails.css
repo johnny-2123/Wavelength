@@ -21,7 +21,7 @@
 
 .friendDetailsSubDiv h2 {
     font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: 500;
     margin: .25rem;
     color: #555;
 }
@@ -34,9 +34,9 @@
     margin-bottom: 0;
 }
 
-.pasGamesTitle {
+.pastGamesTitle {
     font-size: 1.5em;
-    font-weight: 600;
+    font-weight: 500;
     margin: 1rem;
     color: #334075;
 }
