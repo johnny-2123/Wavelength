@@ -1,11 +1,20 @@
-import React from "react";
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
-import { updateGame } from "../../../../store/game";
+import { updateGame, fetchSingleMostRecentGame } from "../../../../store/game";
 import './LoggedInHomePageRootLanding.css'
 
 const LoggedInHomePageRootLanding = ({ game, sessionUser, sendMessage, friends }) => {
     const dispatch = useDispatch();
+
+    const mostRecentGame = useSelector((state) => state.games.mostRecentGame);
+    const mostRecentGameFinalRound = mostRecentGame?.Round[mostRecentGame?.Round?.length - 1]
+    const mostRecentGameFinalRoundWords = mostRecentGameFinalRound?.Words
+    console.log('mostRecentGameFinalRoundWords', mostRecentGameFinalRoundWords)
+    const mostRecentGameUserWord = mostRecentGameFinalRoundWords?.filter(word => word?.userId === sessionUser?.id)[0]
+    console.log('mostRecentGameUserWord', mostRecentGameUserWord)
+    const mostRecentGameFriendWord = mostRecentGameFinalRoundWords?.filter(word => word?.userId !== sessionUser?.id)[0]
+
     const friendUser =
         game?.user1?.username === sessionUser?.username ? game?.user2 : game?.user1;
 
@@ -19,9 +28,19 @@ const LoggedInHomePageRootLanding = ({ game, sessionUser, sendMessage, friends }
         });
     };
 
+    useEffect(() => {
+        dispatch(fetchSingleMostRecentGame(sessionUser?.id))
+            .then((game) => {
+                console.log("game fetched in LoggedInHomePageRootLanding: ", game);
+            })
+            .catch((err) => {
+                console.log("error in LoggedInHomePageRootLanding: ", err);
+            });
+    }, [dispatch, sessionUser?.id]);
+
+
     return (
         <div className="loggedInHomePageRootLandingDiv">
-            <h1>Landing Page</h1>
             <div className="previousOrCurrentGameDiv">
                 {game?.gameOver === false && (
                     <div>
@@ -36,9 +55,26 @@ const LoggedInHomePageRootLanding = ({ game, sessionUser, sendMessage, friends }
                     </div>
                 )}
 
-                {game?.gameOver === true && (
-                    <h2>Last Played Game</h2>
+                {mostRecentGame?.id && (
+                    <div className="mostRecentSingleGame">
+                        <h2>Last Game</h2>
+                        <div className="mostRecentSingleGameSubDiv">
+                            <h3>                            Partner: {mostRecentGame?.user1?.username === sessionUser?.username ? mostRecentGame?.user2?.username : mostRecentGame?.user1?.username}</h3>
+                            <h3>                            Rounds: {mostRecentGame?.Round?.length}</h3>
+                            <h4>                            Final Words</h4>
+                            <div className="mostRecentGameFinalWords">
+                                <div>
+                                    <h5>{sessionUser?.username}</h5>
+                                    <h6>{mostRecentGameUserWord?.wordText}</h6>
+                                </div>
+                                <div>
+                                    <h5>{friendUser.username}</h5>
+                                    <h6>{mostRecentGameFriendWord?.wordText}</h6>
+                                </div>
+                            </div>
+                        </div>
 
+                    </div>
                 )}
             </div>
         </div>

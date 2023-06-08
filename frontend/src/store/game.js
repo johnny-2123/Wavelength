@@ -5,6 +5,26 @@ const UPDATE_GAME = "game/updateGame";
 const GET_GAMES = "game/getGames";
 const GET_GAME_BY_ID = "game/getGameById";
 const DELETE_CURRENT_GAME = "game/deleteGame";
+const GET_SINGLE_MOST_RECENT_GAME = "game/getSingleMostRecentGame";
+
+const getSingleMostRecentGame = (game) => {
+    return {
+        type: GET_SINGLE_MOST_RECENT_GAME,
+        payload: game,
+    };
+}
+
+export const fetchSingleMostRecentGame = (userId) => async (dispatch) => {
+    console.log("running redux store fetchSingleMostRecentGame");
+    const response = await csrfFetch(`/api/games/recentGame`);
+
+    if (response.ok) {
+        const game = await response.json();
+        dispatch(getSingleMostRecentGame(game.game));
+        console.log("most recent single game fetched in redux store: ", game.game);
+        return game.game;
+    }
+}
 
 const deleteCurrentGame = (gameId) => {
     return {
@@ -141,6 +161,7 @@ const initialState = {
     games: [],
     currentGame: {},
     previousGame: {},
+    mostRecentGame: {},
 };
 
 
@@ -160,6 +181,10 @@ const gameReducer = (state = initialState, action) => {
             if (newState.currentGame.id === action.payload) {
                 newState.currentGame = null;
             }
+            return newState;
+        case GET_SINGLE_MOST_RECENT_GAME:
+            newState = { ...state };
+            newState.mostRecentGame = action.payload;
             return newState;
         default:
             return state;
