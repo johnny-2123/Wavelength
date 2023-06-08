@@ -10,7 +10,8 @@ function Navigation({ isLoaded }) {
     return (
         <ul className="navigationUl">
             <li>
-                <NavLink to="/">
+                <NavLink
+                    to="/">
                     Home
                 </NavLink>
             </li>

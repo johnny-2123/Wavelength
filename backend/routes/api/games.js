@@ -113,7 +113,7 @@ router.delete(
         }
 
         await game.destroy();
-        res.status(200).json({ message: `Game ${game.id} deleted.` });
+        res.status(200).json({ message: `Game ${game.id} deleted.`, game: game });
     }
 );
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, NavLink } from "react-router-dom";
 import { fetchFriends } from "../../../store/friends";
-import { fetchGameById } from "../../../store/game";
+import { fetchGameById, updateGame } from "../../../store/game";
 import GameInviteRequestComponent from "../../GameInviteRequestComponent";
 import Routes from "./Routes";
 import GameResults from "../../GameResults";
@@ -135,6 +135,7 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
             setShowGamePlay(false);
             // history.push(`/`);
         }
+
     }, [game, history]);
 
     useEffect(() => {

@@ -4,7 +4,7 @@ import GamePlay from "../../GamePlay";
 import DirectMessageForm from "../../DirectMessageForm";
 import FriendsList from "../../Friends";
 import PastGames from "../../Past Games";
-
+import LoggedInHomePageRootLanding from "./LoggedInHomePageRootLanding";
 const Routes = ({ sessionUser, sendMessage, receivedMessages, friends, game, showRoundResults, setShowRoundResults, playerReady, setPlayerReady, setShowGamePlay }) => (
     <Switch>
         <Route path="/gameplay/:gameId">
@@ -26,6 +26,9 @@ const Routes = ({ sessionUser, sendMessage, receivedMessages, friends, game, sho
         </Route>
         <Route path="/games">
             <PastGames sessionUser={sessionUser} sendMessage={sendMessage} />
+        </Route>
+        <Route path="/" exact>
+            <LoggedInHomePageRootLanding game={game} sessionUser={sessionUser} sendMessage={sendMessage} friends={friends} />
         </Route>
     </Switch>
 );

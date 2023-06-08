@@ -4,6 +4,29 @@ const CREATE_GAME = "game/createGame";
 const UPDATE_GAME = "game/updateGame";
 const GET_GAMES = "game/getGames";
 const GET_GAME_BY_ID = "game/getGameById";
+const DELETE_CURRENT_GAME = "game/deleteGame";
+
+const deleteCurrentGame = (gameId) => {
+    return {
+        type: DELETE_CURRENT_GAME,
+        payload: gameId,
+    };
+}
+
+
+export const fetchDeleteGame = (gameId) => async (dispatch) => {
+    console.log("running redux store fetchDeleteGame");
+    const response = await csrfFetch(`/api/games/${gameId}`, {
+        method: "DELETE",
+    });
+
+    if (response.ok) {
+        const game = await response.json();
+        dispatch(deleteCurrentGame(game?.game.id));
+        console.log("game deleted in redux store: ", game?.game.id);
+        return game;
+    }
+}
 
 const getGameById = (game) => {
     return {
@@ -122,6 +145,7 @@ const initialState = {
 
 
 const gameReducer = (state = initialState, action) => {
+    let newState;
     switch (action.type) {
         case GET_GAMES:
             return { ...state, games: action.payload.games };
@@ -131,6 +155,12 @@ const gameReducer = (state = initialState, action) => {
             return { ...state, currentGame: action.payload };
         case UPDATE_GAME:
             return { ...state, currentGame: action.payload };
+        case DELETE_CURRENT_GAME:
+            newState = { ...state };
+            if (newState.currentGame.id === action.payload) {
+                newState.currentGame = null;
+            }
+            return newState;
         default:
             return state;
     }

@@ -9,6 +9,15 @@ const REJECT_FRIEND_REQUEST = "friends/rejectFriendRequest";
 const GET_GAMES_BETWEEN_FRIENDS = "friends/getGamesBetweenFriends";
 const GET_FRIEND_DETAILS = "friends/getFriendDetails";
 const GET_WORDS_BETWEEN_FRIENDS = "friends/getWordsBetweenFriends";
+const DELETE_GAME_FROM_FRIEND_DETAILS = "game/deleteGameFromFriendDetails";
+
+export const DeleteGameFromFriendDetails = (gameId) => {
+    return {
+        type: DELETE_GAME_FROM_FRIEND_DETAILS,
+        payload: gameId,
+    };
+}
+
 
 const getWordsBetweenFriends = (words) => {
     return {
@@ -231,6 +240,12 @@ const friendsReducer = (state = initialState, action) => {
         case GET_GAMES_BETWEEN_FRIENDS:
             newState = { ...state };
             newState.gamesBetweenFriends = action.payload.games;
+            return newState;
+        case DELETE_GAME_FROM_FRIEND_DETAILS:
+            newState = { ...state };
+            const gameToDelete = newState.gamesBetweenFriends.find((game) => game.id === action.payload);
+            const gameToDeleteIndex = newState.gamesBetweenFriends.indexOf(gameToDelete);
+            newState.gamesBetweenFriends.splice(gameToDeleteIndex, 1);
             return newState;
         default:
             return state;

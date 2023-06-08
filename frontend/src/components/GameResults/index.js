@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchGameById } from "../../store/game";
+import { fetchGameById, fetchDeleteGame } from "../../store/game";
+import { DeleteGameFromFriendDetails } from "../../store/friends";
+import { toast, Slide } from 'react-toastify';
 import styles from "./GameResults.module.css";
 
 const GameResults = ({ game, sessionUser, sendMessage }) => {
-
+    const dispatch = useDispatch();
     const friendUser = game?.user1?.username === sessionUser?.username ? game?.user2 : game?.user1;
 
     const gameWon =
@@ -44,6 +46,16 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
 
     });
 
+    const notifyOnGameDelete = () => toast.success('Game deleted', {
+        hideProgressBar: true,
+        transition: Slide,
+    })
+
+    const notifyOnGameDeleteError = () => toast.error('Error deleting game', {
+        hideProgressBar: true,
+        transition: Slide,
+    })
+
     const handleSendGameInvite = (e) => {
         e.stopPropagation();
         console.log("handling send game invite");
@@ -54,6 +66,22 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
         });
     };
 
+    const handleDeleteGame = (e) => {
+        e.stopPropagation();
+        dispatch(fetchDeleteGame(game?.id))
+            .then((data) => {
+                if (data?.message) {
+                    dispatch(DeleteGameFromFriendDetails(game?.id));
+                    notifyOnGameDelete();
+                }
+            })
+            .catch((error) => {
+                console.log('error deleting game', error);
+                if (error) {
+                    notifyOnGameDeleteError();
+                }
+            });
+    };
 
     return (
         <div className={styles.gameResults}>
@@ -77,6 +105,9 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
                 <button
                     onClick={(e) => handleSendGameInvite(e)}
                 >Play Again</button>
+                <button
+                    onClick={(e) => handleDeleteGame(e)}
+                >Delete Game</button>
             </div>
             <h2 className={styles.gameRoundsTitle}>Game Rounds</h2>
             {gameRoundMapped}
