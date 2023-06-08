@@ -99,13 +99,25 @@
     transition: box-shadow 0.1s;
 }
 
-
-
-.friendItem button:hover {
+.friendItem button:active {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     color: white;
     background-color: #334075;
 }
 
-.friendItem button:active {
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+@media (min-width: 600px) {
+    .friendItem button:hover {
+        color: white;
+        background-color: #334075;
+    }
+
+
+}
+
+@media (max-width: 599px) {
+    .friendItem button {
+        margin: 0;
+        padding: .25rem .75rem;
+    }
+
 }
