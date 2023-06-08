@@ -4,8 +4,8 @@
 
 .recentGamesSlider {
     height: 20%;
-    width: 90%;
-    margin: 1rem;
+    width: 85%;
+    margin: 0 auto 1rem auto;
 }
 
 .slick-dots {

@@ -7,6 +7,14 @@ const GET_GAME_BY_ID = "game/getGameById";
 const DELETE_CURRENT_GAME = "game/deleteGame";
 const GET_SINGLE_MOST_RECENT_GAME = "game/getSingleMostRecentGame";
 const GET_RECENT_GAMES = "game/getMostRecentGames";
+const DELETE_GAME_FROM_RECENT_GAMES = "game/deleteGameFromRecentGames";
+
+export const DeleteGameFromRecentGames = (gameId) => {
+    return {
+        type: DELETE_GAME_FROM_RECENT_GAMES,
+        payload: gameId,
+    };
+}
 
 const getRecentGames = (games) => {
     return {
@@ -59,7 +67,8 @@ export const fetchDeleteGame = (gameId) => async (dispatch) => {
 
     if (response.ok) {
         const game = await response.json();
-        dispatch(deleteCurrentGame(game?.game.id));
+        dispatch(deleteCurrentGame(game?.game.id))
+        dispatch(DeleteGameFromRecentGames(game?.game.id));
         return game;
     }
 }
@@ -200,6 +209,14 @@ const gameReducer = (state = initialState, action) => {
         case GET_RECENT_GAMES:
             newState = { ...state };
             newState.recentGames = action.payload;
+            return newState;
+        case DELETE_GAME_FROM_RECENT_GAMES:
+            newState = { ...state };
+            const gameToDelete = newState.recentGames.find((game) => game?.id === action.payload);
+            console.log("game to delete: ", gameToDelete);
+            const gameToDeleteIdx = newState.recentGames.indexOf(gameToDelete);
+            console.log("game to delete idx: ", gameToDeleteIdx);
+            newState.recentGames.splice(gameToDeleteIdx, 1);
             return newState;
         default:
             return state;

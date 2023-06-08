@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { fetchGameById, fetchDeleteGame } from "../../store/game";
+import { fetchGameById, fetchDeleteGame, DeleteGameFromRecentGames } from "../../store/game";
 import { DeleteGameFromFriendDetails } from "../../store/friends";
 import { toast, Slide } from 'react-toastify';
 import styles from "./GameResults.module.css";
@@ -70,7 +70,7 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
         dispatch(fetchDeleteGame(game?.id))
             .then((data) => {
                 if (data?.message) {
-                    dispatch(DeleteGameFromFriendDetails(game?.id));
+                    dispatch(DeleteGameFromFriendDetails(game?.id))
                     notifyOnGameDelete();
                 }
             })
