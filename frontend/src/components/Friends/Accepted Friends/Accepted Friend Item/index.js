@@ -21,7 +21,7 @@ const AcceptedFriendItem = ({ friend, sessionUser, sendMessage, handleFriendItem
     return (
         <div key={friend.id} className="friendItem">
             <div className="friendIconDiv">
-                <i id={friendIconId} className="fa-regular fa-user"></i>
+                <i class="fa-solid fa-user"></i>
             </div>
             <div onClick={() => handleFriendItemClick(friendUser.id)} className="friendInfo">
                 <div className="friendUsername">{friendUser?.username}</div>

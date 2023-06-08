@@ -2,6 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileWaveform, faSearch } from "@fortawesome/free-solid-svg-icons"; // Added faSearch icon
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
@@ -10,10 +12,17 @@ function Navigation({ isLoaded }) {
     return (
         <ul className="navigationUl">
             <li>
-                <NavLink
-                    to="/">
-                    Home
+                <NavLink to="/">
+                    <FontAwesomeIcon icon={faFileWaveform} />
                 </NavLink>
+            </li>
+            <li className="searchBarDiv">
+                <div className="searchBar">
+                    <input type="text" placeholder="Search" />
+                    <button>
+                        <FontAwesomeIcon icon={faSearch} />
+                    </button>
+                </div>
             </li>
             {isLoaded && (
                 <li>

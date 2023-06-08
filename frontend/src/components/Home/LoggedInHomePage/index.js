@@ -157,9 +157,6 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
         <div className="homePageLoggedInMainDiv">
             {!showGamePlay && (
                 <nav className="homeNavBar">
-                    {/* <NavLink to="/direct-message-form" activeClassName="active-link" >
-                        Direct Messages
-                    </NavLink> */}
                     <NavLink to="/friends/accepted"
                         activeClassName="active-link"
                         isActive={(match, location) => {

@@ -1,9 +1,11 @@
 .homePageLoggedInMainDiv {
-    height: calc(100vh - 3rem);
+    height: calc(100vh - 4rem);
     margin: 0rem;
+    padding-top: .5rem;
     width: 100%;
-}
+    box-sizing: border-box;
 
+}
 
 .homePageLoggedInMainDiv h1 {
     color: #334075;
@@ -12,30 +14,49 @@
 }
 
 .homeNavBar {
-    width: 100%;
+    width: 95%;
     height: 40px;
+    margin: 0rem auto;
     box-shadow: 0 0 0px rgba(0, 0, 0, 0.2);
-    background-color: #A0741B;
+    background-color: transparent;
+    border: #929292 1px solid;
+    border-radius: 50px;
+    color: #555;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    position: relative;
 }
+
+/* .homeNavBar::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    right: 5%;
+    height: 1px;
+    background-color: lightgrey;
+    transform: translateY(.72rem);
+    z-index: -1;
+} */
 
 .homeNavBar a {
     margin-right: 1rem;
     padding: 0.2rem 0rem;
     font-size: 1rem;
-    font-weight: bold;
-    color: rgba(255, 255, 255, 0.818);
+    font-weight: lighter;
+    color: #929292;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .homeNavBar a:hover {
-    color: white;
+    color: #334075;
+    border-bottom: 2px solid #334075;
 }
 
 .homeNavBar .active-link {
-    color: white;
-    border-bottom: 2px solid white;
+    color: #334075;
+    font-weight: bold;
+    border-bottom: 2px solid #334075;
 }

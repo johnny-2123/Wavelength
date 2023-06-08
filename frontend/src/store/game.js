@@ -6,6 +6,26 @@ const GET_GAMES = "game/getGames";
 const GET_GAME_BY_ID = "game/getGameById";
 const DELETE_CURRENT_GAME = "game/deleteGame";
 const GET_SINGLE_MOST_RECENT_GAME = "game/getSingleMostRecentGame";
+const GET_RECENT_GAMES = "game/getMostRecentGames";
+
+const getRecentGames = (games) => {
+    return {
+        type: GET_RECENT_GAMES,
+        payload: games,
+    };
+}
+
+export const fetchRecentGames = () => async (dispatch) => {
+    const response = await csrfFetch(`/api/games/recentGames`);
+
+    if (response.ok) {
+        const games = await response.json();
+        dispatch(getRecentGames(games.recentGames));
+        return games;
+    }
+}
+
+
 
 const getSingleMostRecentGame = (game) => {
     return {
@@ -152,6 +172,7 @@ const initialState = {
     currentGame: {},
     previousGame: {},
     mostRecentGame: {},
+    recentGames: [],
 };
 
 
@@ -175,6 +196,10 @@ const gameReducer = (state = initialState, action) => {
         case GET_SINGLE_MOST_RECENT_GAME:
             newState = { ...state };
             newState.mostRecentGame = action.payload;
+            return newState;
+        case GET_RECENT_GAMES:
+            newState = { ...state };
+            newState.recentGames = action.payload;
             return newState;
         default:
             return state;
