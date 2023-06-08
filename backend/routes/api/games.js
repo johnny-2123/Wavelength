@@ -1,8 +1,56 @@
 const express = require('express');
 const { requireAuth } = require('../../utils/auth');
 const { Game, Round, Word, User } = require('../../db/models');
+const { Op } = require('sequelize');
 
 const router = express.Router();
+
+router.get(
+    '/recentGame',
+    requireAuth,
+    async (req, res) => {
+        const userId = req.user.id;
+
+        const mostRecentGame = await Game.findOne({
+            where: {
+                [Op.or]: [
+                    { user1Id: userId },
+                    { user2Id: userId }
+                ]
+            },
+            order: [
+                ['createdAt', 'DESC']
+            ],
+            limit: 1,
+            include: [
+                {
+                    model: Round,
+                    as: 'Round',
+                    include: [
+                        {
+                            model: Word
+                        }
+                    ]
+                },
+                {
+                    model: User,
+                    as: 'user1',
+                },
+                {
+                    model: User,
+                    as: 'user2',
+                }
+            ]
+        });
+
+        if (!mostRecentGame) {
+            return res.status(404).json({ errors: 'Game not found.' });
+        }
+
+        return res.status(200).json({ game: mostRecentGame });
+    }
+
+)
 
 router.get(
     '/:gameId/rounds',
