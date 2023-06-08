@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { fetchGameById, fetchDeleteGame } from "../../store/game";
 import { DeleteGameFromFriendDetails } from "../../store/friends";
 import { toast, Slide } from 'react-toastify';
@@ -7,7 +8,9 @@ import styles from "./GameResults.module.css";
 
 const GameResults = ({ game, sessionUser, sendMessage }) => {
     const dispatch = useDispatch();
-
+    const location = useLocation();
+    const currentURL = location.pathname;
+    console.log('currentURL', currentURL);
     const friendUser = game?.user1?.username === sessionUser?.username ? game?.user2 : game?.user1;
 
     const gameWon =
@@ -98,12 +101,12 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
                 </div>
             </div>
             <div className={styles.gameResultButtons}>
-                <button
+                {currentURL === "/" && <button
                     onClick={(e) => handleSendGameInvite(e)}
-                >Play Again</button>
-                <button
+                >Play Again</button>}
+                {currentURL !== "/" && <button
                     onClick={(e) => handleDeleteGame(e)}
-                >Delete Game</button>
+                >Delete Game</button>}
             </div>
             <h2 className={styles.gameRoundsTitle}>Game Rounds</h2>
             {gameRoundMapped}

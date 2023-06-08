@@ -30,12 +30,13 @@
 .searchBarDiv {
     display: flex;
     align-items: center;
-    width: 30%;
+    width: 70%;
 }
 
 .searchBar {
     display: flex;
     align-items: center;
+    width: 100%;
     border-radius: 2rem;
     padding: 0.2rem 1rem;
     box-shadow: 0 0px 1px rgba(0, 0, 0, 0.1);
@@ -45,8 +46,9 @@
     border: none;
     background-color: transparent;
     font-size: 1.2rem;
-    width: 13rem;
-    padding: 0.2rem;
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 20px;
 }
 
 .searchBar button {
