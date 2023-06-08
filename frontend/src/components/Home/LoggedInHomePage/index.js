@@ -72,6 +72,16 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
         "user-not-online": (data) => {
             notifyUserOffline();
         },
+        "round-results": (data) => {
+            const gameId = data?.gameId;
+            dispatch(fetchGameById(gameId))
+                .then((game) => {
+                    setShowGamePlay(true);
+                    setShowRoundResults(true);
+                    setPlayerReady(false);
+                })
+
+        },
         "game-won": (data) => {
             const gameId = data?.gameId;
             dispatch(fetchGameById(gameId))
@@ -93,16 +103,6 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                     setModalContent(<GameResults game={game} sessionUser={sessionUser} sendMessage={sendMessage} />);
 
                 })
-        },
-        "round-results": (data) => {
-            const gameId = data?.gameId;
-            dispatch(fetchGameById(gameId))
-                .then((game) => {
-                    setShowGamePlay(true);
-                    setShowRoundResults(true);
-                    setPlayerReady(false);
-                })
-
         },
         "start-new-round": (data) => {
             const gameId = data?.gameId;

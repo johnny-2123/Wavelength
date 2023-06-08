@@ -2,6 +2,10 @@
     padding: 1rem;
 }
 
+.pastGamesMainDiv h1 {
+    font-size: 1.5rem;
+}
+
 .recentGamesSlider {
     height: 20%;
     width: 85%;

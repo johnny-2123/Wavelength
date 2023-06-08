@@ -2,43 +2,108 @@
     overflow-y: hidden;
     display: flex;
     margin: 0;
+    padding: 0;
     flex-direction: column;
     align-items: center;
 }
 
-.mainFriendDetailsDiv h1 {
-    font-size: 1.5rem;
+.friendDetailsTopDiv {
+    width: 85%;
+    margin: .25rem;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+.friendDetailsTopDiv div {
+    border-radius: 10px;
     margin: .5rem;
 }
 
-.friendDetailsSubDiv {
-    margin-top: .25rem;
-    margin-bottom: 0;
+.friendDetailsTopLeftDiv {
+    padding: 1rem;
     display: flex;
+    width: 38%;
     flex-direction: column;
     align-items: center;
+    box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1);
+
 }
 
-.friendDetailsSubDiv h2 {
+.friendDetailsTopLeftDiv h1 {
+    font-size: 1.5rem;
+    margin: 0 .5rem .5rem .5rem;
+}
+
+
+.friendDetailsTopLeftDiv button {
+    flex: 2;
+    padding: 0.5rem 1.5rem;
+    margin: .25rem;
+    background-color: #334075e3;
+    color: white;
+    border: transparent 1px solid;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    transition: font-weight 0.3s;
+    transition: color 0.3s;
+    transition: box-shadow 0.1s;
+}
+
+.friendDetailsTopLeftDiv button:last-child {
+    background-color: #e4736b;
+}
+
+.friendDetailsTopLeftDiv button:active {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+
+.friendDetailsTopLeftDiv button:hover {
+    color: white;
+    background-color: #334075;
+}
+
+.friendDetailsTopLeftDiv button:last-child:hover {
+    color: white;
+    background-color: #D85F56;
+}
+
+.friendDetailsTopRightDiv {
+    padding: 1rem;
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1);
+
+}
+
+.friendDetailsTopRightDiv h2 {
     font-size: 1.2rem;
     font-weight: 600;
     margin: .25rem;
     color: #555;
 }
 
-.friendDetailsSubDiv h2:first-child {
+.friendDetailsTopRightDiv h2:first-child {
     margin-top: 0;
 }
 
-.friendDetailsSubDiv h2:last-child {
+.friendDetailsTopRightDiv h2:last-child {
     margin-bottom: 0;
 }
 
-.pasGamesTitle {
+.pastGamesTitle {
     font-size: 1.5em;
-    font-weight: 600;
+    font-weight: 500;
     margin: 1rem;
-    color: #334075;
+    color: #555;
 }
 
 
@@ -61,4 +126,21 @@
 .slick-prev:before,
 .slick-next:before {
     color: #334075;
+}
+
+
+@media (max-width: 768px) {
+    .friendDetailsTopDiv {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .friendDetailsTopLeftDiv {
+        width: 100%;
+    }
+
+    .friendDetailsTopRightDiv {
+        width: 100%;
+    }
+
 }

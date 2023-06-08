@@ -10,6 +10,30 @@ const GET_GAMES_BETWEEN_FRIENDS = "friends/getGamesBetweenFriends";
 const GET_FRIEND_DETAILS = "friends/getFriendDetails";
 const GET_WORDS_BETWEEN_FRIENDS = "friends/getWordsBetweenFriends";
 const DELETE_GAME_FROM_FRIEND_DETAILS = "game/deleteGameFromFriendDetails";
+const DELETE_FRIENDSHIP = "friends/deleteFriendship";
+
+const deleteFriendship = (friendId) => {
+    return {
+        type: DELETE_FRIENDSHIP,
+        payload: friendId,
+    };
+}
+
+export const fetchDeleteFriendship = (friendId) => async (dispatch) => {
+    console.log('running fetchDeleteFriendship')
+    console.log("friendId", friendId);
+    const response = await csrfFetch(`/api/friends/${friendId}`, {
+        method: "DELETE",
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        console.log("data from fetch delete friendship", data);
+        dispatch(deleteFriendship(friendId));
+        return data;
+    }
+}
+
 
 export const DeleteGameFromFriendDetails = (gameId) => {
     return {
@@ -232,6 +256,15 @@ const friendsReducer = (state = initialState, action) => {
             const gameToDelete = newState.gamesBetweenFriends.find((game) => game.id === action.payload);
             const gameToDeleteIndex = newState.gamesBetweenFriends.indexOf(gameToDelete);
             newState.gamesBetweenFriends.splice(gameToDeleteIndex, 1);
+            return newState;
+        case DELETE_FRIENDSHIP:
+            newState = { ...state };
+            console.log('action.payload', action.payload)
+            const friendshipToDelete = newState.friends.find((friend) => friend.friendId == action.payload || friend.userId == action.payload);
+            console.log('friendshipToDelete', friendshipToDelete);
+            const friendshipToDeleteIndex = newState.friends.indexOf(friendshipToDelete);
+            console.log('friendshipToDeleteIndex', friendshipToDeleteIndex);
+            newState.friends.splice(friendshipToDeleteIndex, 1);
             return newState;
         default:
             return state;

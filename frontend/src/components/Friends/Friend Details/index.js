@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchGamesBetweenFriends, fetchFriendDetails, fetchWordsBetweenFriends } from "../../../store/friends";
+import { fetchGamesBetweenFriends, fetchFriendDetails, fetchWordsBetweenFriends, fetchDeleteFriendship } from "../../../store/friends";
 import GameResults from "../../GameResults";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -10,6 +10,7 @@ import "./FriendDetails.css";
 
 const FriendDetails = ({ sendMessage, sessionUser }) => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const { friendId } = useParams();
 
     const friend = useSelector((state) => state.friends.currentFriend);
@@ -61,7 +62,6 @@ const FriendDetails = ({ sendMessage, sessionUser }) => {
         ],
     };
 
-
     useEffect(() => {
         dispatch(fetchFriendDetails(friendId))
         dispatch(fetchWordsBetweenFriends(friendId))
@@ -73,13 +73,31 @@ const FriendDetails = ({ sendMessage, sessionUser }) => {
             });
     }, [dispatch]);
 
+    const handleDeleteFriend = () => {
+        dispatch(fetchDeleteFriendship(friendId))
+            .then((data) => {
+                console.log('data', data);
+                history.push('/friends/accepted');
+            })
+            .catch((err) => {
+                console.log('error deleting friendship', err);
+            })
+    }
+
     return (
         <div className="mainFriendDetailsDiv">
-            <div></div>
-            <h1>{friend?.username}</h1>
-            <div className="friendDetailsSubDiv">
-                <h2>Games Played: {games?.length}</h2>
-                <h2>Games Won: {numGamesWon}</h2>
+            <div className="friendDetailsTopDiv">
+                <div className="friendDetailsTopLeftDiv">
+                    <h1>{friend?.username}</h1>
+                    <button className="friendDetailsButton">New Game</button>
+                    <button
+                        onClick={handleDeleteFriend}
+                        className="friendDetailsButton">Remove Friend</button>
+                </div>
+                <div className="friendDetailsTopRightDiv">
+                    <h2>Games Played: {games?.length}</h2>
+                    <h2>Games Won: {numGamesWon}</h2>
+                </div>
             </div>
             <h2 className="pastGamesTitle">Past Games</h2>
             <Slider className="gamesForFriendSlider"  {...settings}>{gamesMapped}</Slider>

@@ -84,10 +84,13 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
 
     return (
         <div className={styles.gameResults}>
-            <h1 className={styles.gameResultsTitle}>Game Results</h1>
-            <div>
-                <h2>Partner: {friendUser.username}</h2>
-            </div>
+            {!currentURL.includes('friends') &&
+                <>
+                    <h1 className={styles.gameResultsTitle}>Game Results</h1>
+                    <div>
+                        <h2>Partner: {friendUser.username}</h2>
+                    </div>
+                </>}
             <div className={styles.gameResultHighlights}>
                 <h2>Total Rounds: {game?.Round?.length}</h2>
                 <div className={styles.FinalWordsDiv}>

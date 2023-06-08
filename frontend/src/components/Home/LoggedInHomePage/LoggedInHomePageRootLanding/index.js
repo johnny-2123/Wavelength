@@ -52,8 +52,8 @@ const LoggedInHomePageRootLanding = ({ game, sessionUser, sendMessage, friends }
 
                 {mostRecentGame?.id && game?.gameOver !== false && (
                     <div className="mostRecentSingleGame">
-                        <h2>Last Game</h2>
                         <div className="mostRecentSingleGameSubDiv">
+                            <h2>Last Game</h2>
                             <h3>
                                 Partner:{" "}
                                 {mostRecentGame?.user1?.username === sessionUser?.username
