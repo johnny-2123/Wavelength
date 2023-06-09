@@ -80,7 +80,6 @@ h3.sessionUser {
 
 .gamePlayers h2 {
     color: #d65e55;
-    /* border-bottom: #d65e55 1px solid; */
     padding-bottom: .25rem;
     width: fit-content;
 }
@@ -175,7 +174,6 @@ div.gamePlayersSubDiv div.userCircle {
 .FinalWordsDiv h2 {
     color: #d65e55;
     margin: 0.25rem auto;
-    /* border-bottom: #d65e55 1px solid; */
     padding-bottom: .25rem;
     width: fit-content;
 }
@@ -208,8 +206,6 @@ h2.gameRoundsTitle {
     margin: 1rem 0;
     padding: 1rem 0;
     width: 100%;
-    /* border-bottom: 1px solid #A0741B; */
-    /* border-radius: 5px; */
 }
 
 
@@ -220,9 +216,6 @@ h2.gameRoundsTitle {
     margin: 0 auto 1rem auto;
     color: #555;
     width: 30%;
-    /* border-top: 1px solid #A0741B; */
-    /* padding-top: 1rem; */
-
 }
 
 .RoundDiv h3 {

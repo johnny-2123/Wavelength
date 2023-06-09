@@ -1,0 +1,66 @@
+.topFriendsMainDiv {
+    /* outline: red dotted 1px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    margin: 0.5rem;
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 2rem 1rem;
+}
+
+.topFriendsLeftDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0rem;
+}
+
+.topFriendsLeftDiv h1 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-left: 1rem;
+    color: #555;
+}
+
+.topFriendsLeftDiv i {
+    font-size: 1.5rem;
+    color: #334075;
+}
+
+.topFriendsRightDiv {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.topFriendsItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin: 0rem;
+    padding: 0rem 1rem;
+}
+
+.topFriendsItem h3 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+}
+
+.topFriendsItem i {
+    font-size: 0.8rem;
+    color: #334075;
+    margin: auto .5rem;
+}
