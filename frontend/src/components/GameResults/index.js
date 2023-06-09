@@ -39,8 +39,11 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
         return (
             <div className={styles.RoundDiv}>
                 <h2>Round {idx + 1}</h2>
-                <h3>Partner's Word: {friendWordText}</h3>
-                <h3>Your Word: {userWordText}</h3>
+                <div className={styles.roundWords}>
+                    <h3>{friendWordText}</h3>
+                    <h3>{userWordText}</h3>
+                </div>
+
             </div>
         )
 
@@ -86,19 +89,24 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
         <div className={styles.gameResults}>
             {(!currentURL.includes('friends') && !currentURL.includes('games')) && <h1 className={styles.gameResultsTitle}>Game Results</h1>}
             {!currentURL.includes('friends') &&
-                <div>
-                    <h2>Partner: {friendUser.username}</h2>
+                <div className={styles.gamePlayers}>
+                    <h2>Players</h2>
+                    <div className={styles.gamePlayersSubDiv}>
+                        <h3>{friendUser.username}</h3>
+                        <h3>{sessionUser?.username}</h3>
+                    </div>
                 </div>
             }
             <div className={styles.gameResultHighlights}>
-                <h2>Total Rounds: {game?.Round?.length}</h2>
+                <div className={styles.totalRounds}>
+                    <h2>Total Rounds</h2>
+                    <h3>{game?.Round?.length}</h3>
+                </div>
                 <div className={styles.FinalWordsDiv}>
                     <h2>Final Words</h2>
-                    <div className={styles.PartnerWordDiv}>
-                        <h3>Partner's Word: {friendWordText}</h3>
-                    </div>
-                    <div className={styles.UserWordDiv}>
-                        <h3>Your Word: {userWordText}</h3>
+                    <div className={styles.finalWordsSubDiv}>
+                        <h3>{friendWordText}</h3>
+                        <h3>{userWordText}</h3>
                     </div>
                 </div>
             </div>

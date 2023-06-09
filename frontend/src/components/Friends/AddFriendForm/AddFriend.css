@@ -1,25 +1,33 @@
 .addFriendMainDiv {
-    margin: 0;
-    padding: 1rem 0;
-    background-color: #ffffff;
-    border-radius: 10px;
-    text-align: center;
+    background-color: white;
+    border-radius: 8px;
+    margin: 1rem;
+    padding: 2rem;
+    height: 30vh;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
 .addFriendMainDiv h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    color: #e4736b;
+    font-size: 1.6rem;
+    font-weight: 200;
+    color: #334075e3;
+    margin: 0;
+    padding-bottom: .5rem;
+    text-align: center;
+    letter-spacing: 1px;
+    width: 50%;
 }
 
 .addFriendMainDiv form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    width: 100%;
 }
 
 .addFriendMainDiv input {
@@ -27,7 +35,7 @@
     padding: 0.5rem;
     margin-bottom: 1rem;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 50px;
     font-size: 1rem;
     text-align: center;
 }
@@ -38,10 +46,11 @@
 
 .addFriendMainDiv button {
     padding: 0.7rem 2rem;
-    background-color: #e4736b;
+    background-color: #e4736a;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 50px;
+    width: 25%;
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
@@ -49,13 +58,13 @@
 }
 
 .addFriendMainDiv button:hover {
-    background-color: #d65e55;
+    background-color: #d45d54;
 }
 
 .addFriendForm-errors {
     list-style: none;
     padding: 0;
-    margin-bottom: 1rem;
+    margin-bottom: 0;
     color: red;
 }
 
@@ -66,7 +75,7 @@
 .addFriendform-message {
     list-style: none;
     padding: 0;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     color: green;
 }
 

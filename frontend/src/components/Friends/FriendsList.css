@@ -94,15 +94,15 @@
 }
 
 .fa-user-plus {
-    color: #D85F56;
+    color: #e4736a;
     font-size: 1.4rem;
     cursor: pointer;
     background-color: transparent;
     transition: background-color 0.3s ease;
-    margin: 0 .5rem .2rem 1.4rem;
+    margin: 0 .5rem .5rem 1.4rem;
 }
 
 .fa-user-plus:hover {
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.47);
+    color: #D85F56;
 }

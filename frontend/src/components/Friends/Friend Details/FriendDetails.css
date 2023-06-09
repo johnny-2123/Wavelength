@@ -49,6 +49,7 @@
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
+    width: 70%;
     transition: background-color 0.3s;
     transition: font-weight 0.3s;
     transition: color 0.3s;
@@ -56,9 +57,9 @@
 }
 
 .friendDetailsTopLeftDiv button:last-child {
-    border: #e4736b 1px solid;
-    color: white;
-    background-color: #e4736b;
+    border: #D85F56 1px solid;
+    color: #D85F56;
+    background-color: white;
 }
 
 .friendDetailsTopLeftDiv button:active {
@@ -82,13 +83,14 @@
     width: 50%;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1);
 
 }
 
 .friendDetailsTopRightDiv h2 {
     font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: 500;
     margin: .25rem;
     color: #555;
 }
