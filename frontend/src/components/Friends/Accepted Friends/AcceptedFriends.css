@@ -89,10 +89,14 @@
 
 .friendButtons button {
     flex: 2;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     padding: 0.5rem 1.5rem;
     margin-right: 1rem;
     background-color: transparent;
-    color: #666;
+    color: #555;
     border: transparent 1px solid;
     border-radius: 20px;
     font-size: 1rem;
@@ -110,6 +114,10 @@
     background-color: #334075;
 }
 
+.friendItem button i {
+    margin-left: .5rem;
+}
+
 @media (min-width: 600px) {
     .friendItem button:hover {
         color: white;
@@ -120,9 +128,27 @@
 }
 
 @media (max-width: 599px) {
+    .onlineStatus {
+        position: absolute;
+        top: 32%;
+        left: 2.4%;
+        width: 7px;
+        height: 7px;
+        margin-right: .5rem;
+        background-color: green;
+        border-radius: 50%;
+
+    }
+
     .friendItem button {
         margin: 0;
         padding: .25rem .75rem;
+        flex-direction: column;
+        align-items: center;
     }
 
+    .friendItem button i {
+        margin-top: .5rem;
+        margin-left: 0;
+    }
 }

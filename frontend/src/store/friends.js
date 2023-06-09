@@ -11,6 +11,27 @@ const GET_FRIEND_DETAILS = "friends/getFriendDetails";
 const GET_WORDS_BETWEEN_FRIENDS = "friends/getWordsBetweenFriends";
 const DELETE_GAME_FROM_FRIEND_DETAILS = "game/deleteGameFromFriendDetails";
 const DELETE_FRIENDSHIP = "friends/deleteFriendship";
+const GET_TOP_FRIENDS = "friends/getTopFriends";
+
+const getTopFriends = (friends) => {
+    return {
+        type: GET_TOP_FRIENDS,
+        payload: friends,
+    };
+}
+
+export const fetchGetTopFriends = () => async (dispatch) => {
+    // console.log('running fetchGetTopFriends')
+    const response = await csrfFetch(`/api/friends/top`);
+
+    if (response.ok) {
+        const friends = await response.json();
+        // console.log('top friends', friends)
+        dispatch(getTopFriends(friends.friends));
+        return friends.friends;
+    }
+
+}
 
 const deleteFriendship = (friendId) => {
     return {
@@ -20,15 +41,15 @@ const deleteFriendship = (friendId) => {
 }
 
 export const fetchDeleteFriendship = (friendId) => async (dispatch) => {
-    console.log('running fetchDeleteFriendship')
-    console.log("friendId", friendId);
+    // console.log('running fetchDeleteFriendship')
+    // console.log("friendId", friendId);
     const response = await csrfFetch(`/api/friends/${friendId}`, {
         method: "DELETE",
     });
 
     if (response.ok) {
         const data = await response.json();
-        console.log("data from fetch delete friendship", data);
+        // console.log("data from fetch delete friendship", data);
         dispatch(deleteFriendship(friendId));
         return data;
     }
@@ -202,6 +223,7 @@ const initialState = {
     friends: [],
     currentFriend: {},
     gamesBetweenFriends: [],
+    topFriends: [],
 };
 
 const friendsReducer = (state = initialState, action) => {
@@ -265,6 +287,10 @@ const friendsReducer = (state = initialState, action) => {
             const friendshipToDeleteIndex = newState.friends.indexOf(friendshipToDelete);
             console.log('friendshipToDeleteIndex', friendshipToDeleteIndex);
             newState.friends.splice(friendshipToDeleteIndex, 1);
+            return newState;
+        case GET_TOP_FRIENDS:
+            newState = { ...state };
+            newState.topFriends = action.payload;
             return newState;
         default:
             return state;

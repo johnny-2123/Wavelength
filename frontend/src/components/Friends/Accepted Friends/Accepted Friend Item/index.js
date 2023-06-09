@@ -74,14 +74,14 @@ const AcceptedFriendItem = ({ friend, sessionUser, sendMessage, handleFriendItem
             </div>
             {onlineStatus && <div className="onlineStatus"></div>}
             <div className="friendButtons">
-                {friend?.status === 'accepted' && <button onClick={handleSendGameInvite}>New Game</button>}
+                {friend?.status === 'accepted' && <button onClick={handleSendGameInvite}>New Game <i className="fa-solid fa-paper-plane" /></button>}
                 {friend?.status === 'pending' && <>
                     <button
                         onClick={() => handleAcceptFriendRequest(friendUser.id, "accepted")}
-                    >Accept</button>
+                    >Accept <i class="fa-solid fa-plus"></i></button>
                     <button
                         onClick={() => handleRejectFriendRequest(friendUser.id, "rejected")}
-                    >Decline</button>
+                    >Decline <i class="fa-solid fa-minus"></i></button>
                 </>}
             </div>
         </div>

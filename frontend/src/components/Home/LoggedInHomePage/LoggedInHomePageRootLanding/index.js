@@ -2,7 +2,9 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
 import { updateGame, fetchSingleMostRecentGame } from "../../../../store/game";
+import { fetchGetTopFriends } from "../../../../store/friends";
 import LastGame from "./Last Game";
+import TopFriends from "./Top Friends";
 import './LoggedInHomePageRootLanding.css'
 
 const LoggedInHomePageRootLanding = ({ game, sessionUser, sendMessage, friends }) => {
@@ -11,6 +13,9 @@ const LoggedInHomePageRootLanding = ({ game, sessionUser, sendMessage, friends }
     const mostRecentGame = useSelector((state) => state.games?.mostRecentGame);
 
     const friendUserCurrentGame = game?.user1Id === sessionUser?.id ? game?.user2 : game?.user1;
+
+    const topFriends = useSelector((state) => state.friends?.topFriends);
+    console.log('topFriends', topFriends)
 
     const handleEndGame = () => {
         dispatch(updateGame(game?.id, true)).then((updatedGame) => {
@@ -29,6 +34,13 @@ const LoggedInHomePageRootLanding = ({ game, sessionUser, sendMessage, friends }
             .catch((err) => {
                 console.log("error in LoggedInHomePageRootLanding: ", err);
             });
+        dispatch(fetchGetTopFriends())
+            .then((friends) => {
+            })
+            .catch((err) => {
+                console.log("error in LoggedInHomePageRootLanding: ", err);
+            });
+
     }, [dispatch, sessionUser?.id]);
 
 
@@ -49,6 +61,7 @@ const LoggedInHomePageRootLanding = ({ game, sessionUser, sendMessage, friends }
                     <LastGame mostRecentGame={mostRecentGame} sessionUser={sessionUser} />
                 )}
             </div>
+            <TopFriends topFriends={topFriends} />
         </div>
     );
 };
