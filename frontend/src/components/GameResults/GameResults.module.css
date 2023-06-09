@@ -96,8 +96,7 @@ div.gamePlayersSubDiv>div {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-
+    align-items: space-evenly;
 }
 
 div.gamePlayersSubDiv div.friendCircle {
@@ -107,9 +106,9 @@ div.gamePlayersSubDiv div.friendCircle {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40px;
-    height: 40px;
-    margin-bottom: .5rem;
+    width: 35px;
+    height: 35px;
+    margin: 0 auto .5rem auto;
 }
 
 div.gamePlayersSubDiv div.userCircle {
@@ -119,10 +118,9 @@ div.gamePlayersSubDiv div.userCircle {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40px;
-    height: 40px;
-    margin-bottom: .5rem;
-
+    width: 35px;
+    height: 35px;
+    margin: 0 auto .5rem auto;
 }
 
 .gameResults button {

@@ -1,15 +1,18 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
-import { fetchDeleteGame } from "../../store/game";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useParams } from "react-router-dom";
+import { fetchGameById, fetchDeleteGame } from "../../store/game";
 import { DeleteGameFromFriendDetails } from "../../store/friends";
 import { toast, Slide } from 'react-toastify';
-import styles from "./GameResults.module.css";
+import styles from "./GameDetails.module.css";
 
-const GameResults = ({ game, sessionUser, sendMessage }) => {
+const GameDetails = ({ sessionUser, sendMessage }) => {
     const dispatch = useDispatch();
+    const { gameId } = useParams();
     const location = useLocation();
     const currentURL = location.pathname;
+
+    const game = useSelector((state) => state.games?.game);
 
     console.log('currentURL', currentURL);
     const friendUser = game?.user1?.username === sessionUser?.username ? game?.user2 : game?.user1;
@@ -87,6 +90,15 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
             });
     };
 
+    useEffect(() => {
+        dispatch(fetchGameById(gameId))
+            .then((game) => {
+            })
+            .catch((err) => {
+                console.log("error in GameDetails: ", err);
+            });
+    }, [dispatch, gameId]);
+
     return (
         <div className={styles.gameResults}>
             {(!currentURL.includes('friends') && !currentURL.includes('games')) && <h1 className={styles.gameResultsTitle}>Game Results</h1>}
@@ -132,4 +144,4 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
     );
 };
 
-export default GameResults;
+export default GameDetails;
