@@ -94,8 +94,14 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
                 <div className={styles.gamePlayers}>
                     <h2>Players</h2>
                     <div className={styles.gamePlayersSubDiv}>
-                        <h3 className={styles.friendUser}>{friendUser.username}</h3>
-                        <h3 className={styles.sessionUser}>{sessionUser?.username}</h3>
+                        <div>
+                            <div className={styles.friendCircle}></div>
+                            <h3>{friendUser.username}</h3>
+                        </div>
+                        <div>
+                            <div className={styles.userCircle}></div>
+                            <h3>{sessionUser?.username}</h3>
+                        </div>
                     </div>
                 </div>
             }

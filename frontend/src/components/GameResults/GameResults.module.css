@@ -3,7 +3,7 @@
     background-color: white;
     border: 2px solid white;
     border-radius: 10px;
-    padding: 2rem 1rem;
+    padding: 2rem .5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -90,6 +90,39 @@ h3.sessionUser {
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
+}
+
+div.gamePlayersSubDiv>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+div.gamePlayersSubDiv div.friendCircle {
+    background-color: #d65e55;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    margin-bottom: .5rem;
+}
+
+div.gamePlayersSubDiv div.userCircle {
+    background-color: #334075;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    margin-bottom: .5rem;
+
 }
 
 .gameResults button {
@@ -197,7 +230,7 @@ h2.gameRoundsTitle {
 
 .roundWords {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     width: 100%;
 }
