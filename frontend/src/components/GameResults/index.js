@@ -10,6 +10,7 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
     const dispatch = useDispatch();
     const location = useLocation();
     const currentURL = location.pathname;
+
     console.log('currentURL', currentURL);
     const friendUser = game?.user1?.username === sessionUser?.username ? game?.user2 : game?.user1;
 
@@ -67,6 +68,7 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
             user2Id: friendUser?.id,
         });
     };
+
 
     const handleDeleteGame = (e) => {
         e.stopPropagation();

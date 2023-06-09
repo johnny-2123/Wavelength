@@ -3,6 +3,7 @@ const asyncHandler = require('express-async-handler');
 const { requireAuth } = require('../../utils/auth');
 const { User, Friend, Game, Round, Word } = require('../../db/models');
 const { Op } = require('sequelize');
+const moment = require('moment');
 
 const router = express.Router();
 
@@ -33,6 +34,53 @@ const validateFriendship = (userId, friendShipSent, friendShipReceived) => {
 
     return null;
 };
+
+router.get(
+    '/top',
+    requireAuth,
+    (
+        async (req, res) => {
+            const userId = req.user.id;
+            const oneWeekAgo = moment().subtract(7, 'days').toDate();
+
+            const games = await Game.findAll({
+                where: {
+                    [Op.or]: [
+                        { user1Id: userId },
+                        { user2Id: userId }
+                    ],
+                    createdAt: {
+                        [Op.gte]: oneWeekAgo
+                    }
+                },
+                attributes: ['id', 'user1Id', 'user2Id'],
+                include: [
+                    { model: User, as: 'user1' },
+                    { model: User, as: 'user2' }
+                ]
+            });
+
+            const gamesWithFriends = {};
+            games.forEach(game => {
+                const friendId = game.user1Id === userId ? game.user2Id : game.user1Id;
+                gamesWithFriends[friendId] = (gamesWithFriends[friendId] || 0) + 1;
+            });
+
+            const sortedFriends = Object.keys(gamesWithFriends).sort((a, b) => gamesWithFriends[b] - gamesWithFriends[a]);
+
+            const friends = await User.findAll({
+                where: {
+                    id: {
+                        [Op.in]: sortedFriends.slice(0, 3)
+                    }
+                }
+            });
+
+            res.status(200).json({ friends: friends });
+        }
+    )
+);
+
 
 router.get('/:friendId/games', requireAuth, (async (req, res) => {
     const userId = req.user.id;
