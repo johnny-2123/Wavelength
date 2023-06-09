@@ -84,12 +84,24 @@ const FriendDetails = ({ sendMessage, sessionUser }) => {
             })
     }
 
+    const handleSendGameInvite = (e) => {
+        e.stopPropagation();
+        sendMessage("send-game-invite", {
+            recipient: friend?.username,
+            user1Id: friend?.id,
+            user2Id: friend?.id,
+        });
+    };
+
+
     return (
         <div className="mainFriendDetailsDiv">
             <div className="friendDetailsTopDiv">
                 <div className="friendDetailsTopLeftDiv">
                     <h1>{friend?.username}</h1>
-                    <button className="friendDetailsButton">New Game</button>
+                    <button
+                        onClick={handleSendGameInvite}
+                        className="friendDetailsButton">New Game</button>
                     <button
                         onClick={handleDeleteFriend}
                         className="friendDetailsButton">Remove Friend</button>

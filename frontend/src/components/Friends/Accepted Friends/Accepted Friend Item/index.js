@@ -13,7 +13,7 @@ const AcceptedFriendItem = ({ friend, sessionUser, sendMessage, handleFriendItem
     const friendUser = friend?.userId === sessionUser?.id ? friend?.ReceivingUser : friend?.RequestingUser;
 
     const friendIconId = friend.status === "accepted" ? "friendIcon" : "pendingFriendIcon";
-
+    console.log('friendIconId', friendIconId)
     const onlineStatus = friendUser?.isOnline ? true : false;
 
     const handleSendGameInvite = (e) => {
@@ -60,12 +60,14 @@ const AcceptedFriendItem = ({ friend, sessionUser, sendMessage, handleFriendItem
 
 
     return (
-        <div key={friend.id} className="friendItem">
+        <div key={friend.id}
+            onClick={() => friendIconId === "friendIcon" && handleFriendItemClick(friendUser.id)}
+            className="friendItem">
             <div className="friendItemLeftDiv">
                 <div className="friendIconDiv">
                     <i class={`fa-solid fa-user ${friendIconId}`}></i>
                 </div>
-                <div onClick={() => handleFriendItemClick(friendUser.id)} className="friendInfo">
+                <div className="friendInfo">
                     <div className="friendUsername">{friendUser?.username}</div>
                     <div className="friendName">{friendUser?.firstName}</div>
                 </div>

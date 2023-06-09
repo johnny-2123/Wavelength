@@ -13,7 +13,10 @@
     transition: box-shadow 0.3s ease;
 }
 
-.friendItem:hover {}
+.friendItem:hover {
+    cursor: pointer;
+}
+
 
 .friendItem:last-child {
     margin-bottom: .2;
@@ -51,9 +54,14 @@
     font-size: 2rem;
 }
 
-#friendIcon {
-    color: #D85F56;
+.fa-user.friendIcon {
+    color: #555;
 }
+
+.fa-user.pendingFriendIcon {
+    color: #92929289;
+}
+
 
 .friendInfo {
     flex: 4;
@@ -61,9 +69,6 @@
     flex-direction: column;
 }
 
-.friendInfo:hover {
-    cursor: pointer;
-}
 
 
 .friendUsername {
