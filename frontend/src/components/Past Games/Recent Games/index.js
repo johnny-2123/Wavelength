@@ -41,7 +41,9 @@ const RecentGames = ({ sessionUser, sendMessage, recentGames }) => {
 
 
     return (
-        recentGames && <Slider className="recentGamesSlider"  {...settings}>{recentGamesMapped}</Slider>
+        recentGames && (
+            <Slider className="recentGamesSlider"  {...settings}>{recentGamesMapped}</Slider>
+        )
     )
 }
 

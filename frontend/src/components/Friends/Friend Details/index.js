@@ -99,12 +99,13 @@ const FriendDetails = ({ sendMessage, sessionUser }) => {
             <div className="friendDetailsTopDiv">
                 <div className="friendDetailsTopLeftDiv">
                     <h1>{friend?.username}</h1>
+                    <h2>{friend?.firstName}</h2>
                     <button
                         onClick={handleSendGameInvite}
-                        className="friendDetailsButton">New Game</button>
+                        className="friendDetailsButton">New Game <i className="fa-solid fa-paper-plane" /></button>
                     <button
                         onClick={handleDeleteFriend}
-                        className="friendDetailsButton">Remove Friend</button>
+                        className="friendDetailsButton">Remove Friend <i class="fa-solid fa-user-minus"></i></button>
                 </div>
                 <div className="friendDetailsTopRightDiv">
                     <h2>Games Played: {games?.length}</h2>

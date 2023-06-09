@@ -208,16 +208,21 @@ h2.gameRoundsTitle {
     margin: 1rem 0;
     padding: 1rem 0;
     width: 100%;
-    border-bottom: 1px solid #A0741B;
-    border-radius: 5px;
+    /* border-bottom: 1px solid #A0741B; */
+    /* border-radius: 5px; */
 }
+
+
 
 .RoundDiv h2 {
     font-size: 1.2rem;
     font-weight: 500;
-    margin: 0 auto .25rem auto;
-    color: #334075;
-    width: fit-content;
+    margin: 0 auto 1rem auto;
+    color: #555;
+    width: 30%;
+    /* border-top: 1px solid #A0741B; */
+    /* padding-top: 1rem; */
+
 }
 
 .RoundDiv h3 {

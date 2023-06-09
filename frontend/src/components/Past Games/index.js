@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { NavLink, Route, Switch, useParams, useRouteMatch } from "react-router-dom";
 import GameResults from '../GameResults';
 import RecentGames from './Recent Games';
+import GameDetails from './Game Details';
 import { fetchGames, fetchRecentGames } from "../../store/game";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -39,7 +40,7 @@ const PastGames = ({ sessionUser, sendMessage }) => {
                     <RecentGames recentGames={recentGames} sessionUser={sessionUser} sendMessage={sendMessage} />
                 </Route>
                 <Route path={`${path}/:gameId`}>
-                    <GameResults sessionUser={sessionUser} sendMessage={sendMessage} />
+                    <GameDetails sessionUser={sessionUser} sendMessage={sendMessage} />
                 </Route>
             </Switch>
 
