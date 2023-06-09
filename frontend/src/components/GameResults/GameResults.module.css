@@ -39,9 +39,6 @@
     font-size: 1.2rem;
     font-weight: 500;
     margin: .25rem auto;
-    /* border-bottom: #d65e55 1px solid; */
-    padding-bottom: 0rem;
-    width: fit-content;
     color: #d65e55;
 }
 
@@ -51,6 +48,30 @@
     font-weight: 500;
     color: #555;
     border-bottom: none;
+    text-align: center;
+    display: block;
+}
+
+h3.friendUser {
+    background-color: #d65e55;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 125px;
+    height: 125px;
+}
+
+h3.sessionUser {
+    background-color: #334075;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 125px;
+    height: 125px;
 }
 
 .gamePlayers {
@@ -128,6 +149,8 @@
     width: fit-content;
 }
 
+
+
 .finalWordsSubDiv {
     display: flex;
     justify-content: space-evenly;
@@ -151,10 +174,10 @@ h2.gameRoundsTitle {
 }
 
 .RoundDiv {
-    margin: 2rem 0;
-    padding: 1rem .25rem;
-    width: 90%;
-    border: 1px solid #A0741B;
+    margin: 1rem 0;
+    padding: 1rem 0;
+    width: 100%;
+    border-bottom: 1px solid #A0741B;
     border-radius: 5px;
 }
 
@@ -169,8 +192,7 @@ h2.gameRoundsTitle {
 .RoundDiv h3 {
     font-size: 1.1rem;
     font-weight: 500;
-    margin: 0.5rem auto;
-    color: #555;
+    margin: 0.5rem .1rem;
 }
 
 .roundWords {

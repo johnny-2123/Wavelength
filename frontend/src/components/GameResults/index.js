@@ -41,8 +41,8 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
             <div className={styles.RoundDiv}>
                 <h2>Round {idx + 1}</h2>
                 <div className={styles.roundWords}>
-                    <h3>{friendWordText}</h3>
-                    <h3>{userWordText}</h3>
+                    <h3 className={styles.friendUser}>{friendWordText}</h3>
+                    <h3 className={styles.sessionUser}>{userWordText}</h3>
                 </div>
 
             </div>
@@ -94,8 +94,8 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
                 <div className={styles.gamePlayers}>
                     <h2>Players</h2>
                     <div className={styles.gamePlayersSubDiv}>
-                        <h3>{friendUser.username}</h3>
-                        <h3>{sessionUser?.username}</h3>
+                        <h3 className={styles.friendUser}>{friendUser.username}</h3>
+                        <h3 className={styles.sessionUser}>{sessionUser?.username}</h3>
                     </div>
                 </div>
             }
@@ -107,8 +107,8 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
                 <div className={styles.FinalWordsDiv}>
                     <h2>Final Words</h2>
                     <div className={styles.finalWordsSubDiv}>
-                        <h3>{friendWordText}</h3>
-                        <h3>{userWordText}</h3>
+                        <h3 className={styles.friendUser}>{friendWordText}</h3>
+                        <h3 className={styles.sessionUser}>{userWordText}</h3>
                     </div>
                 </div>
             </div>
