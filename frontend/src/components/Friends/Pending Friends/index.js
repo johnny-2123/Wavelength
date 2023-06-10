@@ -21,6 +21,11 @@ const PendingFriends = ({ friends, sessionUser }) => {
     return (
         <div className="friendsContainer">
             {pendingFriendRequestsReceivedMapped}
+            {pendingFriendRequestsReceivedMapped?.length === 0 &&
+                <div className="noPendingFriendRequests">
+                    <h1 className="noFriends">No pending friend requests yet</h1>
+                </div>
+            }
         </div>)
 };
 

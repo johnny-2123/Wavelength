@@ -21,7 +21,16 @@ const AcceptedFriends = ({ friends, sessionUser, sendMessage }) => {
         />
     ));
 
-    return <div className="friendsContainer">{acceptedFriendsMapped}</div>;
+    return (
+        <div className="friendsContainer">
+            {acceptedFriendsMapped}
+            {acceptedFriendsMapped?.length === 0 && (
+                <div className="noPendingFriendRequests">
+                    <h1 className="noFriends">No Friends yet</h1>
+                </div>
+            )}
+        </div>
+    )
 };
 
 export default AcceptedFriends;

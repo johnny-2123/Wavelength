@@ -1,7 +1,8 @@
 .roundResults {
     margin: 0rem auto;
-    padding: .5rem 1rem 1rem 1rem;
+    padding: 2.5rem 1rem;
     background-color: #ffffff;
+    border: #555 1px solid;
     border-radius: 10px;
     text-align: center;
 }
@@ -9,6 +10,7 @@
 .roundResults h2 {
     font-size: 1.5rem;
     font-weight: 500;
+    margin-top: 0rem;
     margin-bottom: 1.5rem;
     color: #555;
 }

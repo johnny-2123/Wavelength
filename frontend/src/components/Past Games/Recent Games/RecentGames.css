@@ -13,3 +13,18 @@
     padding: 0;
     width: 100%;
 }
+
+.noRecentGames {
+    border: #bcbbbb 1px solid;
+    border-radius: 10px;
+    text-align: center;
+    padding: 4rem 0rem;
+    width: 90%;
+}
+
+.noRecentGames h2 {
+    color: #555;
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin: auto;
+}

@@ -41,9 +41,16 @@ const RecentGames = ({ sessionUser, sendMessage, recentGames }) => {
 
 
     return (
-        recentGames && (
-            <Slider className="recentGamesSlider"  {...settings}>{recentGamesMapped}</Slider>
-        )
+        <>
+            {recentGames &&
+                <Slider className="recentGamesSlider"  {...settings}>{recentGamesMapped}</Slider>
+            }
+            {recentGames.length === 0 &&
+                <div className="noRecentGames">
+                    <h2>No Recent Games</h2>
+                </div>
+            }
+        </>
     )
 }
 

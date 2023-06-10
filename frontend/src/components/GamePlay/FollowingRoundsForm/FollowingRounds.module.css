@@ -96,7 +96,8 @@ h6.friendUserLastRoundWord {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-top: #e4736b 1px solid;
+    margin-top: 1rem;
+    border-top: #555 1px solid;
     padding-top: 1rem;
     width: 90%;
 }
