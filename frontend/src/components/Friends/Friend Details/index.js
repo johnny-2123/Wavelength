@@ -186,6 +186,11 @@ const FriendDetails = ({ sendMessage, sessionUser }) => {
                     </div>
                     <h2 className="pastGamesTitle">Past Games</h2>
                     <Slider className="gamesForFriendSlider"  {...settings}>{gamesMapped}</Slider>
+                    {gamesMapped.length === 0 &&
+                        <div className="noGamesDiv">
+                            <h2 className="noGamesText">No games played yet</h2>
+                        </div>
+                    }
                 </>}
             {friend?.status === 'pending' &&
                 <PendingFriend friend={friend} handleAcceptFriendRequest={handleAcceptFriendRequest} handleRejectFriendRequest={handleRejectFriendRequest} />
