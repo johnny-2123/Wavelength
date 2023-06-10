@@ -1,11 +1,21 @@
 .notLoggedInHomePageMainDiv {
     margin: 0;
+
+
 }
 
-.notLoggedInHomePageMainDiv h1 {
+h1#notLoggedInHomePage {
     color: #334075;
     font-weight: 400;
     text-align: center;
+}
+
+h2#notLoggedInHomePage {
+    color: #555;
+    font-weight: 400;
+    text-align: center;
+    font-size: 1.1rem;
+    margin: 2rem 2rem;
 }
 
 .notLoggedInHomePageSubDiv {
@@ -14,6 +24,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .notLoggedInHomePageButtons {

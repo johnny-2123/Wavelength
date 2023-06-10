@@ -1,0 +1,44 @@
+.DemoRoundOne {
+    margin: 1rem auto;
+    padding: 2.5rem 2rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    text-align: center;
+    border: #A0741B 1px solid;
+    border-radius: 10px;
+    width: 60%;
+    pointer-events: none;
+}
+
+.DemoRoundOne:hover {
+    cursor: default;
+}
+
+h2#demoRoundOne {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: darkslategray
+}
+
+form#demoRoundOne {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: .1rem
+}
+
+
+input#demoRoundOne {
+    width: 80%;
+    font-size: .9rem;
+    height: 1rem;
+    color: #555;
+}
+
+button#demoRoundOne {
+    width: 40%;
+    font-size: .9rem;
+    margin-top: 0;
+}

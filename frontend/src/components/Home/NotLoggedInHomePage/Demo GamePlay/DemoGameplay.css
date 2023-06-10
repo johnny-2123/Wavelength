@@ -1,0 +1,22 @@
+.demoGamePlayMainDiv {
+    width: 100%;
+    text-align: center;
+}
+
+.demoGamePlayMainDiv h2 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 2rem auto;
+    color: #334075;
+}
+
+h3.gamePlayInstructions {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 2rem 2rem;
+    color: #555;
+}
+
+h3.gamePlayInstructions:last-of-type {
+    margin-bottom: 3rem;
+}
