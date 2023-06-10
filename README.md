@@ -1,26 +1,26 @@
 # Wavelength
 
-Check out the Live Version of Wavelength here: 
+Check out the Live Version of Wavelength here:
 [Wavelength Live][wavelength]
 
 [wavelength]: https://wavelength-2hp9.onrender.com
 
-Wavelength is an online game that let's user's challenge friend's in a game of creativity and connection. Players begin by entering a random word of their choice. If the choose the same word, the game ends and they achieve victory together. If they choose different words, players have the apportunity to decide if the word's were close enough and end the game if they both decide so. Otherwise, the game will continue to the next round. In every round following the first, player's are shown the two word's from the previous round and have 30 seconds to come up with a word that is related to both words. The goal of the game is for player's to use the two word's from the previous round to try and enter the same word. The game progresses until players succeed or decide to give up. 
+Wavelength is an online game that let's user's challenge friend's in a game of creativity and connection. Players begin by entering a random word of their choice. If the choose the same word, the game ends and they achieve victory together. If they choose different words, players have the apportunity to decide if the word's were close enough and end the game if they both decide so. Otherwise, the game will continue to the next round. In every round following the first, player's are shown the two word's from the previous round and have 30 seconds to come up with a word that is related to both words. The goal of the game is for player's to use the two word's from the previous round to try and enter the same word. The game progresses until players succeed or decide to give up.
 
 The project backend of the project is build on node with a PostgresSQL database. The frontend is built on React and Redux. Realtime communication for player's in a game is handled with Websockets.
 
 ## Features and Implementation
 
-Users can create, read, update, and destroy games and friend relationships. React components exist for each corresponding action. Information needed for all friend and past game components are managed with Redux store. Information for realtime gameplay is through Websockets. 
+Users can create, read, update, and destroy games and friend relationships. React components exist for each corresponding action. Information needed for all friend and past game components are managed with Redux store. Information for realtime gameplay is handled through Websockets.
 
 ### Users
 
- achieved through the integration of React components, Redux store, and Websockets. 
+ achieved through the integration of React components, Redux store, and Websockets.
 
 ### User Management
 
 #### User Registration
-- As an unregistered user, you have the ability to register by providing your email, username, and password. 
+- As an unregistered user, you have the ability to register by providing your email, username, and password.
     - Upon successful registration, you will be automatically logged in.
     - Clear feedback will be provided in case of validation errors.
 
@@ -78,7 +78,7 @@ Users can create, read, update, and destroy games and friend relationships. Reac
 - As a user, you can access a history of your past games.
     - Recent games are shown first.
     - Each game entry provides a summary, including the game partner's username and the words from the game's final round if player's submited words in the final round
-    - 
+    -
 #### Deleting Past Games
 - As a user, you have the ability to delete entries of past games from your history.
     - You can choose to delete a single game.
@@ -106,12 +106,12 @@ Users can create, read, update, and destroy games and friend relationships. Reac
     - By rejecting a friend request, the request will be removed from your pending friend requests list.
 
 #### Additional Friend-related Features
-#### View friend details: 
+#### View friend details:
   - As a user, you can access detailed information about your friends if you navigate to that friend's details page.
     - You can see how many games you have played with that friend, how many games were won, and past games played with that friend
- 
+
 #### Online Status Update
-  - As a user, you see your friends' online status. 
+  - As a user, you see your friends' online status.
     - See instantly when they come online or go offline by the presense or absence of a green circle next to their listing in your accepted friend's page
 
 #### Delete Friendship
