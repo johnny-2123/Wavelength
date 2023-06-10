@@ -61,7 +61,7 @@ const AcceptedFriendItem = ({ friend, sessionUser, sendMessage, handleFriendItem
 
     return (
         <div key={friend.id}
-            onClick={() => friendIconId === "friendIcon" && handleFriendItemClick(friendUser.id)}
+            onClick={() => handleFriendItemClick(friendUser.id)}
             className="friendItem">
             <div className="friendItemLeftDiv">
                 <div className="friendIconDiv">

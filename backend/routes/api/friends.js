@@ -114,16 +114,28 @@ router.get('/:friendId', requireAuth, (async (req, res) => {
     const { friendId } = req.params;
     const { friendShipSent, friendShipReceived } = await findFriendship(userId, friendId);
 
-    const validationError = validateFriendship(userId, friendShipSent, friendShipReceived);
+    // const validationError = validateFriendship(userId, friendShipSent, friendShipReceived);
 
-    if (validationError) return res.status(validationError.status).json({ errors: validationError.message });
+    // if (validationError) return res.status(validationError.status).json({ errors: validationError.message });
 
-    const friend = friendShipSent ? friendShipSent.ReceivingUser : friendShipReceived.RequestingUser;
+    const friend = friendShipSent ? friendShipSent?.ReceivingUser : friendShipReceived?.RequestingUser;
 
     if (friendShipSent) {
         friend.setDataValue('status', friendShipSent.status);
-    } else {
+        friend.setDataValue('friendship', 'sent');
+
+        return res.status(200).json({ friend });
+    } else if (friendShipReceived) {
         friend.setDataValue('status', friendShipReceived.status);
+        friend.setDataValue('friendship', 'received');
+
+        return res.status(200).json({ friend });
+    } else {
+        const notFriendUser = await User.findByPk(friendId);
+        notFriendUser.setDataValue('status', 'notFriend');
+        console.log('##################################')
+        console.log('notFriendUser', notFriendUser);
+        return res.status(200).json({ friend: notFriendUser });
     }
 
     res.status(200).json({ friend });

@@ -1,8 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchGamesBetweenFriends, fetchFriendDetails, fetchWordsBetweenFriends, fetchDeleteFriendship } from "../../../store/friends";
+import { fetchGamesBetweenFriends, fetchFriendDetails, fetchWordsBetweenFriends, fetchDeleteFriendship, fetchAcceptFriendRequest, fetchRejectFriendRequest, fetchSendFriendRequest } from "../../../store/friends";
 import GameResults from "../../GameResults";
+import NotFriend from "./Not Friend";
+import PendingFriend from "./Pending Friend";
+import { toast } from 'react-toastify';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -15,7 +18,8 @@ const FriendDetails = ({ sendMessage, sessionUser }) => {
 
     const friend = useSelector((state) => state.friends.currentFriend);
     console.log('friend in friend details component', friend)
-
+    const [friendStatus, setFriendStatus] = useState(friend?.status);
+    console.log('friendStatus', friendStatus)
 
     const games = useSelector((state) => state.friends.gamesBetweenFriends);
 
@@ -24,6 +28,9 @@ const FriendDetails = ({ sendMessage, sessionUser }) => {
     });
 
 
+    const friendNotification = (message) => toast(message, {
+        hideProgressBar: true,
+    });
 
     const numGamesWon = games?.reduce((acc, game) => {
         let lastRound = game.Round[game?.Round?.length - 1];
@@ -66,22 +73,26 @@ const FriendDetails = ({ sendMessage, sessionUser }) => {
 
     useEffect(() => {
         dispatch(fetchFriendDetails(friendId))
+            .catch((err) => { console.log("error fetching friend details: ", err) });
         dispatch(fetchWordsBetweenFriends(friendId))
+            .catch((err) => { console.log("error fetching words: ", err) });
         dispatch(fetchGamesBetweenFriends(friendId))
             .then((games) => {
             })
             .catch((err) => {
                 console.log("error fetching games: ", err)
             });
-    }, [dispatch]);
+    }, [dispatch, friendStatus]);
 
     const handleDeleteFriend = () => {
         dispatch(fetchDeleteFriendship(friendId))
             .then((data) => {
                 console.log('data', data);
+                setFriendStatus('notFriend');
                 history.push('/friends/accepted');
             })
             .catch((err) => {
+                friendNotification('Error deleting friendship');
                 console.log('error deleting friendship', err);
             })
     }
@@ -95,28 +106,88 @@ const FriendDetails = ({ sendMessage, sessionUser }) => {
         });
     };
 
+    const handleAcceptFriendRequest = async (friendId) => {
+        return dispatch(fetchAcceptFriendRequest(friendId, 'accepted'))
+            .then(async (data) => {
+                if (data) {
+                    console.log('accepted friend request data', data);
+                    friendNotification('Friend request accepted');
+                    setFriendStatus('accepted');
+                }
+            })
+            .catch(async (res) => {
+                console.log('res', res);
+                const data = await res.json();
+                friendNotification('Error accepting friend request');
+                console.log('error accepting friend request', data);
+            });
+    }
+
+    const handleRejectFriendRequest = async (friendId) => {
+        return dispatch(fetchRejectFriendRequest(friendId, 'rejected'))
+            .then(async (data) => {
+                if (data) {
+                    console.log('rejected friend request data', data);
+                    friendNotification('Friend request rejected');
+                    setFriendStatus('rejected');
+                }
+            })
+            .catch(async (res) => {
+                console.log('res', res);
+                const data = await res.json();
+                friendNotification('Error rejecting friend request');
+                console.log('error rejecting friend request', data);
+            });
+    }
+
+    const handleSendFriendRequest = async (friendId, status) => {
+        return dispatch(fetchSendFriendRequest(friend?.username))
+            .then(async (data) => {
+                if (data) {
+                    friendNotification('Friend request sent');
+                    setFriendStatus('pending');
+                    console.log('sent friend request data', data);
+                }
+            })
+            .catch(async (res) => {
+                console.log('res', res);
+                const data = await res.json();
+                console.log('error sending friend request', data);
+            });
+    }
+
 
     return (
         <div className="mainFriendDetailsDiv">
-            <div className="friendDetailsTopDiv">
-                <div className="friendDetailsTopLeftDiv">
-                    <h1>{friend?.username}</h1>
-                    <h2>{friend?.firstName}</h2>
-                    <button
-                        onClick={handleSendGameInvite}
-                        className="friendDetailsButton">New Game <i className="fa-solid fa-paper-plane" /></button>
-                    <button
-                        onClick={handleDeleteFriend}
-                        className="friendDetailsButton">Remove Friend <i class="fa-solid fa-user-minus"></i></button>
-                </div>
-                <div className="friendDetailsTopRightDiv">
-                    <h2>Games Played: {games?.length}</h2>
-                    <h2>Games Won: {numGamesWon}</h2>
-                </div>
-            </div>
-            <h2 className="pastGamesTitle">Past Games</h2>
-            <Slider className="gamesForFriendSlider"  {...settings}>{gamesMapped}</Slider>
-        </div>
+            {friend?.status === 'accepted' &&
+                <>
+                    <div className="friendDetailsTopDiv">
+                        <div className="friendDetailsTopLeftDiv">
+                            <h1>{friend?.username}</h1>
+                            <h2>{friend?.firstName}</h2>
+                            <button
+                                onClick={handleSendGameInvite}
+                                className="friendDetailsButton">New Game <i className="fa-solid fa-paper-plane" /></button>
+                            <button
+                                onClick={handleDeleteFriend}
+                                className="friendDetailsButton">Remove Friend <i class="fa-solid fa-user-minus"></i></button>
+                        </div>
+                        <div className="friendDetailsTopRightDiv">
+                            <h2>Games Played: {games?.length}</h2>
+                            <h2>Games Won: {numGamesWon}</h2>
+                        </div>
+                    </div>
+                    <h2 className="pastGamesTitle">Past Games</h2>
+                    <Slider className="gamesForFriendSlider"  {...settings}>{gamesMapped}</Slider>
+                </>}
+            {friend?.status === 'pending' &&
+                <PendingFriend friend={friend} handleAcceptFriendRequest={handleAcceptFriendRequest} handleRejectFriendRequest={handleRejectFriendRequest} />
+            }
+            {friend?.status === 'notFriend' &&
+                <NotFriend friend={friend} handleSendFriendRequest={handleSendFriendRequest} />
+            }
+
+        </div >
     )
 
 }
