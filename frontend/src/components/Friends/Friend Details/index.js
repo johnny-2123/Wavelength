@@ -17,7 +17,7 @@ const FriendDetails = ({ sendMessage, sessionUser }) => {
     const { friendId } = useParams();
 
     const friend = useSelector((state) => state.friends.currentFriend);
-    const [friendStatus, setFriendStatus] = useState(friend?.status);
+    const [friendStatus, setFriendStatus] = useState('');
 
     const [loaded, setLoaded] = useState(false);
 
