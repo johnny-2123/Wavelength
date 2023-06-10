@@ -96,6 +96,9 @@ const GamePlay = ({
 
     useEffect(() => {
         setShowGamePlay(!game?.gameOver);
+        if (roundWords?.length === 2) {
+            setShowRoundResults(true);
+        }
     }, [game, setShowGamePlay]);
 
     return (
@@ -112,7 +115,7 @@ const GamePlay = ({
                 <WaitingforPartnerWord friendUser={friendUser} userWordText={userWordText} />
             )}
 
-            {showRoundResults && !shouldRenderFollowingRoundsForm && (
+            {showRoundResults && roundWords.length === 2 && !shouldRenderFollowingRoundsForm && (
                 <RoundResults onCloseEnoughSubmit={handleCloseEnoughSubmit} onNextRoundSubmit={handleNextRoundSubmit} friendUser={friendUser} friendWordText={friendWordText} userWordText={userWordText} sendMessage={sendMessage} gameId={gameId} setShowRoundResults={setShowRoundResults} />
 
             )}

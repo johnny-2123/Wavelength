@@ -72,12 +72,22 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
         "user-not-online": (data) => {
             notifyUserOffline();
         },
+        "start-new-round": (data) => {
+            const gameId = data?.gameId;
+            dispatch(fetchGameById(gameId))
+                .then((game) => {
+                    setShowGamePlay(true);
+                    setShowRoundResults(false);
+                    setPlayerReady(false);
+                }
+                )
+        },
         "round-results": (data) => {
             const gameId = data?.gameId;
             dispatch(fetchGameById(gameId))
                 .then((game) => {
                     setShowGamePlay(true);
-                    setShowRoundResults(true);
+                    // setShowRoundResults(true);
                     setPlayerReady(false);
                 })
 
@@ -103,16 +113,6 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                     setModalContent(<GameResults game={game} sessionUser={sessionUser} sendMessage={sendMessage} />);
 
                 })
-        },
-        "start-new-round": (data) => {
-            const gameId = data?.gameId;
-            dispatch(fetchGameById(gameId))
-                .then((game) => {
-                    setShowGamePlay(true);
-                    setShowRoundResults(false);
-                    setPlayerReady(false);
-                }
-                )
         },
     };
 
