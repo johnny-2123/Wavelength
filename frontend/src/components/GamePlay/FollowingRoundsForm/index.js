@@ -51,14 +51,14 @@ const FollowingRoundsForm = ({
             <div className={styles.followingRounds}>
                 <div className={styles.previousWords}>
                     <h2>Previous Words</h2>
-                    <div className={styles.previousWordsSubDiv}>
-                        <div className={styles.partnerPreviousWord}>
-                            <h2>{friendUser?.username}:</h2>
-                            <h3>{previousRoundFriendWordText}</h3>
+                    <div className={styles.lastRoundWords}>
+                        <div>
+                            <h5>{friendUser?.username}</h5>
+                            <h6 className={styles.friendUserLastRoundWord} >{previousRoundFriendWordText}</h6>
                         </div>
-                        <div className={styles.yourPreviousWord}>
-                            <h2>You: </h2>
-                            <h3>{previousRoundUserWordText}</h3>
+                        <div>
+                            <h5>You</h5>
+                            <h6 >{previousRoundUserWordText}</h6>
                         </div>
                     </div>
                 </div>

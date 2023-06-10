@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { fetchDeleteGame } from "../../store/game";
 import { DeleteGameFromFriendDetails } from "../../store/friends";
 import { toast, Slide } from 'react-toastify';
@@ -8,6 +8,7 @@ import styles from "./GameResults.module.css";
 
 const GameResults = ({ game, sessionUser, sendMessage }) => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const location = useLocation();
     const currentURL = location.pathname;
 
@@ -87,6 +88,14 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
             });
     };
 
+
+    // const handleFriendUserClick = (e) => {
+    //     e.stopPropagation();
+
+    //     history.push(`/friends/${friendUser?.id}`);
+    // };
+
+
     return (
         <div className={styles.gameResults}>
             {(!currentURL.includes('friends') && !currentURL.includes('games')) && <h1 className={styles.gameResultsTitle}>Game Results</h1>}
@@ -94,7 +103,10 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
                 <div className={styles.gamePlayers}>
                     <h2>Players</h2>
                     <div className={styles.gamePlayersSubDiv}>
-                        <div>
+                        <div
+                            className={styles.friendUserDiv}
+                        // onClick={(e) => handleFriendUserClick(e)}
+                        >
                             <div className={styles.friendCircle}></div>
                             <h3>{friendUser.username}</h3>
                         </div>

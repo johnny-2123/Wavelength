@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useHistory } from "react-router-dom";
 import { fetchGameById, fetchDeleteGame } from "../../../store/game";
 import { DeleteGameFromFriendDetails } from "../../../store/friends";
 import { toast, Slide } from 'react-toastify';
@@ -8,6 +8,7 @@ import styles from "./GameDetails.module.css";
 
 const GameDetails = ({ sessionUser, sendMessage }) => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const { gameId } = useParams();
     console.log('gameId', gameId);
     const location = useLocation();
@@ -93,6 +94,11 @@ const GameDetails = ({ sessionUser, sendMessage }) => {
             });
     };
 
+    const handleFriendUserClick = (e) => {
+        e.stopPropagation();
+        history.push(`/friends/${friendUser?.id}`);
+    };
+
     useEffect(() => {
         dispatch(fetchGameById(gameId))
             .then((game) => {
@@ -109,7 +115,10 @@ const GameDetails = ({ sessionUser, sendMessage }) => {
                 <div className={styles.gamePlayers}>
                     <h2>Players</h2>
                     <div className={styles.gamePlayersSubDiv}>
-                        <div>
+                        <div
+                            className={styles.friendCircleDiv}
+                            onClick={handleFriendUserClick}
+                        >
                             <div className={styles.friendCircle}></div>
                             <h3>{friendUser?.username}</h3>
                         </div>

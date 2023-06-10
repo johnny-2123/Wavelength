@@ -1,12 +1,13 @@
 .followingRounds {
     margin: 0 auto;
-    padding: 2rem;
+    padding: 2rem 1rem 2rem 1rem;
     background-color: #ffffff;
     border-radius: 10px;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    border: #A0741B 1px solid;
 }
 
 
@@ -18,13 +19,52 @@
     width: 100%;
 }
 
-.previousWords h2 {
-    margin: .5rem 1rem;
-    font-size: 1.5rem;
-    font-weight: 400;
-    color: #5A5A5A;
+.lastRoundWords {
+    padding: 0rem 0;
+    margin-top: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
+.lastRoundWords h5 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0rem 0.5rem 0.5rem 0.5rem;
+    color: #555;
+}
+
+
+.lastRoundWords h6 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 1rem .5rem;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 125px;
+    height: 125px;
+    margin-bottom: .5rem;
+    background-color: #334075;
+}
+
+h6.friendUserLastRoundWord {
+    background-color: #D85F56;
+}
+
+
+.previousWords h2 {
+    margin: 0rem 1rem 1.5rem 1rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #555;
+}
+
+/*
 .previousWords h3 {
     margin: .5rem 1rem;
     font-size: 1.2rem;
@@ -51,6 +91,7 @@
     color: #555;
 }
 
+*/
 .followingRoundDirectionsDiv {
     display: flex;
     flex-direction: column;
@@ -95,12 +136,13 @@ h2.followingRoundsDirections {
     width: 300px;
     padding: 0.5rem;
     border: 2px solid #ccc;
-    border-radius: 5px;
+    border-radius: 50px;
     font-size: 1rem;
 }
 
 .wordInputDiv button {
     background-color: #e4736b;
+    border-radius: 50px;
 
 }
 
@@ -111,5 +153,6 @@ h2.followingRoundsDirections {
 
 .gameOverDiv button {
     background-color: #d3574e;
-
+    border-radius: 50px;
+    margin-top: .75rem;
 }

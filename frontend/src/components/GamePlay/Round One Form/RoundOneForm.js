@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './RoundOne.css';
 const RoundOneForm = ({ onSubmit, wordText, setWordText }) => (
     <div className="roundOne">
         <div>

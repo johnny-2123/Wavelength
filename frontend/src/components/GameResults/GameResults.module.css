@@ -91,6 +91,10 @@ h3.sessionUser {
     width: 100%;
 }
 
+.friendUserDiv:hover {
+    cursor: pointer;
+}
+
 div.gamePlayersSubDiv>div {
     display: flex;
     flex-direction: column;

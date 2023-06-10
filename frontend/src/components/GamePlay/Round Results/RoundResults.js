@@ -45,10 +45,16 @@ const RoundResults = ({ onCloseEnoughSubmit, onNextRoundSubmit, friendUser, frie
     return (
         <div className="roundResults">
             <h2>Round Results</h2>
-            <h3>
-                {friendUser?.username}'s word: {friendWordText}
-            </h3>
-            <h3>Your Word: {userWordText}</h3>
+            <div className={"mostRecentGameFinalWords"}>
+                <div>
+                    <h5>{friendUser?.username}</h5>
+                    <h6 className="friendUserLastGameWord" >{friendWordText}</h6>
+                </div>
+                <div>
+                    <h5>You</h5>
+                    <h6 >{userWordText}</h6>
+                </div>
+            </div>
             <div>
                 <p>{timer > 0 ? `${timer} seconds left` : 'Time is up'}</p>
                 <button onClick={handleBothSubmit}>Close Enough</button>

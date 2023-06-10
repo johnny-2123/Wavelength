@@ -88,7 +88,7 @@ const FriendDetails = ({ sendMessage, sessionUser }) => {
         e.stopPropagation();
         sendMessage("send-game-invite", {
             recipient: friend?.username,
-            user1Id: friend?.id,
+            user1Id: sessionUser?.id,
             user2Id: friend?.id,
         });
     };

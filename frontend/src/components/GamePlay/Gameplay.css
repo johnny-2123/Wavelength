@@ -2,44 +2,29 @@
     margin: 1rem;
 }
 
-.roundOne {
-    margin: 2rem auto;
-    padding: 2rem;
-    background-color: #ffffff;
-    border-radius: 10px;
-    text-align: center;
-}
-
-.roundOne h2 {
-    font-size: 1.5rem;
-    font-weight: 500;
-    margin-bottom: 1rem;
-    color: darkslategray
-}
-
 .wordInputDiv {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 1rem;
+    margin-top: 1.25rem;
 }
 
 .wordInputDiv input {
     width: 300px;
-    padding: 0.5rem;
+    padding: .5rem;
     border: 2px solid #ccc;
-    border-radius: 5px;
+    border-radius: 50px;
     font-size: 1rem;
 }
 
 .wordInputDiv button {
-    margin-top: 0.5rem;
+    margin-top: 1.25rem;
     margin-left: 0.5rem;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1.5rem;
     background-color: #e4736b;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 50px;
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;

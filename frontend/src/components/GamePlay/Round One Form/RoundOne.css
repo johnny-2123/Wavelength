@@ -1,0 +1,17 @@
+.roundOne {
+    margin: 0rem auto;
+    padding: 2.5rem 2rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    text-align: center;
+    border: #A0741B 1px solid;
+    border-radius: 10px;
+}
+
+.roundOne h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: darkslategray
+}
