@@ -62,11 +62,3 @@ h3.friendRequestSent {
     margin-top: 1rem;
     color: #555;
 }
-
-
-.noPendingFriendRequests h1.noFriends {
-    font-size: 1.25rem;
-    padding: 1.5rem 0;
-    font-weight: 500;
-    color: #555;
-}

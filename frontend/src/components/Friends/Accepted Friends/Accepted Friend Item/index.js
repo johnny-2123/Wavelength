@@ -26,7 +26,8 @@ const AcceptedFriendItem = ({ friend, sessionUser, sendMessage, handleFriendItem
     };
 
 
-    const handleRejectFriendRequest = async (friendId, status) => {
+    const handleRejectFriendRequest = async (e, friendId, status) => {
+        e.stopPropagation();
         return dispatch(fetchRejectFriendRequest(friendId, status))
             .then(async (data) => {
                 if (data && data.message) {
@@ -80,7 +81,7 @@ const AcceptedFriendItem = ({ friend, sessionUser, sendMessage, handleFriendItem
                         onClick={() => handleAcceptFriendRequest(friendUser.id, "accepted")}
                     >Accept <i class="fa-solid fa-plus"></i></button>
                     <button
-                        onClick={() => handleRejectFriendRequest(friendUser.id, "rejected")}
+                        onClick={(e) => handleRejectFriendRequest(e, friendUser.id, "rejected")}
                     >Decline <i class="fa-solid fa-minus"></i></button>
                 </>}
             </div>
