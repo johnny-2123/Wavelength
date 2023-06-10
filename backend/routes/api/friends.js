@@ -120,6 +120,12 @@ router.get('/:friendId', requireAuth, (async (req, res) => {
 
     const friend = friendShipSent ? friendShipSent.ReceivingUser : friendShipReceived.RequestingUser;
 
+    if (friendShipSent) {
+        friend.setDataValue('status', friendShipSent.status);
+    } else {
+        friend.setDataValue('status', friendShipReceived.status);
+    }
+
     res.status(200).json({ friend });
 }))
 

@@ -25,12 +25,12 @@ module.exports = {
       { roundId: 3, userId: 2, wordText: 'pajamas' },
 
       // game 2 round 1
-      { roundId: 4, userId: 1, wordText: 'babe' },
-      { roundId: 4, userId: 2, wordText: 'lungs' },
+      { roundId: 4, userId: 1, wordText: 'taylor swift' },
+      { roundId: 4, userId: 2, wordText: 'bowser' },
 
       // game 2 round 2
-      { roundId: 5, userId: 1, wordText: 'choke me' },
-      { roundId: 5, userId: 2, wordText: 'choke me' },
+      { roundId: 5, userId: 1, wordText: 'anti hero' },
+      { roundId: 5, userId: 2, wordText: 'anti hero' },
 
       // game 3 round 1
       { roundId: 6, userId: 1, wordText: 'oklahoma' },

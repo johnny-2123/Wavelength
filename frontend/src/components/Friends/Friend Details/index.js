@@ -14,6 +14,8 @@ const FriendDetails = ({ sendMessage, sessionUser }) => {
     const { friendId } = useParams();
 
     const friend = useSelector((state) => state.friends.currentFriend);
+    console.log('friend in friend details component', friend)
+
 
     const games = useSelector((state) => state.friends.gamesBetweenFriends);
 

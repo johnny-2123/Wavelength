@@ -21,8 +21,10 @@ const PastGames = ({ sessionUser, sendMessage }) => {
 
 
     useEffect(() => {
-        dispatch(fetchGames());
-        dispatch(fetchRecentGames());
+        dispatch(fetchGames())
+            .catch((err) => console.log(err));
+        dispatch(fetchRecentGames())
+            .catch((err) => console.log(err));
     }, [dispatch]);
 
     return (
