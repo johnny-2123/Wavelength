@@ -17,9 +17,9 @@ const FriendDetails = ({ sendMessage, sessionUser }) => {
     const { friendId } = useParams();
 
     const friend = useSelector((state) => state.friends.currentFriend);
-    console.log('friend in friend details component', friend)
     const [friendStatus, setFriendStatus] = useState(friend?.status);
-    console.log('friendStatus', friendStatus)
+
+    const [loaded, setLoaded] = useState(false);
 
     const games = useSelector((state) => state.friends.gamesBetweenFriends);
 
@@ -73,6 +73,9 @@ const FriendDetails = ({ sendMessage, sessionUser }) => {
 
     useEffect(() => {
         dispatch(fetchFriendDetails(friendId))
+            .then((data) => {
+                setLoaded(true);
+            })
             .catch((err) => { console.log("error fetching friend details: ", err) });
         dispatch(fetchWordsBetweenFriends(friendId))
             .catch((err) => { console.log("error fetching words: ", err) });
@@ -154,6 +157,10 @@ const FriendDetails = ({ sendMessage, sessionUser }) => {
                 const data = await res.json();
                 console.log('error sending friend request', data);
             });
+    }
+
+    if (!loaded) {
+        return <div>Loading...</div>;
     }
 
 
