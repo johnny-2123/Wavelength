@@ -5,7 +5,7 @@ import { fetchDeleteGame } from "../../store/game";
 import { DeleteGameFromFriendDetails } from "../../store/friends";
 import { toast, Slide } from 'react-toastify';
 import styles from "./GameResults.module.css";
-
+import { useModal } from "../../context/modal";
 const GameResults = ({ game, sessionUser, sendMessage }) => {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -88,12 +88,15 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
             });
     };
 
+    const { setModalContent, closeModal } = useModal();
 
-    // const handleFriendUserClick = (e) => {
-    //     e.stopPropagation();
 
-    //     history.push(`/friends/${friendUser?.id}`);
-    // };
+    const handleFriendUserClick = (e) => {
+        e.stopPropagation();
+        closeModal();
+        setModalContent(null);
+        history.push(`/friends/${friendUser?.id}`);
+    };
 
 
     return (
@@ -105,7 +108,7 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
                     <div className={styles.gamePlayersSubDiv}>
                         <div
                             className={styles.friendUserDiv}
-                        // onClick={(e) => handleFriendUserClick(e)}
+                            onClick={(e) => handleFriendUserClick(e)}
                         >
                             <div className={styles.friendCircle}></div>
                             <h3>{friendUser.username}</h3>
