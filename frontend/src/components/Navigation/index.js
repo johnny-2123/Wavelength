@@ -3,11 +3,21 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileWaveform, faSearch } from "@fortawesome/free-solid-svg-icons"; // Added faSearch icon
+import { faFileWaveform, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { toast } from 'react-toastify';
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector((state) => state.session.user);
+
+
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        toast.info('Search feauture coming soon', {
+            hideProgressBar: true,
+        });
+    }
 
     return (
         <ul className="navigationUl">
@@ -17,7 +27,9 @@ function Navigation({ isLoaded }) {
                 </NavLink>
             </li>
             {sessionUser?.id && <li className="searchBarDiv">
-                <div className="searchBar">
+                <div
+                    onClick={handleSearch}
+                    className="searchBar">
                     <input type="text" placeholder="Search" />
                     <button>
                         <FontAwesomeIcon icon={faSearch} />
