@@ -81,7 +81,7 @@ h3.sessionUser {
 }
 
 .gamePlayers h2 {
-    color: #d65e55;
+    color: #555;
     /* border-bottom: #d65e55 1px solid; */
     padding-bottom: .25rem;
     width: fit-content;
@@ -179,7 +179,7 @@ div.gamePlayersSubDiv div.userCircle {
 }
 
 .FinalWordsDiv h2 {
-    color: #d65e55;
+    color: #555;
     margin: 0.25rem auto;
     /* border-bottom: #d65e55 1px solid; */
     padding-bottom: .25rem;

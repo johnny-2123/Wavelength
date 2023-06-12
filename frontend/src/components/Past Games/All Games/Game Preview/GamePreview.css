@@ -26,20 +26,16 @@
 }
 
 h2#lastGameTitle {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 500;
-    margin: 0rem auto .4rem auto;
+    margin: 0rem .25rem .4rem .25rem;
     color: #334075;
-    border-bottom: #A0741B 1px solid;
-    padding-bottom: .5rem;
-    text-align: center;
-    width: 35%;
 }
 
 
 .totalRounds {
     margin: 1rem auto;
-    padding: 1.25rem .25rem;
+    padding: 1.5rem .25rem;
     width: 70%;
     border: 1px solid #A0741B;
     border-radius: 10px;
@@ -49,7 +45,6 @@ h2#totalRoundsTitle {
     font-weight: 500;
     font-size: 1.2rem;
     color: #555;
-    text-align: center;
 }
 
 .mostRecentSingleGame h3 {
@@ -57,8 +52,6 @@ h2#totalRoundsTitle {
     font-weight: 500;
     margin: 0.25rem;
     color: #555;
-    text-align: center;
-
 }
 
 .mostRecentSingleGame h4 {
@@ -114,9 +107,6 @@ div#gameOutcome i {
     font-size: 1.3rem;
 }
 
-.mostRecentSingleGame h4 {
-    text-align: center;
-}
 
 .mostRecentGameFinalWords {
     padding: 0rem 0;
@@ -126,8 +116,6 @@ div#gameOutcome i {
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    text-align: center;
-
 }
 
 .mostRecentGameFinalWords h5 {

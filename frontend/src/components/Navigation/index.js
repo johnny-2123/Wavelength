@@ -14,7 +14,7 @@ function Navigation({ isLoaded }) {
 
     const handleSearch = (e) => {
         e.preventDefault();
-        toast.info('Search feauture coming soon', {
+        toast.info('Search feature coming soon', {
             hideProgressBar: true,
         });
     }

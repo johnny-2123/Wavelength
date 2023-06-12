@@ -199,26 +199,36 @@ router.post('/', requireAuth, async (req, res) => {
 router.get('/', requireAuth, async (req, res) => {
     const userId = req.user.id;
 
-    const gamesStarted = await Game.findAll({
+    const gamesStarted = await Game.findAndCountAll({
         where: { user1Id: userId },
         include: [
             {
                 model: User,
                 as: 'user2',
             },
+            {
+                model: Round,
+                as: 'Round',
+                include: [{ model: Word }],
+            },
         ],
     });
-    const gamesJoined = await Game.findAll({
+    const gamesJoined = await Game.findAndCountAll({
         where: { user2Id: userId },
         include: [
             {
                 model: User,
                 as: 'user1',
             },
+            {
+                model: Round,
+                as: 'Round',
+                include: [{ model: Word }],
+            },
         ],
     });
 
-    const games = Array.from(new Set([...gamesStarted, ...gamesJoined]));
+    const games = Array.from(new Set([...gamesStarted.rows, ...gamesJoined.rows]));
 
     if (games.length === 0) {
         return res.status(200).json({ games: [] });

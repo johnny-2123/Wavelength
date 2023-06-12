@@ -108,10 +108,12 @@ export const getGames = (games) => {
 }
 
 export const fetchGames = () => async (dispatch) => {
+    console.log("running redux store fetchGames");
     const response = await csrfFetch(`/api/games`)
 
     if (response.ok) {
         const games = await response.json();
+        console.log("games fetched in redux store: ", games.games);
         dispatch(getGames(games));
         return games.games;
     } else {

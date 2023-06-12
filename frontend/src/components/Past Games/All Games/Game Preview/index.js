@@ -1,13 +1,10 @@
 import React from "react";
-import { useHistory, useLocation } from "react-router-dom";
-import { areWordsSimilar } from "../../../../GamePlay/useGameStatus";
-import './LastGame.css'
+import { useHistory } from "react-router-dom";
+import { areWordsSimilar } from "../../../GamePlay/useGameStatus"
+import './GamePreview.css'
 
-const LastGame = ({ mostRecentGame, sessionUser }) => {
-    console.log('mostRecentGame', mostRecentGame);
+const GamePreview = ({ mostRecentGame, sessionUser }) => {
     const history = useHistory();
-    const location = useLocation();
-    const currentURL = location.pathname;
     const mostRecentGameFinalRound = mostRecentGame?.Round?.[mostRecentGame?.Round?.length - 1];
     const mostRecentGameFinalRoundWords = mostRecentGameFinalRound?.Words;
     const mostRecentGameUserWord = mostRecentGameFinalRoundWords?.filter(word => word?.userId === sessionUser?.id)[0];
@@ -29,18 +26,7 @@ const LastGame = ({ mostRecentGame, sessionUser }) => {
             onClick={handleLastGameClick}
             className="mostRecentSingleGame">
             <div className="mostRecentSingleGameSubDiv">
-                {!currentURL.includes('allGames') && <h2 id="lastGameTitle">Last Game</h2>}
-                <h4>Final Words</h4>
-                <div className="mostRecentGameFinalWords">
-                    <div>
-                        <h5>{friendUser?.username}</h5>
-                        <h6 className="friendUserLastGameWord" >{mostRecentGameFriendWord?.wordText}</h6>
-                    </div>
-                    <div>
-                        <h5>{sessionUser?.username}</h5>
-                        <h6>{mostRecentGameUserWord?.wordText}</h6>
-                    </div>
-                </div>
+                <h2 id="lastGameTitle">Last Game</h2>
                 <div className="totalRounds">
                     <h2 id='totalRoundsTitle'>Total Rounds</h2>
                     <h3>{mostRecentGame?.Round?.length}</h3>
@@ -56,9 +42,20 @@ const LastGame = ({ mostRecentGame, sessionUser }) => {
                             <div className={'gameOutcomeFailed'}><i class="fa-solid fa-sad-tear"></i><i class="fa-solid fa-sad-tear"></i><i class="fa-solid fa-sad-tear"></i></div></>
                     }
                 </div>
+                <h4>Final Words</h4>
+                <div className="mostRecentGameFinalWords">
+                    <div>
+                        <h5>{friendUser?.username}</h5>
+                        <h6 className="friendUserLastGameWord" >{mostRecentGameFriendWord?.wordText}</h6>
+                    </div>
+                    <div>
+                        <h5>{sessionUser?.username}</h5>
+                        <h6>{mostRecentGameUserWord?.wordText}</h6>
+                    </div>
+                </div>
             </div>
         </div>)
 
 }
 
-export default LastGame;
+export default GamePreview;
