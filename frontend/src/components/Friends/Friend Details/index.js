@@ -113,16 +113,13 @@ const FriendDetails = ({ sendMessage, sessionUser }) => {
         return dispatch(fetchAcceptFriendRequest(friendId, 'accepted'))
             .then(async (data) => {
                 if (data) {
-                    console.log('accepted friend request data', data);
                     friendNotification('Friend request accepted');
                     setFriendStatus('accepted');
                 }
             })
             .catch(async (res) => {
-                console.log('res', res);
                 const data = await res.json();
                 friendNotification('Error accepting friend request');
-                console.log('error accepting friend request', data);
             });
     }
 
@@ -136,10 +133,8 @@ const FriendDetails = ({ sendMessage, sessionUser }) => {
                 }
             })
             .catch(async (res) => {
-                console.log('res', res);
                 const data = await res.json();
                 friendNotification('Error rejecting friend request');
-                console.log('error rejecting friend request', data);
             });
     }
 
@@ -149,13 +144,10 @@ const FriendDetails = ({ sendMessage, sessionUser }) => {
                 if (data) {
                     friendNotification('Friend request sent');
                     setFriendStatus('pending');
-                    console.log('sent friend request data', data);
                 }
             })
             .catch(async (res) => {
-                console.log('res', res);
                 const data = await res.json();
-                console.log('error sending friend request', data);
             });
     }
 

@@ -21,12 +21,10 @@ const getTopFriends = (friends) => {
 }
 
 export const fetchGetTopFriends = () => async (dispatch) => {
-    // console.log('running fetchGetTopFriends')
     const response = await csrfFetch(`/api/friends/top`);
 
     if (response.ok) {
         const friends = await response.json();
-        // console.log('top friends', friends)
         dispatch(getTopFriends(friends.friends));
         return friends.friends;
     }
@@ -41,15 +39,12 @@ const deleteFriendship = (friendId) => {
 }
 
 export const fetchDeleteFriendship = (friendId) => async (dispatch) => {
-    // console.log('running fetchDeleteFriendship')
-    // console.log("friendId", friendId);
     const response = await csrfFetch(`/api/friends/${friendId}`, {
         method: "DELETE",
     });
 
     if (response.ok) {
         const data = await response.json();
-        // console.log("data from fetch delete friendship", data);
         dispatch(deleteFriendship(friendId));
         return data;
     }
@@ -211,8 +206,6 @@ export const fetchFriends = () => async (dispatch) => {
         return friends.friends;
     } else {
         const data = await response.json();
-        console.log("error in fetchFriends");
-        console.log(data);
         return data;
     }
 
@@ -281,11 +274,8 @@ const friendsReducer = (state = initialState, action) => {
             return newState;
         case DELETE_FRIENDSHIP:
             newState = { ...state };
-            console.log('action.payload', action.payload)
             const friendshipToDelete = newState.friends.find((friend) => friend.friendId == action.payload || friend.userId == action.payload);
-            console.log('friendshipToDelete', friendshipToDelete);
             const friendshipToDeleteIndex = newState.friends.indexOf(friendshipToDelete);
-            console.log('friendshipToDeleteIndex', friendshipToDeleteIndex);
             newState.friends.splice(friendshipToDeleteIndex, 1);
             return newState;
         case GET_TOP_FRIENDS:

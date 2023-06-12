@@ -13,11 +13,9 @@ const NotLoggedInUserHomePage = ({ }) => {
     const handleDemoLogin = () => {
         return dispatch(fetchDemoLogin())
             .then((user) => {
-                console.log('user from demo login', user);
             })
             .catch(async (res) => {
                 const data = await res.json();
-                console.log('data from demo login', data);
             });
     };
 

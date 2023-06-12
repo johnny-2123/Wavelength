@@ -62,7 +62,6 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                     history.push(`/gameplay/${game?.id}`);
                 })
                 .catch((error) => {
-                    console.log('error fetching game', error);
                 });
         },
         "declined-game-invite": (data) => {
@@ -106,7 +105,6 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
             const gameId = data?.gameId;
             dispatch(fetchGameById(gameId))
                 .then((game) => {
-                    console.log('game over', game)
                     setShowGamePlay(false)
                     setShowRoundResults(false)
                     history.push('/')
@@ -145,7 +143,6 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
                 setShouldConnect(true);
             })
             .catch((error) => {
-                console.log("An error occurred while fetching friends:", error);
             });
 
         return () => {

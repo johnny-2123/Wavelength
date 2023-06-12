@@ -4,7 +4,6 @@ import { areWordsSimilar } from "../../../../GamePlay/useGameStatus";
 import './LastGame.css'
 
 const LastGame = ({ mostRecentGame, sessionUser }) => {
-    console.log('mostRecentGame', mostRecentGame);
     const history = useHistory();
     const location = useLocation();
     const currentURL = location.pathname;

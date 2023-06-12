@@ -14,14 +14,11 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
     const location = useLocation();
     const currentURL = location.pathname;
 
-    console.log('currentURL', currentURL);
     const friendUser = game?.user1?.username === sessionUser?.username ? game?.user2 : game?.user1;
 
     const gameWon =
         areWordsSimilar(game?.Round?.[game?.Round?.length - 1]?.Words?.[0]?.wordText,
             game?.Round?.[game?.Round?.length - 1]?.Words?.[1]?.wordText)
-
-    console.log('################################################## gameWon', gameWon);
 
     const finalRound = game?.Round?.[game?.Round?.length - 1];
 
@@ -85,7 +82,6 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
                 }
             })
             .catch((error) => {
-                console.log('error deleting game', error);
                 if (error) {
                     notifyOnGameDeleteError();
                 }

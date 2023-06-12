@@ -14,8 +14,6 @@ export const fetchCreateWord = (roundId, wordText) => async (dispatch) => {
         return word.word;
     } else {
         const data = await response.json();
-        console.log("error in fetchCreateWord");
-        console.log(data);
         return data;
     }
 }

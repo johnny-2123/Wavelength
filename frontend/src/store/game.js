@@ -81,19 +81,14 @@ const getGameById = (game) => {
 }
 
 export const fetchGameById = (gameId) => async (dispatch) => {
-    // console.log("gameId: ", gameId);
-
     const response = await csrfFetch(`/api/games/${gameId}`)
 
     if (response.ok) {
         const game = await response.json();
         dispatch(getGameById(game));
-        // console.log("game fetched in redux store: ", game.game);
         return game.game;
     } else {
         const data = await response.json();
-        // console.log("error in fetchGameById");
-        console.log(data);
         return data;
     }
 
@@ -108,18 +103,14 @@ export const getGames = (games) => {
 }
 
 export const fetchGames = () => async (dispatch) => {
-    console.log("running redux store fetchGames");
     const response = await csrfFetch(`/api/games`)
 
     if (response.ok) {
         const games = await response.json();
-        console.log("games fetched in redux store: ", games.games);
         dispatch(getGames(games));
         return games.games;
     } else {
         const data = await response.json();
-        console.log("error in fetchGames");
-        console.log(data);
         return data;
     }
 
@@ -135,26 +126,16 @@ export const updateGame = (gameId, gameOver) => async (dispatch) => {
 
     if (response.ok) {
         const game = await response.json();
-        // dispatch({
-        //     type: UPDATE_GAME,
-        //     payload: game.game
-        // });
         return game.game;
     }
     else {
         const data = await response.json();
-        console.log("error in updateGame");
-        console.log(data);
         return data;
     }
 }
 
 
 export const createGame = (user1Id, user2Id) => async (dispatch) => {
-    // console.log("running redux store createGame");
-    // console.log("user1Id: ", user1Id);
-    // console.log("user2Id: ", user2Id);
-
     const response = await csrfFetch(`/api/games`, {
         method: "POST",
         body: JSON.stringify({
@@ -165,14 +146,10 @@ export const createGame = (user1Id, user2Id) => async (dispatch) => {
 
     if (response.ok) {
         const game = await response.json();
-        // console.log(" succesfully created game in redux store: ", game);
-        // console.log('game id', game.game.id)
         return game.game;
     }
     else {
         const data = await response.json();
-        console.log("error in createGame");
-        console.log(data);
         return data;
     }
 }
@@ -215,9 +192,7 @@ const gameReducer = (state = initialState, action) => {
         case DELETE_GAME_FROM_RECENT_GAMES:
             newState = { ...state };
             const gameToDelete = newState.recentGames.find((game) => game?.id === action.payload);
-            console.log("game to delete: ", gameToDelete);
             const gameToDeleteIdx = newState.recentGames.indexOf(gameToDelete);
-            console.log("game to delete idx: ", gameToDeleteIdx);
             newState.recentGames.splice(gameToDeleteIdx, 1);
             return newState;
         default:

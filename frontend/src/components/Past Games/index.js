@@ -13,11 +13,8 @@ const PastGames = ({ sessionUser, sendMessage }) => {
     const dispatch = useDispatch();
     const { path, url } = useRouteMatch();
     const pastGames = useSelector((state) => state?.games?.pastGames);
-    console.log('pastGames', pastGames)
 
     const recentGames = useSelector((state) => state?.games?.recentGames);
-    console.log('recentGames in past games component', recentGames)
-
 
     useEffect(() => {
         dispatch(fetchGames())

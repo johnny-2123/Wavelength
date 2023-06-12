@@ -28,7 +28,6 @@ const GameInviteRequestComponent = ({ sender, sendMessage, user1Id, user2Id, ses
                 });
             })
             .catch((error) => {
-                console.log('error creating game', error);
             });
     };
 

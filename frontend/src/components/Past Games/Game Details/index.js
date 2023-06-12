@@ -10,16 +10,12 @@ const GameDetails = ({ sessionUser, sendMessage }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { gameId } = useParams();
-    console.log('gameId', gameId);
     const location = useLocation();
     const currentURL = location.pathname;
 
     const game = useSelector((state) => state.games?.currentGame);
-    console.log('game', game);
-    console.log('currentURL', currentURL);
     const friendUser = game?.user1?.username === sessionUser?.username ? game?.user2 : game?.user1;
 
-    console.log('friendUser', friendUser);
 
     const gameWon =
         game?.Round?.[game?.Round?.length - 1]?.Words?.[0]?.wordText ===
@@ -87,7 +83,6 @@ const GameDetails = ({ sessionUser, sendMessage }) => {
                 }
             })
             .catch((error) => {
-                console.log('error deleting game', error);
                 if (error) {
                     notifyOnGameDeleteError();
                 }
@@ -104,7 +99,6 @@ const GameDetails = ({ sessionUser, sendMessage }) => {
             .then((game) => {
             })
             .catch((err) => {
-                console.log("error in GameDetails: ", err);
             });
     }, [dispatch, gameId]);
 

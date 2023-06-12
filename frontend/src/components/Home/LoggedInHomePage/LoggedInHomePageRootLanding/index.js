@@ -15,7 +15,6 @@ const LoggedInHomePageRootLanding = ({ game, sessionUser, sendMessage, friends }
     const friendUserCurrentGame = game?.user1Id === sessionUser?.id ? game?.user2 : game?.user1;
 
     const topFriends = useSelector((state) => state.friends?.topFriends);
-    console.log('topFriends', topFriends)
 
     const handleEndGame = () => {
         dispatch(updateGame(game?.id, true)).then((updatedGame) => {
@@ -32,13 +31,11 @@ const LoggedInHomePageRootLanding = ({ game, sessionUser, sendMessage, friends }
             .then((game) => {
             })
             .catch((err) => {
-                console.log("error in LoggedInHomePageRootLanding: ", err);
             });
         dispatch(fetchGetTopFriends())
             .then((friends) => {
             })
             .catch((err) => {
-                console.log("error in LoggedInHomePageRootLanding: ", err);
             });
 
     }, [dispatch, sessionUser?.id]);

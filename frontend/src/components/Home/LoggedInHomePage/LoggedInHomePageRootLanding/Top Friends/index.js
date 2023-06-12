@@ -2,8 +2,6 @@ import React from "react";
 import "./TopFriends.css";
 
 const TopFriends = ({ topFriends }) => {
-    console.log('topFriends in top friends component', topFriends)
-
     const topFriendsMapped = topFriends?.map((friend) => {
 
         return (

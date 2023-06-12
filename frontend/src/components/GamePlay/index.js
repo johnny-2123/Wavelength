@@ -77,7 +77,8 @@ const GamePlay = ({
                 setShowRoundResults(false)
                 setSubmittedWord(true)
             })
-            .catch((error) => console.log("error creating word", error));
+            .catch((error) => {
+            });
     };
 
     useEffect(() => {
@@ -90,7 +91,6 @@ const GamePlay = ({
                 }
             })
             .catch((error) => {
-                console.log("error fetching game", error);
             });
     }, [dispatch, gameId, submittedWord, playerReady]);
 

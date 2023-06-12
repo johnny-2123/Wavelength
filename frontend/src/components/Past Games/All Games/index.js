@@ -8,10 +8,7 @@ const AllGames = ({ sessionUser }) => {
     const dispatch = useDispatch();
     const games = useSelector((state) => state?.games?.games);
 
-    console.log('games in all games component', games)
-
     const gamesMapped = games?.map((game) => {
-        console.log('mapped game', game)
         return (
             <LastGame mostRecentGame={game} sessionUser={sessionUser} />
         )
@@ -19,7 +16,8 @@ const AllGames = ({ sessionUser }) => {
 
     useEffect(() => {
         dispatch(fetchGames())
-            .catch((err) => console.log(err));
+            .catch((err) => {
+            });
     }, [dispatch]);
 
     return (

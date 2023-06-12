@@ -16,12 +16,9 @@ export const fetchUpdateRound = (roundId, userUpdating, status) => async (dispat
 
     if (response.ok) {
         const round = await response.json();
-        // dispatch(updateRound(round));
         return round.round;
     } else {
         const data = await response.json();
-        console.log("error in fetchUpdateRound");
-        console.log(data);
         return data;
     }
 }
@@ -45,8 +42,6 @@ export const fetchCreateRound = (gameId) => async (dispatch) => {
         return round.round;
     } else {
         const data = await response.json();
-        console.log("error in fetchCreateRound");
-        console.log(data);
         return data;
     }
 

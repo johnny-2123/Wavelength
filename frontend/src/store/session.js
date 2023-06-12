@@ -8,7 +8,6 @@ const SET_CURRENT_USER_OFFLINE = "session/setCurrentUserOffline";
 const DEMO_LOGIN = "session/demoLogin";
 
 export const fetchDemoLogin = () => async (dispatch) => {
-    console.log("fetchDemoLogin");
     const response = await csrfFetch("/api/session/demo", {
         method: "POST",
         headers: {
@@ -19,13 +18,10 @@ export const fetchDemoLogin = () => async (dispatch) => {
 
     if (response.ok) {
         const user = await response.json();
-        console.log("demo user: ", user);
         dispatch(setUser(user.user));
         return response;
     } else {
         const data = await response.json();
-        console.log("error in fetchDemoLogin");
-        console.log(data);
         return data;
 
     }
@@ -43,14 +39,10 @@ export const fetchSetCurrentUserOffline = () => async (dispatch) => {
     })
 
     if (response.ok) {
-        // console.log("fetchSetcurrentUserOffline response ok");
         const user = await response.json();
-        // console.log("user: ", user);
         return response;
     } else {
         const data = await response.json();
-        console.log("error in fetchSetCurrentUserOffline");
-        console.log(data);
         return data;
     }
 }
@@ -69,8 +61,6 @@ export const fetchSetCurrentUserOnline = () => async (dispatch) => {
         return response;
     } else {
         const data = await response.json();
-        console.log("error in fetchSetCurrentUserOnline");
-        console.log(data);
         return data;
     }
 }
@@ -89,8 +79,6 @@ export const fetchSetGuid = (guid, userId) => async (dispatch) => {
         return user;
     } else {
         const data = await response.json();
-        console.log("error in fetchSetGuid");
-        console.log(data);
         return data;
     }
 }
