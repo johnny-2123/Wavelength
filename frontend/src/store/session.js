@@ -5,6 +5,32 @@ const REMOVE_USER = "session/removeUser";
 const SET_GUID = "session/setGuid";
 const SET_CURRENT_USER_ONLINE = "session/setCurrentUserOnline";
 const SET_CURRENT_USER_OFFLINE = "session/setCurrentUserOffline";
+const DEMO_LOGIN = "session/demoLogin";
+
+export const fetchDemoLogin = () => async (dispatch) => {
+    console.log("fetchDemoLogin");
+    const response = await csrfFetch("/api/session/demo", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+
+    });
+
+    if (response.ok) {
+        const user = await response.json();
+        console.log("demo user: ", user);
+        dispatch(setUser(user.user));
+        return response;
+    } else {
+        const data = await response.json();
+        console.log("error in fetchDemoLogin");
+        console.log(data);
+        return data;
+
+    }
+}
+
 
 export const fetchSetCurrentUserOffline = () => async (dispatch) => {
 

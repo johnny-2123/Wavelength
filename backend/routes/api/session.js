@@ -53,6 +53,32 @@ router.get(
 );
 
 router.post(
+    '/demo',
+    async (req, res, next) => {
+
+        const user = await User.unscoped().findOne({
+            where: {
+                username: 'FakeUser3'
+            }
+
+        });
+
+        const safeUser = {
+            id: user.id,
+            email: user.email,
+            username: user.username,
+        };
+
+        await setTokenCookie(res, safeUser);
+
+        return res.json({
+            user: safeUser
+        });
+    }
+
+)
+
+router.post(
     '/',
     validateLogin,
     async (req, res, next) => {

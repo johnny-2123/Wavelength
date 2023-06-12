@@ -31,8 +31,8 @@ h2#notLoggedInHomePage {
 
 .notLoggedInHomePageButtons {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     width: 60%;
 }
 
@@ -57,4 +57,25 @@ h2#notLoggedInHomePage {
 
 .notLoggedInHomePageButtons button:last-child {
     margin-bottom: 0;
+}
+
+div.notLoggedInHomePageButtons>div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.notLoggedInHomePageButtons button.notLoggedInHomePageDemoButton {
+    border-color: #555;
+    color: #555;
+    margin: .5rem 0 auto 0;
+    width: 10rem;
+    padding: auto 1.5rem;
+}
+
+.notLoggedInHomePageButtons button.notLoggedInHomePageDemoButton:hover {
+    background-color: #555;
+    border-color: #555;
+    color: white;
+    cursor: pointer;
 }
