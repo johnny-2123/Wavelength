@@ -6,6 +6,8 @@ import { DeleteGameFromFriendDetails } from "../../store/friends";
 import { toast, Slide } from 'react-toastify';
 import styles from "./GameResults.module.css";
 import { useModal } from "../../context/modal";
+import { areWordsSimilar } from "../GamePlay/useGameStatus";
+
 const GameResults = ({ game, sessionUser, sendMessage }) => {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -16,8 +18,10 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
     const friendUser = game?.user1?.username === sessionUser?.username ? game?.user2 : game?.user1;
 
     const gameWon =
-        game?.Round?.[game?.Round?.length - 1]?.Words?.[0]?.wordText ===
-        game?.Round?.[game?.Round?.length - 1]?.Words?.[1]?.wordText;
+        areWordsSimilar(game?.Round?.[game?.Round?.length - 1]?.Words?.[0]?.wordText,
+            game?.Round?.[game?.Round?.length - 1]?.Words?.[1]?.wordText)
+
+    console.log('################################################## gameWon', gameWon);
 
     const finalRound = game?.Round?.[game?.Round?.length - 1];
 
@@ -124,6 +128,17 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
                 <div className={styles.totalRounds}>
                     <h2>Total Rounds</h2>
                     <h3>{game?.Round?.length}</h3>
+                </div>
+                <div className={styles.gameOutcome}>
+                    <h2 className={styles.gameOutcome} >Outcome</h2>
+                    {gameWon &&
+                        <>   <h3 className={styles.gameOutcomeSuccess}>Wavelength Aligned </h3>
+                            <div className={styles.gameOutcomeSuccess}><i class="fa-solid fa-face-smile-beam"></i><i class="fa-solid fa-face-smile-beam"></i><i class="fa-solid fa-face-smile-beam"></i></div></>
+                    }
+                    {!gameWon &&
+                        <><h3 className={styles.gameOutcomeFailed}>Wavelength Not Aligned </h3>
+                            <div className={styles.gameOutcomeFailed}><i class="fa-solid fa-sad-tear"></i><i class="fa-solid fa-sad-tear"></i><i class="fa-solid fa-sad-tear"></i></div></>
+                    }
                 </div>
                 <div className={styles.FinalWordsDiv}>
                     <h2>Final Words</h2>

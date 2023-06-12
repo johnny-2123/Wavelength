@@ -3,19 +3,23 @@ import { useDispatch } from "react-redux";
 import { updateGame } from "../../store/game";
 import { fetchCreateRound } from "../../store/rounds";
 
-function areWordsSimilar(word1, word2) {
+export function areWordsSimilar(word1, word2) {
     const threshold = 2; // Maximum allowed edit distance
 
+    if (!word1 || !word2) {
+        return false;
+    }
+
     // Calculate the Levenshtein distance between the words
-    const distance = levenshteinDistance(word1.toLowerCase(), word2.toLowerCase());
+    const distance = levenshteinDistance(word1?.toLowerCase(), word2?.toLowerCase());
 
     // Compare the distance with the threshold
     return distance <= threshold;
 }
 
 function levenshteinDistance(word1, word2) {
-    const m = word1.length;
-    const n = word2.length;
+    const m = word1?.length;
+    const n = word2?.length;
 
     // Create a matrix to store the distance values
     const matrix = Array(m + 1)

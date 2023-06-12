@@ -170,6 +170,50 @@ div.gamePlayersSubDiv div.userCircle {
     color: #555;
 }
 
+div.gameOutcome {
+    margin: 0rem 0 1.5rem 0;
+    /* padding: 1rem; */
+    /* border-top: 2px solid #A0741B;
+    border-bottom: 2px solid #A0741B; */
+    /* border-radius: 30%; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* width: 150px;
+    height: 125px; */
+}
+
+h2.gameOutcome {
+    color: darkslategray;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0 0 0.3rem 0;
+}
+
+div.gameOutcome h3 {
+    font-size: 1.2rem
+}
+
+h3.gameOutcomeSuccess {
+    color: green;
+    font-weight: 500;
+    line-height: 1rem;
+    margin-bottom: 1rem;
+}
+
+h3.gameOutcomeFailed {
+    color: red;
+    font-weight: 500;
+    line-height: 1rem;
+    margin-bottom: 1rem;
+}
+
+div.gameOutcome i {
+    margin: 0 .5rem;
+    font-size: 1.3rem;
+}
+
+
 .FinalWordsDiv {
     width: 100%;
     margin-top: 0;
@@ -181,7 +225,6 @@ div.gamePlayersSubDiv div.userCircle {
     padding-bottom: .25rem;
     width: fit-content;
 }
-
 
 
 .finalWordsSubDiv {
