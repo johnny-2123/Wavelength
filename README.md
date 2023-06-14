@@ -9,6 +9,18 @@ Wavelength is an online game that let's user's challenge friend's in a game of c
 
 The project backend of the project is build on node with a PostgresSQL database. The frontend is built on React and Redux. Realtime communication for player's in a game is handled with Websockets.
 
+## Technologies
+- **Javascript**
+- **NodeJs**
+- **Sequelize**
+- **PostgreSQL**
+- **WebSockets**
+- **React**
+- **Redux**
+- **HTML**
+- **CSS**
+- **Render**
+
 ## Features and Implementation
 
 Users can create, read, update, and destroy games and friend relationships. React components exist for each corresponding action. Information needed for all friend and past game components are managed with Redux store. Information for realtime gameplay is handled through Websockets.
