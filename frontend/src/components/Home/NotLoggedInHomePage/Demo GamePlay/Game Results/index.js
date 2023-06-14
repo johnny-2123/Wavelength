@@ -6,10 +6,10 @@ const DemoGameResults = ({ game, sessionUser }) => {
 
     return (
         <div className={'demoGameResults'}>
-            {<h1 className={'demoGameResultsTitle'}>Game Results</h1>}
+            {<h1 id={'demoGameResultsTitle'}>Game Results</h1>}
             {
                 <div className={'demoGamePlayers'}>
-                    <h2>Players</h2>
+                    <h2 id="demoGamePlayers">Players</h2>
                     <div className={'demoGamePlayersSubDiv'}>
                         <div
                             className={'demoFriendUserDiv'}

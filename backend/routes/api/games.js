@@ -199,9 +199,15 @@ router.post('/', requireAuth, async (req, res) => {
 router.get('/', requireAuth, async (req, res) => {
     const userId = req.user.id;
 
-    const gamesStarted = await Game.findAndCountAll({
-        where: { user1Id: userId },
+    const games = await Game.findAndCountAll({
+        where: {
+            [Op.or]: [{ user1Id: userId }, { user2Id: userId }]
+        },
         include: [
+            {
+                model: User,
+                as: 'user1',
+            },
             {
                 model: User,
                 as: 'user2',
@@ -213,28 +219,13 @@ router.get('/', requireAuth, async (req, res) => {
             },
         ],
     });
-    const gamesJoined = await Game.findAndCountAll({
-        where: { user2Id: userId },
-        include: [
-            {
-                model: User,
-                as: 'user1',
-            },
-            {
-                model: Round,
-                as: 'Round',
-                include: [{ model: Word }],
-            },
-        ],
-    });
 
-    const games = Array.from(new Set([...gamesStarted.rows, ...gamesJoined.rows]));
 
     if (games.length === 0) {
         return res.status(200).json({ games: [] });
     }
 
-    return res.status(200).json({ games });
+    return res.status(200).json({ games: games.rows });
 });
 
 module.exports = router;

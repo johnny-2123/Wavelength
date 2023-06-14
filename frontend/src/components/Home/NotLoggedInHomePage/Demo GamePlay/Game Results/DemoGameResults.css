@@ -85,15 +85,17 @@
     width: 100%;
 }
 
-.demoGamePlayers h2 {
-    color: #d65e55;
-    padding-bottom: .25rem;
+h2#demoGamePlayers {
+    color: #555;
+    padding-bottom: 0rem;
+    margin: 1.75rem auto 1.5rem auto;
+    font-size: 1.4rem;
     width: fit-content;
 }
 
 .demoGamePlayersSubDiv {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     width: 100%;
 }
@@ -173,6 +175,7 @@ h2#demoTotalRounds {
     padding-bottom: .5rem;
     margin: 1rem auto 0 auto;
     border-bottom: none;
+
 }
 
 h3#demoTotalRounds {
@@ -203,7 +206,7 @@ h3#demoFinalWords {
 .demoFinalWordsSubDiv {
     margin: 0;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     width: 100%;
 }
@@ -227,7 +230,7 @@ h2.demoGameRoundsTitle {
     font-weight: 500;
     margin: 0 auto 1rem auto;
     color: #555;
-    width: 30%;
+    width: 60%;
 }
 
 .demoRoundDiv h3 {
@@ -238,7 +241,7 @@ h2.demoGameRoundsTitle {
 
 .demoRoundWords {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     width: 100%;
 }

@@ -11,6 +11,7 @@ const AllGames = ({ sessionUser }) => {
     const [earliestFirst, setEarliestFirst] = useState(true);
     const [latestFirst, setLatestFirst] = useState(false);
 
+
     let latestClassName = latestFirst ? "timeQueryButtonClick" : "timeQueryButtonNotClicked";
     let earliestClassName = earliestFirst ? "timeQueryButtonClick" : "timeQueryButtonNotClicked";
 
@@ -61,11 +62,13 @@ const AllGames = ({ sessionUser }) => {
     return (
         <div>
             <div className="allGamesMainDiv">
-                <div className='allGamesButtons'>
+                {/* <div className='allGamesButtons'>
                     <button className={earliestClassName} onClick={handleEarliestFirst}>Earliest First</button>
                     <button className={latestClassName} onClick={handleLatestFirst}>Latest First</button>
+                </div> */}
+                <div className='allGamesScroller'>
+                    {gamesMapped}
                 </div>
-                {gamesMapped}
             </div>
         </div>
     )
