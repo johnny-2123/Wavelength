@@ -103,7 +103,7 @@ export const getGames = (games) => {
 }
 
 export const fetchGames = (gameSearchQueries) => async (dispatch) => {
-    const response = await csrfFetch(`/api/games`)
+    const response = await csrfFetch(`/api/games${gameSearchQueries}`);
 
     if (response.ok) {
         const games = await response.json();

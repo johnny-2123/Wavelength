@@ -18,11 +18,11 @@ const AllGames = ({ sessionUser }) => {
     const handleLatestFirst = () => {
         if (!latestFirst) {
             setLatestFirst(true);
-            setEarliestFirst(false)
+            setEarliestFirst(false);
         } else {
             setLatestFirst(false);
         }
-    }
+    };
 
     const handleEarliestFirst = () => {
         if (!earliestFirst) {
@@ -31,22 +31,26 @@ const AllGames = ({ sessionUser }) => {
         } else {
             setEarliestFirst(false);
         }
-    }
+    };
 
     useEffect(() => {
         let queryObject = {};
+
         if (earliestFirst) {
             queryObject.sort = "earliestFirst";
         } else if (latestFirst) {
             queryObject.sort = "latestFirst";
         }
 
-        dispatch(fetchGames(queryObject))
+        const queryString = new URLSearchParams(queryObject).toString();
+
+        dispatch(fetchGames(`?${queryString}`))
             .catch((err) => {
                 console.log(err);
-            }
-            );
-    }, [earliestFirst, latestFirst])
+            });
+    }, [earliestFirst, latestFirst]);
+
+
     const gamesMapped = games?.map((game) => {
         return (
             <LastGame mostRecentGame={game} sessionUser={sessionUser} />
@@ -62,10 +66,10 @@ const AllGames = ({ sessionUser }) => {
     return (
         <div>
             <div className="allGamesMainDiv">
-                {/* <div className='allGamesButtons'>
+                <div className='allGamesButtons'>
                     <button className={earliestClassName} onClick={handleEarliestFirst}>Earliest First</button>
                     <button className={latestClassName} onClick={handleLatestFirst}>Latest First</button>
-                </div> */}
+                </div>
                 <div className='allGamesScroller'>
                     {gamesMapped}
                 </div>
