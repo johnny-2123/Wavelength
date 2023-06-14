@@ -17,3 +17,34 @@ div.allGamesMainDiv::-webkit-scrollbar-thumb {
 div.allGamesMainDiv::-webkit-scrollbar-thumb:hover {
     background-color: rgba(186, 186, 186, 0.758);
 }
+
+div.allGamesButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-right: .5rem;
+}
+
+div.allGamesButtons button {
+    border: none
+}
+
+.timeQueryButtonClick {
+    border-bottom: #008294 1px solid;
+    border-radius: 20px;
+    color: white;
+    padding: 5px 10px 5px 10px;
+    font-weight: 500;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+.timeQueryButtonNotClicked {
+    background-color: white;
+    border-radius: 20px;
+    color: darkgray;
+    padding: 5px 10px 5px 10px;
+    font-weight: 500;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}

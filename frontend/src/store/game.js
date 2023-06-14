@@ -102,7 +102,7 @@ export const getGames = (games) => {
 
 }
 
-export const fetchGames = () => async (dispatch) => {
+export const fetchGames = (gameSearchQueries) => async (dispatch) => {
     const response = await csrfFetch(`/api/games`)
 
     if (response.ok) {
