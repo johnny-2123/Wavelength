@@ -32,6 +32,8 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
 
     const usersAgreed = finalRound?.user1Agrees && finalRound?.user2Agrees;
 
+    console.log('usersAgreed', usersAgreed)
+
     const gameRounds = game?.Round;
 
     const gameRoundMapped = gameRounds?.map((round, idx) => {
@@ -127,11 +129,11 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
                 </div>
                 <div className={styles.gameOutcome}>
                     <h2 className={styles.gameOutcome} >Outcome</h2>
-                    {gameWon &&
+                    {(gameWon || usersAgreed) &&
                         <>   <h3 className={styles.gameOutcomeSuccess}>Wavelength Aligned </h3>
                             <div className={styles.gameOutcomeSuccess}><i class="fa-solid fa-face-smile-beam"></i><i class="fa-solid fa-face-smile-beam"></i><i class="fa-solid fa-face-smile-beam"></i></div></>
                     }
-                    {!gameWon &&
+                    {(!gameWon && !usersAgreed) &&
                         <><h3 className={styles.gameOutcomeFailed}>Wavelength Not Aligned </h3>
                             <div className={styles.gameOutcomeFailed}><i class="fa-solid fa-sad-tear"></i><i class="fa-solid fa-sad-tear"></i><i class="fa-solid fa-sad-tear"></i></div></>
                     }
