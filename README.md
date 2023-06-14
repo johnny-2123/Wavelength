@@ -9,6 +9,9 @@ Wavelength is an online game that let's user's challenge friend's in a game of c
 
 The project backend of the project is build on node with a PostgresSQL database. The frontend is built on React and Redux. Realtime communication for player's in a game is handled with Websockets.
 
+### [Link to Database Schema](https://res.cloudinary.com/dkul3ouvi/image/upload/v1686701889/Wavelength_Schema_xje0ir.png)
+### [API Docs](https://github.com/johnny-2123/Capstone/blob/main/API%20Docs.md)
+
 ## Technologies
 - **Javascript**
 - **NodeJs**
