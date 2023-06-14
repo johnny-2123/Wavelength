@@ -20,3 +20,16 @@ h3.gamePlayInstructions {
 h3.gamePlayInstructions:last-of-type {
     margin-bottom: 3rem;
 }
+
+
+
+@media screen and (min-width: 600px) {
+    .demoGamePlayMainDiv h2 {
+        font-size: 1.8rem;
+
+    }
+
+    h3.gamePlayInstructions {
+        font-size: 1.4rem;
+    }
+}

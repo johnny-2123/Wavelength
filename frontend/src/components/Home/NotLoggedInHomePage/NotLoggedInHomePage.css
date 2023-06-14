@@ -79,3 +79,23 @@ div.notLoggedInHomePageButtons>div {
     color: white;
     cursor: pointer;
 }
+
+@media screen and (min-width: 600px) {
+    h1#notLoggedInHomePage {
+        font-size: 2.5rem;
+    }
+
+    h2#notLoggedInHomePage {
+        font-size: 1.5rem;
+    }
+
+    .notLoggedInHomePageButtons button {
+        width: 12rem;
+    }
+
+    .notLoggedInHomePageButtons button.notLoggedInHomePageDemoButton {
+        width: 12rem;
+    }
+
+
+}
