@@ -24,8 +24,11 @@ const NotLoggedInUserHomePage = ({ }) => {
 
     return (
         <div className="notLoggedInHomePageMainDiv">
-            <h1 id="notLoggedInHomePage">Wavelength</h1>
-            <h2 id="notLoggedInHomePage">Challenge your mind in a game of creativity and connection. Join now and see how well you sync with your friends.</h2>
+            <div className="landingPageTopSection">
+                <h1 id="notLoggedInHomePage">Wavelength</h1>
+                <i class="fa-solid fa-wave-square"></i>
+                <h2 id="notLoggedInHomePage">Challenge your mind in a game of creativity and connection. Join now and see how well you sync with your friends.</h2>
+            </div>
             <div className="notLoggedInHomePageSubDiv">
                 <div className="notLoggedInHomePageButtons">
                     <div>

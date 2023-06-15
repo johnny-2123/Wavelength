@@ -1,19 +1,37 @@
 .notLoggedInHomePageMainDiv {
     margin: 0;
-
+    background-color: white;
 
 }
 
-h1#notLoggedInHomePage {
-    color: #334075;
+div.landingPageTopSection {
+    /* background-color: #efefefbd; */
+    padding: 0rem 2rem;
+    border-radius: 15px;
+    /* margin: 1rem 2rem; */
+    /* box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2); */
+}
+
+.notLoggedInHomePageMainDiv h1#notLoggedInHomePage {
+    color: #191414;
     font-weight: 400;
     text-align: center;
-    font-size: 2.2rem;
+    font-size: 3.5rem;
+
+}
+
+.notLoggedInHomePageMainDiv .fa-wave-square {
+    margin: .5rem auto;
+    width: 100%;
+    color: #334075;
+    font-size: 3rem;
+    text-align: center;
+
 }
 
 h2#notLoggedInHomePage {
-    color: #555;
-    font-weight: 400;
+    color: #191414;
+    font-weight: 300;
     text-align: center;
     font-size: 1.4rem;
     margin: 2rem 2rem;
@@ -38,20 +56,21 @@ h2#notLoggedInHomePage {
 }
 
 .notLoggedInHomePageButtons button {
-    margin: 0 .5rem .5rem 1rem;
+    margin: 1rem .5rem .5rem 1rem;
     background-color: transparent;
-    border: #A0741B 1px solid;
-    border-radius: 15px;
-    padding: .5rem .25rem;
-    width: 8rem;
-    height: 2.2rem;
-    color: #A0741B;
+    border: #A0741B 2px solid;
+    border-radius: 25px;
+    padding: .75rem .25rem;
+    width: 7.5rem;
+    height: 3rem;
+    background-color: #A0741B;
+    color: white;
     font-size: 1rem;
     font-weight: 600;
 }
 
 .notLoggedInHomePageButtons button:hover {
-    background-color: #A0741B;
+    background-color: #a0741bea;
     color: white;
     cursor: pointer;
 }
@@ -67,27 +86,32 @@ div.notLoggedInHomePageButtons>div {
 }
 
 .notLoggedInHomePageButtons button.notLoggedInHomePageDemoButton {
-    border-color: #555;
-    color: #555;
-    margin: .5rem 0 auto 0;
+    border-color: #334075;
+    background-color: #334075;
+    color: white;
+    margin: 1.5rem 0 auto 0;
     width: 10rem;
     padding: auto 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .notLoggedInHomePageButtons button.notLoggedInHomePageDemoButton:hover {
-    background-color: #555;
-    border-color: #555;
-    color: white;
+    border-color: #334075eb;
+    background-color: #334075eb;
     cursor: pointer;
 }
 
 @media screen and (min-width: 600px) {
-    h1#notLoggedInHomePage {
-        font-size: 2.5rem;
+
+    .notLoggedInHomePageMainDiv h1#notLoggedInHomePage {
+        font-size: 4rem;
+
     }
 
     h2#notLoggedInHomePage {
-        font-size: 1.5rem;
+        font-size: 2rem;
+        font-weight: 500;
+        margin-bottom: 3rem;
     }
 
     .notLoggedInHomePageButtons button {

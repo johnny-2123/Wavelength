@@ -188,11 +188,12 @@ div#demoFinalWords {
     padding: 1rem 0;
 }
 
-h2#demoFinalWords {
+div.demoGameResults h2#demoFinalWords {
     color: #555;
     margin: 0 auto 1rem auto;
     padding-bottom: .25rem;
     width: 100%;
+    font-size: 1.2rem;
 }
 
 h3#demoFinalWords {
@@ -211,12 +212,17 @@ h3#demoFinalWords {
     width: 100%;
 }
 
-h2.demoGameRoundsTitle {
+div#gameOutcome>h3#gameOutcomeSuccess {
+    color: green;
+}
+
+div.demoGameResults h2.demoGameRoundsTitle {
     color: #334075;
-    margin: 2rem auto 1rem auto;
+    margin: 2rem auto 0rem auto;
     padding-top: 1.5rem;
     border-top: 1px solid #555;
     width: 65%;
+    font-size: 1.5rem;
 }
 
 .demoRoundDiv {
@@ -225,7 +231,7 @@ h2.demoGameRoundsTitle {
     width: 100%;
 }
 
-.demoRoundDiv h2 {
+div.demoGameResults .demoRoundDiv h2 {
     font-size: 1.1rem;
     font-weight: 500;
     margin: 0 auto 1rem auto;
@@ -233,7 +239,7 @@ h2.demoGameRoundsTitle {
     width: 60%;
 }
 
-.demoRoundDiv h3 {
+div.demoGameResults .demoRoundDiv h3 {
     font-size: .9rem;
     font-weight: 500;
     margin: 0.5rem .1rem;

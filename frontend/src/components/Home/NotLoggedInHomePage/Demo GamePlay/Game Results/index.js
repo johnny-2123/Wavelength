@@ -36,6 +36,11 @@ const DemoGameResults = ({ game, sessionUser }) => {
                         <h3 id={'demoFinalWords'} className={'demoSessionUser'}>{'anti hero'}</h3>
                     </div>
                 </div>
+                <div id={'gameOutcome'}>
+                    <h3 id={'gameOutcomeSuccess'}>Wavelength Aligned </h3>
+                    <div className={'gameOutcomeSuccess'}><i class="fa-solid fa-face-smile-beam"></i><i class="fa-solid fa-face-smile-beam"></i><i class="fa-solid fa-face-smile-beam"></i>
+                    </div>
+                </div>
             </div>
             <h2 className={'demoGameRoundsTitle'}>Game Rounds</h2>
             <div className={'demoRoundDiv'}>
