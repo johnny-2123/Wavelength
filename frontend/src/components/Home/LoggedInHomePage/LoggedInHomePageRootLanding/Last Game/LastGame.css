@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     margin-top: 1rem;
-    padding: .75rem;
+    padding: 0rem;
     width: 80vw;
     background-color: white;
     border-radius: 10px;
@@ -37,9 +37,9 @@ h2#lastGameTitle {
 }
 
 
-.totalRounds {
-    margin: 1rem auto;
-    padding: 1.25rem .25rem;
+.mostRecentSingleGame .totalRounds {
+    margin: .5rem auto;
+    padding: .5rem .25rem;
     width: 70%;
     border: 1px solid #A0741B;
     border-radius: 10px;
@@ -47,13 +47,13 @@ h2#lastGameTitle {
 
 h2#totalRoundsTitle {
     font-weight: 500;
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #555;
     text-align: center;
 }
 
 .mostRecentSingleGame h3 {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 500;
     margin: 0.25rem;
     color: #555;

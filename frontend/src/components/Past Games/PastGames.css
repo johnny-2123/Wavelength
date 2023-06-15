@@ -1,8 +1,10 @@
 .pastGamesMainDiv {
-    padding: 1rem;
+    padding: 1rem 0 0 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    height: 80%;
 }
 
 .pastGamesMainDiv h1 {
