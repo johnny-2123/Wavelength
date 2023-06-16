@@ -41,7 +41,7 @@ div.friendDetailsTopLeftDiv h1 {
 .friendDetailsTopLeftDiv h2 {
     font-size: 1.2rem;
     font-weight: 500;
-    margin: 0rem auto .5rem auto;
+    margin: 0rem auto .75rem auto;
     color: #555;
 }
 
@@ -49,7 +49,7 @@ div.friendDetailsTopLeftDiv h1 {
 
 .friendDetailsTopLeftDiv button {
     /* flex: 2; */
-    padding: .75rem 1rem;
+    padding: .8rem 1rem;
     margin: .25rem;
     color: 334075e3;
     background-color: #334075;

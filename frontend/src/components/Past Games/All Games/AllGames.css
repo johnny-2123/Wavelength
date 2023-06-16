@@ -1,9 +1,9 @@
 div.allGamesMainDiv {
-    overflow-y: auto;
-    width: 100%;
-    margin: 0;
-    padding: 0.5rem 0 0 0;
-    /* outline: red dotted thin; */
+    height: 100%;
+    box-sizing: border-box;
+    margin: 0rem auto 1rem auto;
+    overflow-y: hidden;
+    /* outline: green thin dotted; */
 }
 
 
@@ -37,12 +37,59 @@ div.allGamesButtons button {
     margin-bottom: 5px;
 }
 
-div.allGamesScroller {
-    max-height: 64vh;
+.allGamesDropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdownContainer {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.filterIcon {
+    margin-left: 5px;
+    color: #555;
+}
+
+.allGamesDropdownContent {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+    padding: 1.5rem;
+    margin-top: 0px;
+    min-width: 100%;
+    border-radius: 5px;
+}
+
+.allGamesDropdownContent button {
+    border: none;
+    border-radius: 20px;
+    color: darkslategray;
+    width: 8rem;
+    padding: .75rem 1.5rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.allGamesDropdownContent button:last-child {
+    margin-bottom: 0;
+}
+
+
+div.allGamesMainDiv div.allGamesScroller {
+    height: 100%;
     margin: 0;
     overflow-y: auto;
-    width: fit-content;
-    padding: .5rem;
+    width: 100%;
+    padding: 0rem;
 }
 
 div.allGamesScroller::-webkit-scrollbar {
@@ -60,8 +107,8 @@ div.allGamesScroller::-webkit-scrollbar-thumb:hover {
 
 
 @media screen and (max-width: 600px) {
-    div.allGamesScroller {
-        max-height: 68vh;
-    }
+    /* div.allGamesScroller {
+        max-height: 66vh;
+    } */
 
 }
