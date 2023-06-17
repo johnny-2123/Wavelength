@@ -1,10 +1,12 @@
 .mainFriendDetailsDiv {
+    height: 100%;
     overflow-y: hidden;
     display: flex;
     margin: 0;
     padding: 0;
     flex-direction: column;
     align-items: center;
+    overflow-y: scroll;
 }
 
 .friendDetailsTopDiv {

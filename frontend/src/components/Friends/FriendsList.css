@@ -3,8 +3,11 @@
     border-radius: 8px;
     max-width: 100%;
     margin: 1rem;
-    height: 79vh;
+    height: 88%;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .friendsContainer {
@@ -14,8 +17,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* height: 100%; */
     width: 100%;
-    max-height: 68vh;
+    max-height: 62vh;
     overflow-y: auto;
     overflow-x: hidden;
     position: relative;

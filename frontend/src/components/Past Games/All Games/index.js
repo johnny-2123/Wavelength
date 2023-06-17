@@ -97,7 +97,7 @@ const AllGames = ({ sessionUser }) => {
                     )}
                 </div>
             </div>
-            <div className="allGamesScroller">{gamesMapped}</div>
+            <div id="allGamesScroller">{gamesMapped}</div>
         </div>
     );
 
