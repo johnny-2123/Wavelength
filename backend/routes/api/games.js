@@ -198,43 +198,46 @@ router.post('/', requireAuth, async (req, res) => {
 
 router.get('/', requireAuth, async (req, res) => {
     const userId = req.user.id;
+    const { sort } = req.query;
 
-    const gamesStarted = await Game.findAndCountAll({
-        where: { user1Id: userId },
-        include: [
-            {
-                model: User,
-                as: 'user2',
-            },
-            {
-                model: Round,
-                as: 'Round',
-                include: [{ model: Word }],
-            },
-        ],
+    const where = {
+        [Op.or]: [{ user1Id: userId }, { user2Id: userId }]
+    };
+
+    const include = [
+        {
+            model: User,
+            as: 'user1',
+        },
+        {
+            model: User,
+            as: 'user2',
+        },
+        {
+            model: Round,
+            as: 'Round',
+            include: [{ model: Word }],
+        },
+    ];
+
+    let order = [];
+    if (sort === 'earliestFirst') {
+        order.push(['createdAt', 'ASC']);
+    } else if (sort === 'latestFirst') {
+        order.push(['createdAt', 'DESC']);
+    }
+
+    const games = await Game.findAndCountAll({
+        where,
+        include,
+        order,
     });
-    const gamesJoined = await Game.findAndCountAll({
-        where: { user2Id: userId },
-        include: [
-            {
-                model: User,
-                as: 'user1',
-            },
-            {
-                model: Round,
-                as: 'Round',
-                include: [{ model: Word }],
-            },
-        ],
-    });
 
-    const games = Array.from(new Set([...gamesStarted.rows, ...gamesJoined.rows]));
-
-    if (games.length === 0) {
+    if (games.count === 0) {
         return res.status(200).json({ games: [] });
     }
 
-    return res.status(200).json({ games });
+    return res.status(200).json({ games: games.rows });
 });
 
 module.exports = router;

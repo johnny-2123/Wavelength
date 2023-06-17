@@ -1,9 +1,10 @@
 .homePageLoggedInMainDiv {
     height: calc(100vh - 4rem);
     margin: 0rem;
-    padding-top: .7rem;
+    padding-top: .5rem;
     width: 100%;
     box-sizing: border-box;
+    /* background-color: #334075; */
 
 }
 

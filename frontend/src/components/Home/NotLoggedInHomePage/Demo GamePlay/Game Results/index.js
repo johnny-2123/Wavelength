@@ -6,10 +6,10 @@ const DemoGameResults = ({ game, sessionUser }) => {
 
     return (
         <div className={'demoGameResults'}>
-            {<h1 className={'demoGameResultsTitle'}>Game Results</h1>}
+            {<h1 id={'demoGameResultsTitle'}>Game Results</h1>}
             {
                 <div className={'demoGamePlayers'}>
-                    <h2>Players</h2>
+                    <h2 id="demoGamePlayers">Players</h2>
                     <div className={'demoGamePlayersSubDiv'}>
                         <div
                             className={'demoFriendUserDiv'}
@@ -34,6 +34,11 @@ const DemoGameResults = ({ game, sessionUser }) => {
                     <div className={'demoFinalWordsSubDiv'}>
                         <h3 id={'demoFinalWords'} className={'demoFriendUser'}>{'anti hero'}</h3>
                         <h3 id={'demoFinalWords'} className={'demoSessionUser'}>{'anti hero'}</h3>
+                    </div>
+                </div>
+                <div id={'gameOutcome'}>
+                    <h3 id={'gameOutcomeSuccess'}>Wavelength Aligned </h3>
+                    <div className={'gameOutcomeSuccess'}><i class="fa-solid fa-face-smile-beam"></i><i class="fa-solid fa-face-smile-beam"></i><i class="fa-solid fa-face-smile-beam"></i>
                     </div>
                 </div>
             </div>

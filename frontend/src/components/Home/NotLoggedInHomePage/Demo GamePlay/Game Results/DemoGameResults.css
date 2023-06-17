@@ -85,15 +85,17 @@
     width: 100%;
 }
 
-.demoGamePlayers h2 {
-    color: #d65e55;
-    padding-bottom: .25rem;
+h2#demoGamePlayers {
+    color: #555;
+    padding-bottom: 0rem;
+    margin: 1.75rem auto 1.5rem auto;
+    font-size: 1.4rem;
     width: fit-content;
 }
 
 .demoGamePlayersSubDiv {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     width: 100%;
 }
@@ -173,6 +175,7 @@ h2#demoTotalRounds {
     padding-bottom: .5rem;
     margin: 1rem auto 0 auto;
     border-bottom: none;
+
 }
 
 h3#demoTotalRounds {
@@ -185,11 +188,12 @@ div#demoFinalWords {
     padding: 1rem 0;
 }
 
-h2#demoFinalWords {
+div.demoGameResults h2#demoFinalWords {
     color: #555;
     margin: 0 auto 1rem auto;
     padding-bottom: .25rem;
     width: 100%;
+    font-size: 1.2rem;
 }
 
 h3#demoFinalWords {
@@ -203,17 +207,22 @@ h3#demoFinalWords {
 .demoFinalWordsSubDiv {
     margin: 0;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     width: 100%;
 }
 
-h2.demoGameRoundsTitle {
+div#gameOutcome>h3#gameOutcomeSuccess {
+    color: green;
+}
+
+div.demoGameResults h2.demoGameRoundsTitle {
     color: #334075;
-    margin: 2rem auto 1rem auto;
+    margin: 2rem auto 0rem auto;
     padding-top: 1.5rem;
     border-top: 1px solid #555;
     width: 65%;
+    font-size: 1.5rem;
 }
 
 .demoRoundDiv {
@@ -222,15 +231,15 @@ h2.demoGameRoundsTitle {
     width: 100%;
 }
 
-.demoRoundDiv h2 {
+div.demoGameResults .demoRoundDiv h2 {
     font-size: 1.1rem;
     font-weight: 500;
     margin: 0 auto 1rem auto;
     color: #555;
-    width: 30%;
+    width: 60%;
 }
 
-.demoRoundDiv h3 {
+div.demoGameResults .demoRoundDiv h3 {
     font-size: .9rem;
     font-weight: 500;
     margin: 0.5rem .1rem;
@@ -238,7 +247,7 @@ h2.demoGameRoundsTitle {
 
 .demoRoundWords {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     width: 100%;
 }

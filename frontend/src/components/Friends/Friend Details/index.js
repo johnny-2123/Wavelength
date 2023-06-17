@@ -7,9 +7,15 @@ import NotFriend from "./Not Friend";
 import PendingFriend from "./Pending Friend";
 import { toast } from 'react-toastify';
 import Slider from "react-slick";
+import {
+    Chart as ChartJS, ArcElement, Tooltip, Legend
+} from 'chart.js';
+import { Doughnut } from 'react-chartjs-2';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./FriendDetails.css";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 const FriendDetails = ({ sendMessage, sessionUser }) => {
     const dispatch = useDispatch();
@@ -155,6 +161,41 @@ const FriendDetails = ({ sendMessage, sessionUser }) => {
         return <div>Loading...</div>;
     }
 
+    const data = {
+        labels: ["Games Won", "Games Lost"],
+        datasets: [
+            {
+                label: null,
+                data: [numGamesWon, games?.length - numGamesWon],
+                backgroundColor: [
+                    '#3B9778',
+                    '#D85F56',
+                ],
+                borderColor: [
+                    '#3B9778',
+                    '#D85F56',
+                ],
+                borderWidth: 3,
+            },
+        ],
+
+    }
+
+    const options = {
+        plugins: {
+            legend: {
+                position: 'bottom',
+                display: true,
+                labels: {
+                    font: {
+                        size: 12,
+                        weight: 'bold',
+                    },
+                }
+            },
+        },
+    };
+
 
     return (
         <div className="mainFriendDetailsDiv">
@@ -173,7 +214,9 @@ const FriendDetails = ({ sendMessage, sessionUser }) => {
                         </div>
                         <div className="friendDetailsTopRightDiv">
                             <h2>Games Played: {games?.length}</h2>
-                            <h2>Games Won: {numGamesWon}</h2>
+                            <div className="doughnutContainer">
+                                <Doughnut data={data} options={options} />
+                            </div>
                         </div>
                     </div>
                     <h2 className="pastGamesTitle">Past Games</h2>

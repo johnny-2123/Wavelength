@@ -58,7 +58,7 @@ router.post(
 
         const user = await User.unscoped().findOne({
             where: {
-                username: 'FakeUser3'
+                username: 'FakeUser2'
             }
 
         });

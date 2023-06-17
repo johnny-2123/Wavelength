@@ -40,10 +40,10 @@ const LastGame = ({ mostRecentGame, sessionUser }) => {
                         <h6>{mostRecentGameUserWord?.wordText}</h6>
                     </div>
                 </div>
-                <div className="totalRounds">
+                {/* <div className="totalRounds">
                     <h2 id='totalRoundsTitle'>Total Rounds</h2>
                     <h3>{mostRecentGame?.Round?.length}</h3>
-                </div>
+                </div> */}
                 <div id={'gameOutcome'}>
                     <h2 id={'gameOutcome'} >Outcome</h2>
                     {gameWon &&
