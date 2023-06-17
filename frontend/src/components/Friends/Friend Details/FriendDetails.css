@@ -1,12 +1,12 @@
 .mainFriendDetailsDiv {
     height: 100%;
-    overflow-y: hidden;
+    overflow-y: overlay;
     display: flex;
     margin: 0;
-    padding: 0;
+    padding: 0 0 1rem 0;
     flex-direction: column;
     align-items: center;
-    overflow-y: scroll;
+    overflow-y: overlay;
 }
 
 .friendDetailsTopDiv {
@@ -45,6 +45,7 @@ div.friendDetailsTopLeftDiv h1 {
     font-weight: 500;
     margin: 0rem auto .75rem auto;
     color: #555;
+    padding-top: 0;
 }
 
 
@@ -122,9 +123,8 @@ div.friendDetailsTopLeftDiv h1 {
     margin-bottom: 0;
 }
 
-div.doughnutContainer {
-    width: 100%;
-    height: 100%;
+.friendDetailsTopRightDiv div.doughnutContainer {
+    max-height: 15rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -144,15 +144,18 @@ div.doughnutContainer {
     margin: 0 auto 1rem auto;
 }
 
-.slick-dots {
-    position: absolute;
-    bottom: -15px;
+.gamesForFriendSlider .slick-dots {
+    position: relative;
+    bottom: -5px;
+    /* adjust this as needed */
     list-style: none;
     display: block;
     text-align: center;
-    padding: 0;
+    padding: 0 0 1rem 0;
     width: 100%;
+    margin-bottom: 1rem
 }
+
 
 .slick-prev:before,
 .slick-next:before {
