@@ -30,10 +30,6 @@ Users can create, read, update, and destroy games and friend relationships. Reac
 
 ### Users
 
- achieved through the integration of React components, Redux store, and Websockets.
-
-### User Management
-
 #### User Registration
 - As an unregistered user, you have the ability to register by providing your email, username, and password.
     - Upon successful registration, you will be automatically logged in.
@@ -46,8 +42,6 @@ Users can create, read, update, and destroy games and friend relationships. Reac
 
 #### User Logout
 - As a logged-in user, you can log out of your account to securely end your session from any page of the site.
-
-
 
 ### Games
 
@@ -64,7 +58,8 @@ Users can create, read, update, and destroy games and friend relationships. Reac
 <img width="624" alt="image" src="https://github.com/johnny-2123/Wavelength/assets/95261336/a95cd390-1278-4d51-a62c-5cb0fafd901a">
 
 
-#### GamePlay
+### Games
+
 #### Sending Game Invites
 - As a logged-in user, you can send a new game invite to a friend from your accepted friends list.
     - You will be notified if the user is offline or declines the game invite.
