@@ -24,7 +24,7 @@ The project backend of the project is build on node with a PostgresSQL database.
 - **CSS**
 - **Render**
 
-## Features and Implementation
+## User Stories and Features
 
 Users can create, read, update, and destroy games and friend relationships. React components exist for each corresponding action. Information needed for all friend and past game components are managed with Redux store. Information for realtime gameplay is handled through Websockets.
 
