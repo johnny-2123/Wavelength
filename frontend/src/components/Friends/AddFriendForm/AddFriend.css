@@ -1,84 +1,84 @@
 .addFriendMainDiv {
-    background-color: white;
-    border-radius: 8px;
-    margin: 1rem;
-    padding: 2rem;
-    height: 30vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  background-color: white;
+  border-radius: 8px;
+  margin: 1rem;
+  padding: 2rem;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .addFriendMainDiv h1 {
-    font-size: 1.6rem;
-    font-weight: 200;
-    color: #334075e3;
-    margin: 0;
-    padding-bottom: .5rem;
-    text-align: center;
-    letter-spacing: 1px;
-    width: 50%;
+  font-size: 1.6rem;
+  font-weight: 200;
+  color: #334075e3;
+  margin: 0;
+  padding-bottom: 0.5rem;
+  text-align: center;
+  letter-spacing: 1px;
+  width: 50%;
 }
 
 .addFriendMainDiv form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1rem;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  width: 100%;
 }
 
 .addFriendMainDiv input {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 50px;
-    font-size: 1rem;
-    text-align: center;
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  font-size: 1rem;
+  text-align: center;
 }
 
 .addFriendMainDiv input::placeholder {
-    color: #aaa;
+  color: #aaa;
 }
 
 .addFriendMainDiv button {
-    padding: 0.7rem 2rem;
-    background-color: #e4736a;
-    color: white;
-    border: none;
-    border-radius: 50px;
-    width: 25%;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  padding: 0.7rem 2rem;
+  background-color: #e4736a;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  width: 60%;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .addFriendMainDiv button:hover {
-    background-color: #d45d54;
+  background-color: #d45d54;
 }
 
 .addFriendForm-errors {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 0;
-    color: red;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 0;
+  color: red;
 }
 
 .addFriendForm-errors li {
-    margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .addFriendform-message {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 0.5rem;
-    color: green;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 0.5rem;
+  color: green;
 }
 
 .addFriendform-message li {
-    margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }

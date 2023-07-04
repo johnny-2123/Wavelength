@@ -1,112 +1,110 @@
 .friendsList {
-    background-color: transparent;
-    border-radius: 8px;
-    max-width: 100%;
-    margin: 1rem;
-    height: 88%;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+  background-color: transparent;
+  border-radius: 8px;
+  max-width: 100%;
+  margin: 1rem;
+  height: 88%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  outline: red thin dotted;
 }
 
 .friendsContainer {
-    border: #bcbbbb 1px solid;
-    border-radius: 8px;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* height: 100%; */
-    width: 100%;
-    max-height: 62vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    position: relative;
+  border: #bcbbbb 1px solid;
+  border-radius: 8px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* height: 100%; */
+  width: 100%;
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
 }
 
 .friendsContainer::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
 
 .friendsContainer::-webkit-scrollbar-thumb {
-    background-color: rgb(186, 186, 186);
+  background-color: rgb(186, 186, 186);
 }
 
 .friendsContainer::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(186, 186, 186, 0.758);
+  background-color: rgba(186, 186, 186, 0.758);
 }
 
 .friendsListTitle {
-    font-size: 2rem;
-    font-weight: 200;
-    color: white;
-    margin-bottom: 0rem;
-    text-align: center;
-    letter-spacing: 1px;
+  font-size: 2rem;
+  font-weight: 200;
+  color: white;
+  margin-bottom: 0rem;
+  text-align: center;
+  letter-spacing: 1px;
 }
 
-
 .friendsNavBar {
-    /* outline: red dotted 1px; */
-    display: flex;
-    justify-content: space-between;
-    margin-top: 0rem;
-    margin-bottom: 0rem;
+  /* outline: red dotted 1px; */
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0rem;
+  margin-bottom: 0rem;
 }
 
 .friendNavLinks {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    margin: 0rem;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: 0rem;
+  justify-content: center;
 }
 
 .friendsNavBar a {
-    margin-right: 1rem;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    font-weight: lighter;
-    color: #44444489;
-    text-decoration: none;
-    transition: color 0.3s ease;
+  margin-right: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: lighter;
+  color: #44444489;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .friendsNavBar a:hover {
-    color: #A0741B;
+  color: #a0741b;
 }
-
 
 .friendsNavBar .active-link {
-    color: #A0741B;
-    font-weight: bold;
+  color: #a0741b;
+  font-weight: bold;
 }
 
-
 .openFriendModalDiv {
-    /* outline: green dotted 1px; */
-    margin: 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
+  /* outline: green dotted 1px; */
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 }
 
 .openFriendModalDiv button {
-    background-color: transparent;
-    border: none;
+  background-color: transparent;
+  border: none;
 }
 
 .fa-user-plus {
-    color: #e4736a;
-    font-size: 1.4rem;
-    cursor: pointer;
-    background-color: transparent;
-    transition: background-color 0.3s ease;
-    margin: 0 .5rem .5rem 1.4rem;
+  color: #e4736a;
+  font-size: 1.4rem;
+  cursor: pointer;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+  margin: 0 0.5rem 0.5rem 1.4rem;
 }
 
 .fa-user-plus:hover {
-    cursor: pointer;
-    color: #D85F56;
+  cursor: pointer;
+  color: #d85f56;
 }
