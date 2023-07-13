@@ -1,316 +1,358 @@
-require('dotenv').config();
-const app = require('../app');
-const db = require('../db/models');
-const http = require('http');
-const WebSocket = require('ws');
-const { port } = require('../config');
+require("dotenv").config();
+const app = require("../app");
+const db = require("../db/models");
+const http = require("http");
+const WebSocket = require("ws");
+const { port } = require("../config");
 
 const clients = new Map();
 
 const findWebSocketByUsername = (username) => {
-    const wsSet = clients.get(username);
-    if (wsSet) {
-        return Array.from(wsSet)[0];
-    }
-    return null;
+  const wsSet = clients.get(username);
+  if (wsSet) {
+    return Array.from(wsSet)[0];
+  }
+  return null;
 };
 
 const handleMessage = async (message, ws) => {
-    console.log('Received: %s', message);
-    const { type, data } = JSON.parse(message);
+  const { type, data } = JSON.parse(message);
 
-    let recipientWs;
-    let senderWs;
-    let user1;
-    let user2;
-    let gameId;
-    let user1WS;
-    let user2WS;
-    switch (type) {
-        case 'send-game-invite':
-            recipientWs = findWebSocketByUsername(data.recipient);
-            if (!recipientWs) {
-                console.log(`No WebSocket found for recipient: ${data.recipient}`);
-                const errorMessage = JSON.stringify({
-                    type: 'user-not-online',
-                    data: {
-                        message: `User ${data.recipient} is not online.`,
-                    },
-                });
-                ws.send(errorMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
-                break;
-            }
-            if (recipientWs && recipientWs.readyState === WebSocket.OPEN) {
-                const inviteMessage = JSON.stringify({
-                    type: 'game-invite',
-                    data: {
-                        sender: ws.username,
-                        user1Id: data.user1Id,
-                        user2Id: data.user2Id
-                    },
-                });
-                recipientWs.send(inviteMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
-            } else {
-                const errorMessage = JSON.stringify({
-                    type: 'error',
-                    data: {
-                        message: `User ${data.recipient} is not online.`,
-                    },
-                });
-                ws.send(errorMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
-            }
-            break;
-        case 'accepted-game-invite':
-            gameId = data.newGameId;
-            user1 = data.user1;
-            user2 = data.user2;
-            user1WS = findWebSocketByUsername(user1);
-            user2WS = findWebSocketByUsername(user2);
+  let recipientWs;
+  let senderWs;
+  let user1;
+  let user2;
+  let gameId;
+  let user1WS;
+  let user2WS;
+  switch (type) {
+    case "send-game-invite":
+      recipientWs = findWebSocketByUsername(data.recipient);
+      if (!recipientWs) {
+        console.log(`No WebSocket found for recipient: ${data.recipient}`);
+        const errorMessage = JSON.stringify({
+          type: "user-not-online",
+          data: {
+            message: `User ${data.recipient} is not online.`,
+          },
+        });
+        ws.send(
+          errorMessage,
+          (error) => error && console.log(`WebSocket send error: ${error}`)
+        );
+        break;
+      }
+      if (recipientWs && recipientWs.readyState === WebSocket.OPEN) {
+        const inviteMessage = JSON.stringify({
+          type: "game-invite",
+          data: {
+            sender: ws.username,
+            user1Id: data.user1Id,
+            user2Id: data.user2Id,
+          },
+        });
+        recipientWs.send(
+          inviteMessage,
+          (error) => error && console.log(`WebSocket send error: ${error}`)
+        );
+      } else {
+        const errorMessage = JSON.stringify({
+          type: "error",
+          data: {
+            message: `User ${data.recipient} is not online.`,
+          },
+        });
+        ws.send(
+          errorMessage,
+          (error) => error && console.log(`WebSocket send error: ${error}`)
+        );
+      }
+      break;
+    case "accepted-game-invite":
+      gameId = data.newGameId;
+      user1 = data.user1;
+      user2 = data.user2;
+      user1WS = findWebSocketByUsername(user1);
+      user2WS = findWebSocketByUsername(user2);
 
-            const startGameMessage = JSON.stringify({
-                type: 'start-game',
-                data: {
-                    newGameId: gameId,
-                    user1: user1,
-                    user2: user2,
-                },
-            });
+      const startGameMessage = JSON.stringify({
+        type: "start-game",
+        data: {
+          newGameId: gameId,
+          user1: user1,
+          user2: user2,
+        },
+      });
 
-            user1WS.send(startGameMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
+      user1WS.send(
+        startGameMessage,
+        (error) => error && console.log(`WebSocket send error: ${error}`)
+      );
 
-            user2WS.send(startGameMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
-            break;
-        case 'declined-game-invite':
-            user1 = data.sender;
-            user2 = data.recipient;
-            user1WS = findWebSocketByUsername(user1);
-            user2WS = findWebSocketByUsername(user2);
+      user2WS.send(
+        startGameMessage,
+        (error) => error && console.log(`WebSocket send error: ${error}`)
+      );
+      break;
+    case "declined-game-invite":
+      user1 = data.sender;
+      user2 = data.recipient;
+      user1WS = findWebSocketByUsername(user1);
+      user2WS = findWebSocketByUsername(user2);
 
-            const declinedGameInviteMessage = JSON.stringify({
-                type: 'declined-game-invite',
-                data: {
-                    sender: user1,
-                    recipient: user2,
-                },
-            });
+      const declinedGameInviteMessage = JSON.stringify({
+        type: "declined-game-invite",
+        data: {
+          sender: user1,
+          recipient: user2,
+        },
+      });
 
-            user2WS.send(declinedGameInviteMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
-            break;
-        case 'send-game-won-message':
-            gameId = data.gameId;
-            user1 = data.user1;
-            user2 = data.user2;
+      user2WS.send(
+        declinedGameInviteMessage,
+        (error) => error && console.log(`WebSocket send error: ${error}`)
+      );
+      break;
+    case "send-game-won-message":
+      gameId = data.gameId;
+      user1 = data.user1;
+      user2 = data.user2;
 
-            user1WS = findWebSocketByUsername(user1);
-            user2WS = findWebSocketByUsername(user2);
+      user1WS = findWebSocketByUsername(user1);
+      user2WS = findWebSocketByUsername(user2);
 
-            const gameWonMessage = JSON.stringify({
-                type: 'game-won',
-                data: {
-                    gameId: gameId
-                }
-            });
+      const gameWonMessage = JSON.stringify({
+        type: "game-won",
+        data: {
+          gameId: gameId,
+        },
+      });
 
-            user1WS.send(gameWonMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
-            user2WS.send(gameWonMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
-            break;
-        case 'send-game-over-message':
-            gameId = data.gameId;
-            user1 = data.user1;
-            user2 = data.user2;
+      user1WS.send(
+        gameWonMessage,
+        (error) => error && console.log(`WebSocket send error: ${error}`)
+      );
+      user2WS.send(
+        gameWonMessage,
+        (error) => error && console.log(`WebSocket send error: ${error}`)
+      );
+      break;
+    case "send-game-over-message":
+      gameId = data.gameId;
+      user1 = data.user1;
+      user2 = data.user2;
 
-            user1WS = findWebSocketByUsername(user1);
-            user2WS = findWebSocketByUsername(user2);
+      user1WS = findWebSocketByUsername(user1);
+      user2WS = findWebSocketByUsername(user2);
 
-            const gameOverMessage = JSON.stringify({
-                type: 'game-over',
-                data: {
-                    gameId: gameId
-                }
-            });
+      const gameOverMessage = JSON.stringify({
+        type: "game-over",
+        data: {
+          gameId: gameId,
+        },
+      });
 
-            user1WS.send(gameOverMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
-            user2WS.send(gameOverMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
-            break;
-        case 'send-round-results':
-            gameId = data.gameId;
-            user1 = data.user1;
-            user2 = data.user2;
+      user1WS.send(
+        gameOverMessage,
+        (error) => error && console.log(`WebSocket send error: ${error}`)
+      );
+      user2WS.send(
+        gameOverMessage,
+        (error) => error && console.log(`WebSocket send error: ${error}`)
+      );
+      break;
+    case "send-round-results":
+      gameId = data.gameId;
+      user1 = data.user1;
+      user2 = data.user2;
 
-            user1WS = findWebSocketByUsername(user1);
-            user2WS = findWebSocketByUsername(user2);
+      user1WS = findWebSocketByUsername(user1);
+      user2WS = findWebSocketByUsername(user2);
 
-            const roundResultsMessage = JSON.stringify({
-                type: 'round-results',
-                data: {
-                    gameId: gameId
-                }
-            });
+      const roundResultsMessage = JSON.stringify({
+        type: "round-results",
+        data: {
+          gameId: gameId,
+        },
+      });
 
-            if (user1WS && user1WS.readyState === WebSocket.OPEN) {
-                user1WS.send(roundResultsMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
-            }
+      if (user1WS && user1WS.readyState === WebSocket.OPEN) {
+        user1WS.send(
+          roundResultsMessage,
+          (error) => error && console.log(`WebSocket send error: ${error}`)
+        );
+      }
 
-            if (user2WS && user2WS.readyState === WebSocket.OPEN) {
-                user2WS.send(roundResultsMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
-            }
+      if (user2WS && user2WS.readyState === WebSocket.OPEN) {
+        user2WS.send(
+          roundResultsMessage,
+          (error) => error && console.log(`WebSocket send error: ${error}`)
+        );
+      }
 
-            break;
-        case 'send-start-new-round':
-            gameId = data.gameId;
-            user1 = data.user1;
-            user2 = data.user2;
+      break;
+    case "send-start-new-round":
+      gameId = data.gameId;
+      user1 = data.user1;
+      user2 = data.user2;
 
-            user1WS = findWebSocketByUsername(user1);
-            user2WS = findWebSocketByUsername(user2);
+      user1WS = findWebSocketByUsername(user1);
+      user2WS = findWebSocketByUsername(user2);
 
-            const startNewRoundMessage = JSON.stringify({
-                type: 'start-new-round',
-                data: {
-                    gameId: gameId
-                }
-            });
+      const startNewRoundMessage = JSON.stringify({
+        type: "start-new-round",
+        data: {
+          gameId: gameId,
+        },
+      });
 
-            if (user1WS && user1WS.readyState === WebSocket.OPEN) {
-                user1WS.send(startNewRoundMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
-            }
+      if (user1WS && user1WS.readyState === WebSocket.OPEN) {
+        user1WS.send(
+          startNewRoundMessage,
+          (error) => error && console.log(`WebSocket send error: ${error}`)
+        );
+      }
 
-            if (user2WS && user2WS.readyState === WebSocket.OPEN) {
-                user2WS.send(startNewRoundMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
-            }
+      if (user2WS && user2WS.readyState === WebSocket.OPEN) {
+        user2WS.send(
+          startNewRoundMessage,
+          (error) => error && console.log(`WebSocket send error: ${error}`)
+        );
+      }
 
-            break;
-        case 'join':
-            ws.room = data.room;
-            ws.username = data.username;
-            clients.set(ws.room, (clients.get(ws.room) || new Set()).add(ws));
-            break;
-        case 'direct-message':
-            recipientWs = findWebSocketByUsername(data.recipient);
-            if (!recipientWs) {
-                return;
-            }
-            if (recipientWs && recipientWs.readyState === WebSocket.OPEN) {
-                const directMessage = JSON.stringify({
-                    type: 'direct-message',
-                    data: {
-                        sender: ws.username,
-                        recipient: data.recipient,
-                        message: data.message,
-                    },
-                });
-                recipientWs.send(directMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
-            }
-            break;
-        default:
-            console.log('Invalid message type:', type);
-    }
+      break;
+    case "join":
+      ws.room = data.room;
+      ws.username = data.username;
+      clients.set(ws.room, (clients.get(ws.room) || new Set()).add(ws));
+      break;
+    case "direct-message":
+      recipientWs = findWebSocketByUsername(data.recipient);
+      if (!recipientWs) {
+        return;
+      }
+      if (recipientWs && recipientWs.readyState === WebSocket.OPEN) {
+        const directMessage = JSON.stringify({
+          type: "direct-message",
+          data: {
+            sender: ws.username,
+            recipient: data.recipient,
+            message: data.message,
+          },
+        });
+        recipientWs.send(
+          directMessage,
+          (error) => error && console.log(`WebSocket send error: ${error}`)
+        );
+      }
+      break;
+    default:
+      console.log("Invalid message type:", type);
+  }
 };
 
-db.sequelize.authenticate().then(() => {
-    console.log('Database connection success! Sequelize is ready to use...');
+db.sequelize
+  .authenticate()
+  .then(() => {
+    console.log("Database connection success! Sequelize is ready to use...");
 
     const server = http.createServer(app);
     const wss = new WebSocket.Server({
-        server,
-        verifyClient: ({ req }) => {
-            req.username = new URL(req.url, `http://${req.headers.host}`).searchParams.get('username');
-            console.log('Username: ', req.username);
-            const friendsParam = new URL(req.url, `http://${req.headers.host}`).searchParams.get('friends');
-            if (!friendsParam) {
-                console.log('Friends parameter is missing');
-                return false;
-            }
-            try {
-                req.friends = JSON.parse(friendsParam);
-            } catch (e) {
-                console.log('Failed to parse friends parameter:', e);
-                req.friends = [];
-            }
-            console.log('Friends: ', req.friends);
-            return true;
-        },
+      server,
+      verifyClient: ({ req }) => {
+        req.username = new URL(
+          req.url,
+          `http://${req.headers.host}`
+        ).searchParams.get("username");
+        const friendsParam = new URL(
+          req.url,
+          `http://${req.headers.host}`
+        ).searchParams.get("friends");
+        if (!friendsParam) {
+          return false;
+        }
+        try {
+          req.friends = JSON.parse(friendsParam);
+        } catch (e) {
+          req.friends = [];
+        }
+        return true;
+      },
     });
 
-    wss.on('connection', async (ws, req) => {
-        console.log('Client connected');
-        ws.username = req.username;
-        console.log('Username: ', ws.username);
-        ws.friends = req.friends;
-        console.log('Friends: ', ws.friends);
+    wss.on("connection", async (ws, req) => {
+      ws.username = req.username;
+      ws.friends = req.friends;
 
-        ws.isAlive = true;
-        clients.set(ws.username, (clients.get(ws.username) || new Set()).add(ws));
+      ws.isAlive = true;
+      clients.set(ws.username, (clients.get(ws.username) || new Set()).add(ws));
 
+      for (const friend of ws.friends) {
+        let friendWs = findWebSocketByUsername(friend);
+        if (friendWs && friendWs.readyState === WebSocket.OPEN) {
+          const friendMessage = JSON.stringify({
+            type: "friend-online",
+            data: {
+              username: ws.username,
+            },
+          });
+          friendWs.send(
+            friendMessage,
+            (error) => error && console.log(`WebSocket send error: ${error}`)
+          );
+        }
+      }
+
+      ws.on("pong", () => (ws.isAlive = true));
+      ws.on("message", (message) => {
+        try {
+          handleMessage(message, ws);
+        } catch (error) {
+          console.error("Error while handling message:", error);
+        }
+      });
+      ws.on("error", (error) => console.log(`WebSocket error: ${error}`));
+      ws.on("close", async () => {
         for (const friend of ws.friends) {
-            let friendWs = findWebSocketByUsername(friend);
-            console.log('Friend in friend of friends: ', friend);
-            if (friendWs && friendWs.readyState === WebSocket.OPEN) {
-                const friendMessage = JSON.stringify({
-                    type: 'friend-online',
-                    data: {
-                        username: ws.username,
-                    },
-                });
-                console.log('Sending friend message: %s', friendMessage);
-                console.log('Friend: ', friend);
-                friendWs.send(friendMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
-            }
+          let friendWs = findWebSocketByUsername(friend);
+          if (friendWs && friendWs.readyState === WebSocket.OPEN) {
+            const friendMessage = JSON.stringify({
+              type: "friend-offline",
+              data: {
+                username: ws.username,
+              },
+            });
+            friendWs.send(
+              friendMessage,
+              (error) => error && console.log(`WebSocket send error: ${error}`)
+            );
+          }
         }
 
-
-        ws.on('pong', () => ws.isAlive = true);
-        ws.on('message', (message) => {
-            try {
-                handleMessage(message, ws);
-            } catch (error) {
-                console.error('Error while handling message:', error);
-            }
-        });
-        ws.on('error', (error) => console.log(`WebSocket error: ${error}`));
-        ws.on('close', async () => {
-            console.log('Client disconnected');
-            console.log('Username: ', ws.username);
-            console.log('ws.friends', ws.friends);
-            for (const friend of ws.friends) {
-                let friendWs = findWebSocketByUsername(friend);
-                console.log('Friend in friend of friends: ', friend);
-                if (friendWs && friendWs.readyState === WebSocket.OPEN) {
-                    const friendMessage = JSON.stringify({
-                        type: 'friend-offline',
-                        data: {
-                            username: ws.username,
-                        },
-                    });
-                    console.log('Sending friend message: %s', friendMessage);
-                    console.log('Friend: ', friend);
-                    friendWs.send(friendMessage, (error) => error && console.log(`WebSocket send error: ${error}`));
-                }
-            }
-
-            // Delete the client from the room set when disconnected.
-            clients.get(ws.room)?.delete(ws);
-            if ((clients.get(ws.room)?.size || 0) === 0) {
-                clients.delete(ws.room);
-            }
-            // Remove user from clients map when disconnected.
-            clients.get(ws.username)?.delete(ws);
-            if ((clients.get(ws.username)?.size || 0) === 0) {
-                clients.delete(ws.username);
-            }
-        });
+        // Delete the client from the room set when disconnected.
+        clients.get(ws.room)?.delete(ws);
+        if ((clients.get(ws.room)?.size || 0) === 0) {
+          clients.delete(ws.room);
+        }
+        // Remove user from clients map when disconnected.
+        clients.get(ws.username)?.delete(ws);
+        if ((clients.get(ws.username)?.size || 0) === 0) {
+          clients.delete(ws.username);
+        }
+      });
     });
 
     setInterval(() => {
-        wss.clients.forEach((ws) => {
-            if (!ws.isAlive) ws.terminate();
-            ws.isAlive = false;
-            ws.ping();
-        });
+      wss.clients.forEach((ws) => {
+        if (!ws.isAlive) ws.terminate();
+        ws.isAlive = false;
+        ws.ping();
+      });
     }, 30000);
 
     server.listen(port, () => console.log(`Listening on port ${port}...`));
-}).catch((err) => {
-    console.log('Database connection failure.');
+  })
+  .catch((err) => {
+    console.log("Database connection failure.");
     console.error(err);
-});
+  });
