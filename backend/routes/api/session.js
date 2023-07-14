@@ -6,6 +6,7 @@ const { handleValidationErrors } = require("../../utils/validation");
 const { setTokenCookie, restoreUser } = require("../../utils/auth");
 const { User } = require("../../db/models");
 const { storage } = require("../../config/firebase");
+const { uploadBytes, getDownloadURL, ref } = require("firebase/storage");
 
 const validateLogin = [
   check("credential")
@@ -20,25 +21,29 @@ const validateLogin = [
 
 const router = express.Router();
 
-router.get("image", async (req, res) => {
-  const userUid = req.user.guid;
-  const imageRef = storage.ref().child(`images/${userUid}.png`);
-  const imageUrl = await imageRef.getDownloadURL();
-  return res.json({
-    imageUrl,
-  });
-});
-
 router.post("/image", async (req, res) => {
   const userUid = req.user.guid;
   const { image } = req.body;
   const user = await User.findByPk(userUid);
   const imageBuffer = Buffer.from(image, "base64");
-  const imageRef = storage.ref().child(`images/${userUid}.png`);
-  await imageRef.put(imageBuffer);
-  const imageUrl = await imageRef.getDownloadURL();
-  user.imageUrl = imageUrl;
-  await user.save();
+  const imageRef = ref(storage, `images/${userUid}`);
+
+  try {
+    await deleteObject(imageRef);
+  } catch (error) {
+    console.log("error deleting image", error);
+  }
+
+  try {
+    await uploadBytes(imageRef, imageBuffer);
+    const downloadURL = await getDownloadURL(imageRef);
+    console.log("downloadURL", downloadURL);
+    user.imageUrl = downloadURL;
+    await user.save();
+  } catch (error) {
+    console.log(error);
+  }
+
   return res.json({
     user,
   });

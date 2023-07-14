@@ -32,8 +32,6 @@ const GameResults = ({ game, sessionUser, sendMessage }) => {
 
     const usersAgreed = finalRound?.user1Agrees && finalRound?.user2Agrees;
 
-    console.log('usersAgreed', usersAgreed)
-
     const gameRounds = game?.Round;
 
     const gameRoundMapped = gameRounds?.map((round, idx) => {

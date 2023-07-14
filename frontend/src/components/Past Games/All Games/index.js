@@ -51,7 +51,6 @@ const AllGames = ({ sessionUser }) => {
 
         dispatch(fetchGames(`?${queryString}`))
             .catch((err) => {
-                console.log(err);
             });
     }, [earliestFirst, latestFirst]);
 
