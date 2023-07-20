@@ -173,7 +173,7 @@ const LoggedInUserHomePage = ({ sessionUser }) => {
           >
             Friends
           </NavLink>
-          <NavLink to="/games/recentGames" activeClassName="active-link">
+          <NavLink to="/games/allGames" activeClassName="active-link">
             Games
           </NavLink>
         </nav>
