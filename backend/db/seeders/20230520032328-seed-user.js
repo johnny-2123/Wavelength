@@ -68,7 +68,7 @@ module.exports = {
           hashedPassword: bcrypt.hashSync("password"),
           imageUrl:
             "https://res.cloudinary.com/dkul3ouvi/image/upload/v1688073928/39013954-f5091c3a-43e6-11e8-9cac-37cf8e8c8e4e_iwci96.jpg",
-          guid: "https://firebasestorage.googleapis.com/v0/b/wavelength-37ac1.appspot.com/o/images%2Ffa2a6d21-1121-4124-8937-a96dddfa8ce2.jpg?alt=media&token=2603eed2-1f7c-4b8f-a16f-ad83afae9f21",
+          guid: "6cec296e-273e-11ee-be56-0242ac120002",
         },
         {
           email: "user6@user.io",

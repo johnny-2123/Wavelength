@@ -61,7 +61,6 @@ const NotLoggedInUserHomePage = ({}) => {
             </svg>
           </div>
         </div>
-
         <DemoGamePlay />
       </div>
     </>
