@@ -46,7 +46,7 @@ function ProfileButton({ user }) {
   return (
     <>
       <button className="profileButton" onClick={openMenu}>
-        <img id="userProfilePic" src={user?.imageUrl}></img>
+        {user && <img id="userProfilePic" src={user?.imageUrl}></img>}{" "}
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
