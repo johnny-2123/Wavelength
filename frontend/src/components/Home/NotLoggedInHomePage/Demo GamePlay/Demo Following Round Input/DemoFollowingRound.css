@@ -1,139 +1,132 @@
 .demoFollowingRounds {
-    margin: 1rem auto;
-    padding: 2rem 2rem;
-    background-color: #ffffff;
-    border-radius: 10px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: #A0741B 1px solid;
-    width: 60%;
-    pointer-events: none;
+  margin: 1rem auto;
+  padding: 2rem 2rem;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border: #a0741b 1px solid;
+  width: 60%;
+  pointer-events: none;
 }
 
 .demoFollowingRounds:hover {
-    cursor: default;
+  cursor: default;
 }
 
-
 .demoPreviousWords {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: .5rem;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  width: 100%;
 }
 
 .demoLastRoundWords {
-    padding: 0rem 0;
-    margin-top: 0;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
+  padding: 0rem 0;
+  margin-top: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .demoLastRoundWords h5 {
-    font-size: 1rem;
-    font-weight: 500;
-    margin: 0rem 0.5rem 0.5rem 0.5rem;
-    color: #555;
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0rem 0.5rem 0.5rem 0.5rem;
+  color: #555;
 }
 
-
 .demoLastRoundWords h6 {
-    font-size: 1rem;
-    font-weight: 500;
-    margin: 1rem .5rem;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 125px;
-    height: 125px;
-    margin-bottom: .5rem;
-    background-color: #334075;
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 1rem 0.5rem;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 125px;
+  height: 125px;
+  margin-bottom: 0.5rem;
+  background-color: #334075;
 }
 
 h6.demoFriendUserLastRoundWord {
-    background-color: #D85F56;
+  background-color: #d85f56;
 }
 
-
 .demoPreviousWords h2 {
-    margin: 0rem 1rem 1.5rem 1rem;
-    font-size: 1.5rem;
-    font-weight: 400;
-    color: #555;
+  margin: 0rem 1rem 1.5rem 1rem;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #555;
 }
 
 .demoFollowingRoundDirectionsDiv {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 1rem;
-    border-top: #555 1px solid;
-    padding-top: 1rem;
-    width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  border-top: #555 1px solid;
+  padding-top: 1rem;
+  width: 90%;
 }
 
 h2#demoRoundResults {
-    font-size: 1rem;
-    width: 100%;
-    font-weight: 500;
-    margin: 0 0 1rem 0;
-    color: darkslategray;
+  font-size: 1rem;
+  width: 100%;
+  font-weight: 500;
+  margin: 0 0 1rem 0;
+  color: darkslategray;
 }
 
-
-
 .demoFollowingRounds .wordInputDiv {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
 }
 
 .demoFollowingRounds button {
-    width: 9rem;
-    margin-top: 1rem;
-    margin-left: 0.5rem;
-    padding: 0.6rem 2rem;
-    border: none;
-    border-radius: 5px;
-    font-size: .9rem;
-    font-weight: 500;
-    cursor: pointer;
-    color: white;
-
+  width: 9rem;
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+  padding: 0.6rem 2rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: white;
 }
 
 .demoWordInputDiv input {
-    width: 60%;
-    padding: 0.5rem;
-    border: 2px solid #ccc;
-    color: #555;
-    border-radius: 50px;
-    font-size: .9rem;
+  width: 60%;
+  padding: 0.5rem;
+  border: 2px solid #ccc;
+  color: #555;
+  border-radius: 50px;
+  font-size: 0.9rem;
 }
 
 .demoWordInputDiv button {
-    background-color: #e4736b;
-    border-radius: 50px;
-
+  background-color: #e4736b;
+  border-radius: 50px;
 }
 
 .demoFollowingRounds button.disabledButton {
-    cursor: not-allowed;
-    pointer-events: none;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .demoGameOverDiv button {
-    background-color: #d3574e;
-    border-radius: 50px;
-    margin-top: .75rem;
-    margin-bottom: .5rem;
+  background-color: #d3574e;
+  border-radius: 50px;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
 }

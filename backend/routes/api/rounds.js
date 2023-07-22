@@ -30,8 +30,6 @@ router.post(
             return res.status(401).json({ errors: 'Unauthorized.' });
         }
 
-        // console.log('round', round)
-
         if (round.Words.length >= 2) {
             return res.status(400).json({ errors: 'Round already has two words.' });
         }

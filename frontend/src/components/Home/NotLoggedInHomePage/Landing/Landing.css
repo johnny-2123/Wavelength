@@ -1,0 +1,89 @@
+div.LandingMainDiv {
+  position: relative;
+  background-color: #202731;
+  color: white;
+  margin: 0;
+  font-family: "monserrat", sans-serif;
+  overflow: hidden;
+}
+
+div.LandingMainDiv section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 400px;
+  padding: 100px 20vw;
+}
+
+.curve {
+  position: absolute;
+  height: 225px;
+  width: 100%;
+  bottom: 0;
+}
+
+.curve::before {
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: 100% 50%;
+  width: 55%;
+  height: 100%;
+  background-color: #202731;
+  transform: translate(85%, 60%);
+}
+
+.curve:after {
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: 100% 50%;
+  width: 55%;
+  height: 100%;
+  background-color: #4433eb;
+  transform: translate(-4%, 40%);
+}
+
+.blue {
+  background-color: #4433eb;
+}
+
+.bubble::after {
+  content: "";
+  border-top-left-radius: 50% 100%;
+  border-top-right-radius: 50% 100%;
+  position: absolute;
+  bottom: 0;
+  height: 45%;
+  width: 100%;
+  background-color: #0f0f10;
+}
+
+.dark {
+  background-color: #0f0f10;
+}
+
+.red {
+  background-color: #ef532b;
+}
+
+.custom-shape-divider-top-1689813490 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.custom-shape-divider-top-1689813490 svg {
+  position: relative;
+  display: block;
+  width: calc(150% + 1.3px);
+  height: 150px;
+}
+
+.custom-shape-divider-top-1689813490 .shape-fill {
+  fill: #ffffff;
+}

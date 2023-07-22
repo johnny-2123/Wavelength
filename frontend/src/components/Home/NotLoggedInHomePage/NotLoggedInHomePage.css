@@ -1,126 +1,154 @@
 .notLoggedInHomePageMainDiv {
-    margin: 0;
-    background-color: white;
-
+  margin: 0;
+  background-color: white;
+  padding-bottom: 0;
 }
 
 div.landingPageTopSection {
-    /* background-color: #efefefbd; */
-    padding: 0rem 2rem;
-    border-radius: 15px;
-    /* margin: 1rem 2rem; */
-    /* box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2); */
+  /* background-color: #efefefbd; */
+  position: relative;
+  padding: 2rem 2rem 0rem 2rem;
+  padding-bottom: 0;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  margin-bottom: 0;
+  margin-bottom: 0;
+  min-height: 500px;
+  /* margin: 1rem 2rem; */
+  /* box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2); */
 }
 
 .notLoggedInHomePageMainDiv h1#notLoggedInHomePage {
-    color: #191414;
-    font-weight: 400;
-    text-align: center;
-    font-size: 3.5rem;
-
+  color: #191414;
+  font-weight: 400;
+  text-align: center;
+  font-size: 3.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .notLoggedInHomePageMainDiv .fa-wave-square {
-    margin: .5rem auto;
-    width: 100%;
-    color: #334075;
-    font-size: 3rem;
-    text-align: center;
-
+  margin: 0.5rem auto;
+  width: 100%;
+  color: #334075;
+  font-size: 3rem;
+  text-align: center;
 }
 
-h2#notLoggedInHomePage {
-    color: #191414;
-    font-weight: 300;
-    text-align: center;
-    font-size: 1.4rem;
-    margin: 2rem 2rem;
+.notLoggedInHomePageMainDiv h2#notLoggedInHomePage {
+  color: #191414;
+  font-weight: 300;
+  text-align: center;
+  font-size: 1.7rem;
+  margin: 2rem 2rem;
+  margin-bottom: 0.75rem;
 }
 
 .notLoggedInHomePageSubDiv {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .notLoggedInHomePageButtons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
+  margin-bottom: 4rem;
 }
 
 .notLoggedInHomePageButtons button {
-    margin: 1rem .5rem .5rem 1rem;
-    background-color: transparent;
-    border: #A0741B 2px solid;
-    border-radius: 25px;
-    padding: .75rem .25rem;
-    width: 7.5rem;
-    height: 3rem;
-    background-color: #A0741B;
-    color: white;
-    font-size: 1rem;
-    font-weight: 600;
+  margin: 1rem 0.5rem 0.5rem 1rem;
+  background-color: transparent;
+  border: #a0741b 2px solid;
+  border-radius: 25px;
+  padding: 0.75rem 0.25rem;
+  width: 7.5rem;
+  height: 3rem;
+  background-color: #a0741b;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .notLoggedInHomePageButtons button:hover {
-    background-color: #a0741bea;
-    color: white;
-    cursor: pointer;
+  background-color: #a0741bea;
+  color: white;
+  cursor: pointer;
 }
 
 .notLoggedInHomePageButtons button:last-child {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
-div.notLoggedInHomePageButtons>div {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+div.notLoggedInHomePageButtons > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .notLoggedInHomePageButtons button.notLoggedInHomePageDemoButton {
-    border-color: #334075;
-    background-color: #334075;
-    color: white;
-    margin: 1.5rem 0 auto 0;
-    width: 10rem;
-    padding: auto 1.5rem;
-    margin-bottom: 1rem;
+  border-color: #334075;
+  background-color: #334075;
+  color: white;
+  margin: 1.5rem 0 auto 0;
+  width: 10rem;
+  padding: auto 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .notLoggedInHomePageButtons button.notLoggedInHomePageDemoButton:hover {
-    border-color: #334075eb;
-    background-color: #334075eb;
-    cursor: pointer;
+  border-color: #334075eb;
+  background-color: #334075eb;
+  cursor: pointer;
+}
+
+.custom-shape-divider-bottom-1689819368 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1689819368 svg {
+  position: relative;
+  display: block;
+  width: calc(129% + 1.3px);
+  height: 84px;
+}
+
+.custom-shape-divider-bottom-1689819368 .shape-fill {
+  fill: #334075;
 }
 
 @media screen and (min-width: 600px) {
+  .notLoggedInHomePageMainDiv h1#notLoggedInHomePage {
+    font-size: 4rem;
+  }
 
-    .notLoggedInHomePageMainDiv h1#notLoggedInHomePage {
-        font-size: 4rem;
+  h2#notLoggedInHomePage {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 3rem;
+  }
 
-    }
+  .notLoggedInHomePageButtons button {
+    width: 12rem;
+  }
 
-    h2#notLoggedInHomePage {
-        font-size: 2rem;
-        font-weight: 500;
-        margin-bottom: 3rem;
-    }
-
-    .notLoggedInHomePageButtons button {
-        width: 12rem;
-    }
-
-    .notLoggedInHomePageButtons button.notLoggedInHomePageDemoButton {
-        width: 12rem;
-    }
-
-
+  .notLoggedInHomePageButtons button.notLoggedInHomePageDemoButton {
+    width: 12rem;
+  }
 }
