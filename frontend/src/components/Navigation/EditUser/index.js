@@ -4,7 +4,7 @@ import { uploadUserProfilePic } from "../../../store/session";
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../../config/firebase";
 import "./EditUser.css";
-console.log("storage", storage);
+// console.log("storage", storage);
 
 const EditUser = ({ user, handleLogout }) => {
   console.log("user in EditUser", user);

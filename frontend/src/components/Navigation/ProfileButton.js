@@ -46,7 +46,15 @@ function ProfileButton({ user }) {
   return (
     <>
       <button className="profileButton" onClick={openMenu}>
-        {user && <img id="userProfilePic" src={user?.imageUrl}></img>}{" "}
+        {user && (
+          <img
+            id="userProfilePic"
+            src={
+              user?.imageUrl ||
+              "https://res.cloudinary.com/dkul3ouvi/image/upload/v1688073928/39013954-f5091c3a-43e6-11e8-9cac-37cf8e8c8e4e_iwci96.jpg"
+            }
+          ></img>
+        )}
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
