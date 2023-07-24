@@ -9,15 +9,26 @@ Wavelength is an online game that let's user's challenge friend's in a game of c
 
 The project backend of the project is build on node with a PostgresSQL database. The frontend is built on React and Redux. Realtime communication for player's in a game is handled with Websockets.
 
-## Features and Implementation
+### [Link to Database Schema](https://res.cloudinary.com/dkul3ouvi/image/upload/v1686701889/Wavelength_Schema_xje0ir.png)
+### [API Docs](https://github.com/johnny-2123/Capstone/blob/main/API%20Docs.md)
+
+## Technologies
+- **Javascript**
+- **NodeJs**
+- **Sequelize**
+- **PostgreSQL**
+- **WebSockets**
+- **React**
+- **Redux**
+- **HTML**
+- **CSS**
+- **Render**
+
+## User Stories and Features
 
 Users can create, read, update, and destroy games and friend relationships. React components exist for each corresponding action. Information needed for all friend and past game components are managed with Redux store. Information for realtime gameplay is handled through Websockets.
 
 ### Users
-
- achieved through the integration of React components, Redux store, and Websockets.
-
-### User Management
 
 #### User Registration
 - As an unregistered user, you have the ability to register by providing your email, username, and password.
@@ -32,8 +43,6 @@ Users can create, read, update, and destroy games and friend relationships. Reac
 #### User Logout
 - As a logged-in user, you can log out of your account to securely end your session from any page of the site.
 
-
-
 ### Games
 
 #### Send Game Invite
@@ -46,8 +55,11 @@ Users can create, read, update, and destroy games and friend relationships. Reac
     - I can click a notification button to accept the game invite.
     - I can click a notification button to decline the game invite.
     - The other player and I will automatically be redirected to the gameplay component if I accept a new game invite
+<img width="624" alt="image" src="https://github.com/johnny-2123/Wavelength/assets/95261336/a95cd390-1278-4d51-a62c-5cb0fafd901a">
 
-#### GamePlay
+
+### Games
+
 #### Sending Game Invites
 - As a logged-in user, you can send a new game invite to a friend from your accepted friends list.
     - You will be notified if the user is offline or declines the game invite.
@@ -69,10 +81,16 @@ Users can create, read, update, and destroy games and friend relationships. Reac
         - If you submit a word and your partner has not yet submitted their word, you will be directed to a waiting page.
         - Each player has 30 seconds to enter a word. If not, the game ends.
         - You can choose to end the game by clicking a button.
+<img width="624" alt="image" src="https://github.com/johnny-2123/Wavelength/assets/95261336/757bedcd-8779-4c58-be29-89a66b47d1f2">
+
 
 #### Game Results
 - At the end of a game, you will be shown a detailed summary, including every round and word submitted.
     - You have the option to replay the game with your friend by clicking a "play again" button.
+<img width="619" alt="image" src="https://github.com/johnny-2123/Wavelength/assets/95261336/2e3a5735-02d6-4578-8536-6e973f78e214">
+
+<img width="621" alt="image" src="https://github.com/johnny-2123/Wavelength/assets/95261336/c58286f1-60c2-447a-85af-9a4c5c13485e">
+
 
 #### Viewing Past Games
 - As a user, you can access a history of your past games.
@@ -109,6 +127,9 @@ Users can create, read, update, and destroy games and friend relationships. Reac
 #### View friend details:
   - As a user, you can access detailed information about your friends if you navigate to that friend's details page.
     - You can see how many games you have played with that friend, how many games were won, and past games played with that friend
+<img width="623" alt="image" src="https://github.com/johnny-2123/Wavelength/assets/95261336/761490a7-bcd3-4028-a197-00a357613285">
+
+
 
 #### Online Status Update
   - As a user, you see your friends' online status.
