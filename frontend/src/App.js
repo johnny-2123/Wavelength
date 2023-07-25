@@ -6,9 +6,12 @@ import LoginFormPage from "./components/User/LoginFormPage";
 import SignupFormPage from "./components/User/SignUpFormPage";
 import Home from "./components/Home";
 import Navigation from "./components/Navigation";
-import { toast, ToastContainer, Slide } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+import { toast, ToastContainer, Slide } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+/>;
 
 function App() {
   const dispatch = useDispatch();
@@ -16,7 +19,6 @@ function App() {
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
-
 
   return (
     <>
@@ -32,7 +34,11 @@ function App() {
           <Home />
         </Route>
       </Switch>
-      <ToastContainer limit={4} transition={Slide} closeOnClick={true} ></ToastContainer>
+      <ToastContainer
+        limit={4}
+        transition={Slide}
+        closeOnClick={true}
+      ></ToastContainer>
     </>
   );
 }

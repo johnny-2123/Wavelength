@@ -18,6 +18,11 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  /* outline: green dotted thin; */
+}
+
+.navigationUl li.aboutLinks a {
+  margin-left: 2rem;
 }
 
 .navigationUl a {
@@ -31,6 +36,10 @@
   display: flex;
   align-items: center;
   width: 70%;
+}
+
+.navigationUl a.wellFound {
+  font-weight: 600;
 }
 
 .searchBar {
