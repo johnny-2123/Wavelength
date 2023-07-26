@@ -8,7 +8,8 @@ import { fetchDemoLogin } from "../../../store/session";
 import Landing from "./Landing";
 import WavelengthLines from "../../../images/wavelength_lines.svg"
 import { easeIn, motion } from "framer-motion"
-import background from "../../../images/background.png"
+import blob3 from "../../../images/blob3.png"
+import line2 from "../../../images/line.png"
 import "./NotLoggedInHomePage.css";
 
 const NotLoggedInUserHomePage = ({}) => {
@@ -28,8 +29,8 @@ const NotLoggedInUserHomePage = ({}) => {
       <div className="notLoggedInHomePageMainDiv"
       >
         <motion.div className="landingPageTopSection"
-            // style={{ backgroundImage: `url(${background})` }}
         >
+          <img src={line2} className="blobDots" />
           <motion.h1 id="notLoggedInHomePage"
           >Wavelength</motion.h1>
           <motion.i class="fa-solid fa-wave-square"

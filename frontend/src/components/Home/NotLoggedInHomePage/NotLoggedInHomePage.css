@@ -2,6 +2,7 @@
   margin: 0;
   background-color: transparent;
   padding-bottom: 0;
+position: relative;
 }
 
 div.landingPageTopSection {
@@ -19,6 +20,10 @@ margin-top: 0;
   margin-bottom: 0;
   min-height: 500px;
 
+}
+
+div.landingPageTopSection img.blobDots{
+display: none;
 }
 
 .notLoggedInHomePageMainDiv h1#notLoggedInHomePage {
@@ -77,21 +82,22 @@ div.notLoggedInHomePageMainDiv  img.wavelengthLines{
 .notLoggedInHomePageButtons button {
   margin: 1rem 0.5rem 0.5rem 1rem;
   background-color: transparent;
-  border: #a0741b 2px solid;
+  border: #D85F56 2px solid;
   border-radius: 25px;
   padding: 0.75rem 0.25rem;
   width: 7.5rem;
   height: 3rem;
-  background-color: #a0741b;
+  background-color: #D85F56;
   color: white;
   font-size: 1rem;
   font-weight: 600;
+  transition: all 0.2s ease-in-out;
 }
 
 .notLoggedInHomePageButtons button:hover {
-  background-color: #a0741bea;
-  color: white;
   cursor: pointer;
+  background-color: #d85f56d9;
+  scale: 1.05;
 }
 
 .notLoggedInHomePageButtons button:last-child {
@@ -112,12 +118,13 @@ div.notLoggedInHomePageButtons > div {
   width: 10rem;
   padding: auto 1.5rem;
   margin-bottom: 1rem;
+  transition: all 0.2s ease-in-out;
 }
 
 .notLoggedInHomePageButtons button.notLoggedInHomePageDemoButton:hover {
-  border-color: #334075eb;
-  background-color: #334075eb;
+  background-color: #334075e6;
   cursor: pointer;
+  scale: 1.05;
 }
 
 .custom-shape-divider-bottom-1689819368 {
@@ -142,7 +149,9 @@ div.notLoggedInHomePageButtons > div {
 }
 
 @media screen and (min-width: 600px) {
-  .notLoggedInHomePageMainDiv h1#notLoggedInHomePage {
+
+
+.notLoggedInHomePageMainDiv h1#notLoggedInHomePage {
     font-size: 5rem;
   }
 
@@ -159,4 +168,18 @@ div.notLoggedInHomePageButtons > div {
   .notLoggedInHomePageButtons button.notLoggedInHomePageDemoButton {
     width: 12rem;
   }
+}
+
+
+@media screen and (min-width: 1000px) {
+
+div.landingPageTopSection img.blobDots{
+  position: absolute;
+  display: block;
+  top: -120px;
+  right: -200px;
+  width: auto;
+  height: 700px;
+  z-index: -1;
+}
 }

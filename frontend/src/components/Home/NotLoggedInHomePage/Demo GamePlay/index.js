@@ -3,12 +3,20 @@ import DemoRoundOneForm from "./Round One Input Form";
 import DemoRoundResults from "./Round Results ";
 import DemoFollowingRoundInput from "./Demo Following Round Input";
 import DemoGameResults from "./Game Results";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 import "./DemoGameplay.css";
 
 const DemoGamePlay = () => {
+  const { ref, inView, entry } = useInView();
+
   return (
     <div className="demoGamePlayMainDiv">
-      <section className="roundOne">
+      <motion.section className="roundOne"
+        initial={{ y: "200vh", opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: "spring", delay: 0, duration: 1, stiffness: 250, damping: 30 }}
+      >
         <h3 className="gamePlayInstructions">
           <h2>Here's how it works</h2>
           You start with a simple task - both you and your friend enter a random
@@ -28,7 +36,7 @@ const DemoGamePlay = () => {
             ></path>
           </svg>
         </div>
-      </section>
+      </motion.section>
       <section className="roundResults">
         <h3 className="gamePlayInstructions">
           If you choose different words you'll have the chance to decide if your
