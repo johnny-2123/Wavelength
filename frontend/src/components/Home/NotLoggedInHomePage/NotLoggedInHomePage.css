@@ -5,7 +5,7 @@
 }
 
 div.landingPageTopSection {
-  /* background-color: #efefefbd; */
+  /* outline: red thin dotted; */
   position: relative;
   padding: 2.25rem 2rem 0rem 2rem;
   padding-bottom: 0;
@@ -28,6 +28,13 @@ div.landingPageTopSection {
   font-size: 3.5rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
+  /* outline: orange thin dotted; */
+
+}
+
+div.notLoggedInHomePageMainDiv  img.wavelengthLines{
+  width: 200px;
+  height: auto;
 }
 
 .notLoggedInHomePageMainDiv .fa-wave-square {
@@ -45,6 +52,8 @@ div.landingPageTopSection {
   font-size: 1.7rem;
   margin: 2rem 2rem;
   margin-bottom: 0.75rem;
+  /* outline: brown thin dotted; */
+
 }
 
 .notLoggedInHomePageSubDiv {

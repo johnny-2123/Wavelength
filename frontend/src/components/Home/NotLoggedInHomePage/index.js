@@ -6,6 +6,8 @@ import SignupFormModal from "../../User/SignUpModal";
 import DemoGamePlay from "./Demo GamePlay";
 import { fetchDemoLogin } from "../../../store/session";
 import Landing from "./Landing";
+import WavelengthLines from "../../../images/wavelength_lines.svg"
+import {easeIn, motion} from "framer-motion"
 import "./NotLoggedInHomePage.css";
 
 const NotLoggedInUserHomePage = ({}) => {
@@ -23,13 +25,20 @@ const NotLoggedInUserHomePage = ({}) => {
     <>
       {/* <Landing /> */}
       <div className="notLoggedInHomePageMainDiv">
-        <div className="landingPageTopSection">
-          <h1 id="notLoggedInHomePage">Wavelength</h1>
-          <i class="fa-solid fa-wave-square"></i>
-          <h2 id="notLoggedInHomePage">
+        <motion.div className="landingPageTopSection"
+        >
+          <motion.h1 id="notLoggedInHomePage"
+          >Wavelength</motion.h1>
+          <motion.i class="fa-solid fa-wave-square"
+           animate={{color: ['#334075', '#D85F56'], }}
+            transition={{duration:3 , repeat: Infinity, repeatType: "reverse" }}
+          ></motion.i>
+          <motion.h2 id="notLoggedInHomePage"
+          >
             Challenge your mind in a game of creativity and connection.
-          </h2>
-          <div className="notLoggedInHomePageButtons">
+          </motion.h2>
+          <motion.div className="notLoggedInHomePageButtons"
+          >
             <div>
               <OpenModalButton
                 buttonText="Log In"
@@ -46,7 +55,7 @@ const NotLoggedInUserHomePage = ({}) => {
             >
               Demo Login
             </button>
-          </div>
+          </motion.div>
           <div class="custom-shape-divider-bottom-1689819368">
             <svg
               data-name="Layer 1"
@@ -60,7 +69,7 @@ const NotLoggedInUserHomePage = ({}) => {
               ></path>
             </svg>
           </div>
-        </div>
+        </motion.div>
         <DemoGamePlay />
       </div>
     </>

@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/modal";
 import * as sessionActions from "../../../store/session";
 import styles from "./SignUpModal.module.css";
+import { motion } from "framer-motion";
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -44,8 +45,37 @@ function SignupFormModal() {
     });
   };
 
+      const dropIn = {
+        hidden: {
+            y: "-100vh",
+            opacity: 0,
+        },
+        visible: {
+            y: 0,
+            transition: {
+                type: "spring",
+                delay: 0,
+                duration: .1,
+                stiffness: 250,
+                damping: 30,
+            },
+            opacity: 1,
+        },
+        exit: {
+            y: "-100vh",
+            transition: {
+                ease: "easeInOut",
+            },
+        },
+    }
+
   return (
-    <div className={styles.signUpFormDiv}>
+    <motion.div className={styles.signUpFormDiv}
+      variants={dropIn}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
       <h1 className={styles.signUpTitle}>Sign Up</h1>
       <form className={styles.signUpForm} onSubmit={handleSubmit}>
         <label>
@@ -110,7 +140,7 @@ function SignupFormModal() {
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
         <button type="submit">Sign Up</button>
       </form>
-    </div>
+    </motion.div>
   );
 }
 
