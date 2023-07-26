@@ -3,7 +3,7 @@ import * as sessionActions from "../../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/modal";
 import styles from "./LoginModal.module.css";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 function LoginFormModal() {
     const dispatch = useDispatch();
@@ -51,7 +51,6 @@ function LoginFormModal() {
 
     return (
         <motion.div className={styles.loginModalDiv}
-
             variants={dropIn}
             initial="hidden"
             animate="visible"
@@ -82,7 +81,7 @@ function LoginFormModal() {
                 )}
                 <button type="submit">Log In</button>
             </form>
-        </motion.div>
+            </motion.div>
     );
 }
 

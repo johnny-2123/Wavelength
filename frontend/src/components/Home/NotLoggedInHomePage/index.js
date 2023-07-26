@@ -7,7 +7,8 @@ import DemoGamePlay from "./Demo GamePlay";
 import { fetchDemoLogin } from "../../../store/session";
 import Landing from "./Landing";
 import WavelengthLines from "../../../images/wavelength_lines.svg"
-import {easeIn, motion} from "framer-motion"
+import { easeIn, motion } from "framer-motion"
+import background from "../../../images/background.png"
 import "./NotLoggedInHomePage.css";
 
 const NotLoggedInUserHomePage = ({}) => {
@@ -24,14 +25,16 @@ const NotLoggedInUserHomePage = ({}) => {
   return (
     <>
       {/* <Landing /> */}
-      <div className="notLoggedInHomePageMainDiv">
+      <div className="notLoggedInHomePageMainDiv"
+      >
         <motion.div className="landingPageTopSection"
+            // style={{ backgroundImage: `url(${background})` }}
         >
           <motion.h1 id="notLoggedInHomePage"
           >Wavelength</motion.h1>
           <motion.i class="fa-solid fa-wave-square"
            animate={{color: ['#334075', '#D85F56'], }}
-            transition={{duration:3 , repeat: Infinity, repeatType: "reverse" }}
+            transition={{duration:4 , repeat: Infinity, repeatType: "mirror" }}
           ></motion.i>
           <motion.h2 id="notLoggedInHomePage"
           >
