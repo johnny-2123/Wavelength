@@ -1,25 +1,52 @@
-import React from "react";
+import React, {useEffect} from "react";
 import DemoRoundOneForm from "./Round One Input Form";
 import DemoRoundResults from "./Round Results ";
 import DemoFollowingRoundInput from "./Demo Following Round Input";
 import DemoGameResults from "./Game Results";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import {InViewAnimation} from "../../../Animations/InViewAnimation";
 import "./DemoGameplay.css";
 
 const DemoGamePlay = () => {
-  const { ref, inView, entry } = useInView();
+  const { ref, inView } = useInView({ threshold: 0.1});
+  const animation = useAnimation();
+
+  useEffect(() => {
+    console.log('component in view', inView)
+    if (inView) {
+      animation.start({
+        opacity: 1,
+        x: 0,
+        transition: {
+          duration: 1,
+          type: "spring",
+          bounce: 0.25,
+        },
+      });
+    }
+
+    if (!inView) {
+      animation.start({x: -100, opacity: 0 })
+    }
+
+  }, [inView]);
 
   return (
     <div className="demoGamePlayMainDiv">
-      <motion.section className="roundOne"
+      <section className="roundOne"
       >
-        <h3 className="gamePlayInstructions">
+        <InViewAnimation>
+        <h3 className="gamePlayInstructions"
+        >
           <h2>Here's how it works</h2>
           You start with a simple task - both you and your friend enter a random
           word of your choice.
-        </h3>
-        <DemoRoundOneForm />
+          </h3>
+        </InViewAnimation>
+        <InViewAnimation>
+          <DemoRoundOneForm />
+        </InViewAnimation>
         <div class="custom-shape-divider-bottom-1689818294">
           <svg
             data-name="Layer 1"
@@ -33,14 +60,18 @@ const DemoGamePlay = () => {
             ></path>
           </svg>
         </div>
-      </motion.section>
+      </section>
       <section className="roundResults">
+        <InViewAnimation>
         <h3 className="gamePlayInstructions">
           If you choose different words you'll have the chance to decide if your
           words are close enough. If you both agree, you win together. If not,
           the game continues to the next round.
-        </h3>
-        <DemoRoundResults />
+          </h3>
+        </InViewAnimation>
+        <InViewAnimation>
+          <DemoRoundResults />
+        </InViewAnimation>
         <div class="custom-shape-divider-bottom-1689819039">
           <svg
             data-name="Layer 1"
@@ -56,11 +87,15 @@ const DemoGamePlay = () => {
         </div>
       </section>
       <section className="followingRound">
-        <h3 className="gamePlayInstructions">
+        <InViewAnimation>
+          <h3 className="gamePlayInstructions">
           In the next round, you'll try to match your partner's word using the
           words from the previous round.
-        </h3>
-        <DemoFollowingRoundInput />
+          </h3>
+        </InViewAnimation>
+        <InViewAnimation>
+          <DemoFollowingRoundInput />
+        </InViewAnimation>
         <div class="custom-shape-divider-bottom-1689820394">
           <svg
             data-name="Layer 1"
@@ -76,11 +111,15 @@ const DemoGamePlay = () => {
         </div>
       </section>
       <section className="gameResults">
+        <InViewAnimation>
         <h3 className="gamePlayInstructions">
           The game continues until you and your partner match words or give up,
           after which you'll be shown game results{" "}
-        </h3>
-        <DemoGameResults />
+          </h3>
+        </InViewAnimation>
+        <InViewAnimation>
+          <DemoGameResults />
+        </InViewAnimation>
         <div class="custom-shape-divider-bottom-1689820750">
           <svg
             data-name="Layer 1"
@@ -96,9 +135,11 @@ const DemoGamePlay = () => {
         </div>
       </section>
       <section className="landingFooter">
+        <InViewAnimation>
         <h3 className="gamePlayInstructions">
           Play together, have fun, and see how your wavelengths align
         </h3>
+        </InViewAnimation>
       </section>
     </div>
   );
