@@ -13,9 +13,6 @@ const DemoGamePlay = () => {
   return (
     <div className="demoGamePlayMainDiv">
       <motion.section className="roundOne"
-        initial={{ y: "200vh", opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ type: "spring", delay: 0, duration: 1, stiffness: 250, damping: 30 }}
       >
         <h3 className="gamePlayInstructions">
           <h2>Here's how it works</h2>
