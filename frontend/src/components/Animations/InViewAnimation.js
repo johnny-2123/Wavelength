@@ -24,7 +24,7 @@ export const InViewAnimation = ({ children }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: -100 }} // Set the initial properties for the animation
+      initial={{ opacity: 0, x: -100 }}
       animate={animation}
       ref={ref}
     >

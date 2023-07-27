@@ -7,6 +7,7 @@ import {
   faFileWaveform,
   faSearch,
   faLinkedin,
+  faWaveSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import "./Navigation.css";
@@ -25,7 +26,7 @@ function Navigation({ isLoaded }) {
     <ul className="navigationUl">
       <li>
         <NavLink to="/">
-          <FontAwesomeIcon icon={faFileWaveform} />
+          <FontAwesomeIcon icon={faWaveSquare} />
         </NavLink>
       </li>
       {sessionUser?.id && (
