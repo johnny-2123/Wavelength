@@ -21,10 +21,12 @@ div.landingPageTopSection {
 div.landingTopLeft {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-start;
   height: 60vh;
+  min-height: 378px;
   width: 55%;
+  min-width: 511px;
   padding: 2rem 2rem;
   background-size: contain;
   background-position: center;
@@ -168,5 +170,57 @@ div.landingTopRight h3.landingWord:first-child {
   fill: #334075;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (max-width: 800px) {
+  div.landingPageTopSection {
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 2rem 1rem;
+  }
+
+  div.landingTopLeft {
+    width: 100%;
+    height: auto;
+    padding: 3rem;
+  }
+
+  .notLoggedInHomePageMainDiv h1#notLoggedInHomePage {
+    font-size: 2.8rem;
+    font-weight: 400;
+    margin: 0 auto;
+    margin-top: 1rem;
+    padding: 0.4rem 3rem;
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
+
+  .notLoggedInHomePageMainDiv h2#notLoggedInHomePage {
+    font-size: 1.2rem;
+    margin: 0.5rem auto 1rem auto;
+  }
+
+  .notLoggedInHomePageButtons {
+    width: 100%;
+  }
+
+  .notLoggedInHomePageButtons button {
+    width: 9rem;
+  }
+
+  div.landingTopRight {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  div.landingTopRight h3.landingWord {
+    width: 80px;
+    height: 80px;
+    font-size: 0.8rem;
+  }
+
+  .notLoggedInHomePageMainDiv i.fa-wave-square {
+    font-size: 2rem;
+  }
 }
