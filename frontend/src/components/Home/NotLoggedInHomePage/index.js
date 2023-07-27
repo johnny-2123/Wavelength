@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import OpenModalButton from "../../OpenModalButton";
 import LoginFormModal from "../../User/LoginFormModal";
 import SignupFormModal from "../../User/SignUpModal";
 import DemoGamePlay from "./Demo GamePlay";
 import { fetchDemoLogin } from "../../../store/session";
-import { AnimatePresence, motion } from "framer-motion"
-import circle_orange from "../../../images/circle_orange.png"
+import { AnimatePresence, motion } from "framer-motion";
+import circle_orange from "../../../images/circle_orange.png";
 import "./NotLoggedInHomePage.css";
 
 const NotLoggedInUserHomePage = ({}) => {
@@ -26,7 +26,7 @@ const NotLoggedInUserHomePage = ({}) => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setState((s) => (s + 1));
+      setState((s) => s + 1);
     }, 4000);
 
     return () => clearInterval(intervalId);
@@ -38,49 +38,45 @@ const NotLoggedInUserHomePage = ({}) => {
   return (
     <>
       {/* <Landing /> */}
-      <div className="notLoggedInHomePageMainDiv"
-      >
-        <motion.div className="landingPageTopSection"
-
-        >
-        <motion.div className="landingTopLeft"
-          style={{ backgroundImage: `url(${circle_orange})` }}
-          initial={{ opacity: 0, x: -100 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{
-          duration: 1,
-          delay: 0.5,
-          type: "spring",
-          bounce: 0.25,
-        }}
+      <div className="notLoggedInHomePageMainDiv">
+        <motion.div className="landingPageTopSection">
+          <motion.div
+            className="landingTopLeft"
+            style={{ backgroundImage: `url(${circle_orange})` }}
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{
+              duration: 1,
+              delay: 0.5,
+              type: "spring",
+              bounce: 0.25,
+            }}
           >
-          <motion.h1 id="notLoggedInHomePage"
-          >Wavelength</motion.h1>
-          <motion.h2 id="notLoggedInHomePage"
-          >
-            Challenge your mind in a game of creativity and connection.
-          </motion.h2>
-          <motion.div className="notLoggedInHomePageButtons"
-          >
-            <div>
-              <OpenModalButton
-                buttonText="Log In"
-                modalComponent={<LoginFormModal />}
-              />
-              <OpenModalButton
-                buttonText="Sign Up"
-                modalComponent={<SignupFormModal />}
-              />
-            </div>
-            <button
-              onClick={handleDemoLogin}
-              className="notLoggedInHomePageDemoButton"
-            >
-              Demo Login
-            </button>
+            <motion.h1 id="notLoggedInHomePage">Wavelength</motion.h1>
+            <motion.h2 id="notLoggedInHomePage">
+              Challenge your mind in a game of creativity and connection.
+            </motion.h2>
+            <motion.div className="notLoggedInHomePageButtons">
+              <div>
+                <OpenModalButton
+                  buttonText="Log In"
+                  modalComponent={<LoginFormModal />}
+                />
+                <OpenModalButton
+                  buttonText="Sign Up"
+                  modalComponent={<SignupFormModal />}
+                />
+              </div>
+              <button
+                onClick={handleDemoLogin}
+                className="notLoggedInHomePageDemoButton"
+              >
+                Demo Login
+              </button>
             </motion.div>
           </motion.div>
-          <motion.div className="landingTopRight"
+          <motion.div
+            className="landingTopRight"
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{
@@ -95,9 +91,14 @@ const NotLoggedInUserHomePage = ({}) => {
                 {placeholder}
               </motion.h3>
             </AnimatePresence>
-            <motion.i class="fa-solid fa-wave-square"
-            animate={{color: ['#334075', '#D85F56'], }}
-            transition={{duration:4 , repeat: Infinity, repeatType: "mirror" }}
+            <motion.i
+              class="fa-solid fa-wave-square"
+              animate={{ color: ["#334075", "#D85F56"] }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                repeatType: "mirror",
+              }}
             ></motion.i>
             <AnimatePresence mode="wait">
               <motion.h3 className="landingWord" key={wordTwoPlaceholder}>

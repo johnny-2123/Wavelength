@@ -2,7 +2,7 @@
   margin: 0;
   background-color: transparent;
   padding-bottom: 0;
-overflow-x: hidden;
+  overflow-x: hidden;
 }
 
 div.landingPageTopSection {
@@ -11,14 +11,14 @@ div.landingPageTopSection {
   border-radius: 15px;
   display: flex;
   flex-direction: row;
-margin-top: 0;
+  margin-top: 0;
   justify-content: center;
   align-items: center;
   min-height: 80vh;
-background-color: none;
+  background-color: none;
 }
 
-div.landingTopLeft{
+div.landingTopLeft {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -26,28 +26,26 @@ div.landingTopLeft{
   height: 60vh;
   width: 55%;
   padding: 2rem 2rem;
- background-size: contain;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-
-
 .notLoggedInHomePageMainDiv h1#notLoggedInHomePage {
   color: white;
   font-weight: 400;
-letter-spacing: .2rem;
+  letter-spacing: 0.2rem;
   text-align: center;
   font-size: 3rem;
   margin-top: 1rem;
   margin-bottom: 0rem;
-background-color: #334075;
+  background-color: #334075;
   border-radius: 40px;
   border-right: #333 10px solid;
   border-bottom: #333 10px solid;
   padding: 0.4rem 4.5rem;
-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;}
-
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
 
 .notLoggedInHomePageMainDiv h2#notLoggedInHomePage {
   color: white;
@@ -56,7 +54,6 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;}
   font-size: 1.4rem;
   margin: 2.5rem auto 1.5rem auto;
   max-width: 200px;
-
 }
 
 .notLoggedInHomePageSubDiv {
@@ -80,37 +77,34 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;}
 
 .notLoggedInHomePageButtons button {
   margin: 1rem 0rem 0.5rem 1rem;
-border: none;
+  border: none;
   border-bottom: #333 5px solid;
   border-right: #333 6px solid;
-border-top: #333 1px solid ;
-border-left: #333 1px solid ;
+  border-top: #333 1px solid;
+  border-left: #333 1px solid;
   border-radius: 15px;
-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   background-color: #d85f56;
   color: white;
-  width: 9rem;
-  height: 2.1rem;
-  font-size: .8rem;
+  width: 9.2rem;
+  height: 2.3rem;
+  font-size: 0.9rem;
   font-weight: 300;
   transition: all 0.2s ease-in-out;
-
 }
 
 .notLoggedInHomePageButtons button.notLoggedInHomePageDemoButton {
   color: white;
-  margin: .5rem 0 auto 0;
+  margin: 0.5rem 0 auto 0;
   background-color: #d85f56;
   margin-bottom: 1rem;
 }
 
-
 .notLoggedInHomePageButtons button:hover {
   cursor: pointer;
   background-color: #334075;
-scale: 1.1;
+  scale: 1.1;
 }
-
 
 div.notLoggedInHomePageButtons > div {
   display: flex;
@@ -118,14 +112,14 @@ div.notLoggedInHomePageButtons > div {
   justify-content: center;
 }
 
-div.landingTopRight{
+div.landingTopRight {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 
-div.landingTopRight h3.landingWord{
+div.landingTopRight h3.landingWord {
   font-size: 1rem;
   font-weight: 500;
   margin: 1rem 0.5rem;
@@ -138,12 +132,11 @@ div.landingTopRight h3.landingWord{
   height: 125px;
   margin-bottom: 0.5rem;
   background-color: #334075;
-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-transition: all 0.2s ease-in-out;
-
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  transition: all 0.2s ease-in-out;
 }
 
-div.landingTopRight h3.landingWord:first-child{
+div.landingTopRight h3.landingWord:first-child {
   background-color: #d85f56;
 }
 
@@ -153,7 +146,6 @@ div.landingTopRight h3.landingWord:first-child{
   font-size: 3rem;
   text-align: center;
 }
-
 
 .custom-shape-divider-bottom-1689819368 {
   position: absolute;
@@ -177,5 +169,4 @@ div.landingTopRight h3.landingWord:first-child{
 }
 
 @media screen and (min-width: 600px) {
-
 }
