@@ -1,15 +1,12 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { useDispatch } from "react-redux";
 import OpenModalButton from "../../OpenModalButton";
 import LoginFormModal from "../../User/LoginFormModal";
 import SignupFormModal from "../../User/SignUpModal";
 import DemoGamePlay from "./Demo GamePlay";
 import { fetchDemoLogin } from "../../../store/session";
-import Landing from "./Landing";
-import WavelengthLines from "../../../images/wavelength_lines.svg"
-import { easeIn, motion } from "framer-motion"
-import blob3 from "../../../images/blob3.png"
-import line2 from "../../../images/line.png"
+import { AnimatePresence, motion } from "framer-motion"
+import circle_orange from "../../../images/circle_orange.png"
 import "./NotLoggedInHomePage.css";
 
 const NotLoggedInUserHomePage = ({}) => {
@@ -23,6 +20,21 @@ const NotLoggedInUserHomePage = ({}) => {
       });
   };
 
+  const placeholderText = ["water", "ocean", "surfing"];
+  const wordTwo = ["beach", "waves", "surfing"];
+  const [state, setState] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setState((s) => (s + 1));
+    }, 4000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const placeholder = placeholderText[state % placeholderText.length];
+  const wordTwoPlaceholder = wordTwo[state % wordTwo.length];
+
   return (
     <>
       {/* <Landing /> */}
@@ -30,13 +42,10 @@ const NotLoggedInUserHomePage = ({}) => {
       >
         <motion.div className="landingPageTopSection"
         >
-          <img src={line2} className="blobDots" />
+        <div className="landingTopLeft"
+          style={{ backgroundImage: `url(${circle_orange})` }}       >
           <motion.h1 id="notLoggedInHomePage"
           >Wavelength</motion.h1>
-          <motion.i class="fa-solid fa-wave-square"
-           animate={{color: ['#334075', '#D85F56'], }}
-            transition={{duration:4 , repeat: Infinity, repeatType: "mirror" }}
-          ></motion.i>
           <motion.h2 id="notLoggedInHomePage"
           >
             Challenge your mind in a game of creativity and connection.
@@ -59,7 +68,7 @@ const NotLoggedInUserHomePage = ({}) => {
             >
               Demo Login
             </button>
-          </motion.div>
+            </motion.div>
           <div class="custom-shape-divider-bottom-1689819368">
             <svg
               data-name="Layer 1"
@@ -72,6 +81,23 @@ const NotLoggedInUserHomePage = ({}) => {
                 class="shape-fill"
               ></path>
             </svg>
+          </div>
+          </div>
+          <div className="landingTopRight">
+            <AnimatePresence mode="wait">
+              <motion.h3 className="landingWord" key={placeholder}>
+                {placeholder}
+              </motion.h3>
+            </AnimatePresence>
+            <motion.i class="fa-solid fa-wave-square"
+            animate={{color: ['#334075', '#D85F56'], }}
+            transition={{duration:4 , repeat: Infinity, repeatType: "mirror" }}
+            ></motion.i>
+            <AnimatePresence mode="wait">
+              <motion.h3 className="landingWord" key={wordTwoPlaceholder}>
+                {wordTwoPlaceholder}
+              </motion.h3>
+            </AnimatePresence>
           </div>
         </motion.div>
         <DemoGamePlay />
