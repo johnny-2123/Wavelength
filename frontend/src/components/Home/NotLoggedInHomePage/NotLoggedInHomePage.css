@@ -16,7 +16,6 @@ margin-top: 0;
   align-items: center;
   min-height: 80vh;
 background-color: none;
-outline: black thin dotted;
 }
 
 div.landingTopLeft{
@@ -30,7 +29,6 @@ div.landingTopLeft{
  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-outline: red thin dotted;
 }
 
 
