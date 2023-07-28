@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { uploadUserProfilePic } from "../../../store/session";
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../../config/firebase";
+import DropInAnimation from "../../Animations/DropIn";
 import "./EditUser.css";
 // console.log("storage", storage);
 
@@ -27,9 +28,7 @@ const EditUser = ({ user, handleLogout }) => {
         console.log("downloadURL", downloadURL);
         setPreviewImage(downloadURL);
 
-        // Update user model with imageURL
         user.imageUrl = downloadURL;
-        // TODO: Make an API call to update the user model in the backend
 
         console.log("Image uploaded successfully");
       } catch (error) {
@@ -39,39 +38,41 @@ const EditUser = ({ user, handleLogout }) => {
   };
 
   return (
-    <div className="EditUserMainDiv">
-      <div
-        style={{
-          backgroundImage: `url(${previewImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          position: "relative",
-          borderRadius: "50%",
-        }}
-        className="userProfilePictureDiv"
-      >
-        <label>
-          <input
-            type="file"
-            id="profilePictureInput"
-            style={{
-              opacity: 0,
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-            }}
-            onChange={handleImageUpload}
-          />
-          <i className="fa-solid fa-plus"></i>
-        </label>
+    <DropInAnimation>
+      <div className="EditUserMainDiv">
+        <div
+          style={{
+            backgroundImage: `url(${previewImage})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            position: "relative",
+            borderRadius: "50%",
+          }}
+          className="userProfilePictureDiv"
+        >
+          <label>
+            <input
+              type="file"
+              id="profilePictureInput"
+              style={{
+                opacity: 0,
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+              }}
+              onChange={handleImageUpload}
+            />
+            <i className="fa-solid fa-plus"></i>
+          </label>
+        </div>
+        <div className="userProfileHeader">
+          <h5 id="profileUsername">{user.username}</h5>
+          <h5 id="profileEmail">{user.email}</h5>
+        </div>
       </div>
-      <div className="userProfileHeader">
-        <h5 id="profileUsername">{user.username}</h5>
-        <h5 id="profileEmail">{user.email}</h5>
-      </div>
-    </div>
+    </DropInAnimation>
   );
 };
 

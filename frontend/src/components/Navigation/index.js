@@ -78,7 +78,9 @@ function Navigation({ isLoaded }) {
       )}
       {isLoaded && sessionUser?.id && (
         <li>
-          <ProfileButton user={sessionUser} />
+          <AnimatePresence mode="wait">
+            <ProfileButton user={sessionUser} />
+          </AnimatePresence>
         </li>
       )}
     </ul>
