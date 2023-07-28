@@ -6,6 +6,7 @@ import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../User/LoginFormModal";
 import SignupFormModal from "../User/SignUpModal";
 import EditUser from "./EditUser";
+import { motion, AnimatePresence } from "framer-motion";
 import "./Navigation.css";
 
 function ProfileButton({ user }) {
@@ -56,7 +57,15 @@ function ProfileButton({ user }) {
           ></img>
         )}
       </button>
-      <ul className={ulClassName} ref={ulRef}>
+      <motion.ul
+        key={"profile-dropdown"}
+        className={ulClassName}
+        ref={ulRef}
+        initial={{ opacity: 0, scale: 0, x: 100 }}
+        animate={{ opacity: 1, scale: 1, x: 0 }}
+        exit={{ opacity: 0, x: 100, transition: { duration: 0.1 } }}
+        transition={{ duration: 0.2 }}
+      >
         {user ? (
           <>
             <OpenModalButton
@@ -87,7 +96,7 @@ function ProfileButton({ user }) {
             </li>
           </>
         )}
-      </ul>
+      </motion.ul>
     </>
   );
 }

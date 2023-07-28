@@ -10,6 +10,7 @@ import {
   faWaveSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
+import { motion, AnimatePresence } from "framer-motion";
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
@@ -44,19 +45,35 @@ function Navigation({ isLoaded }) {
           <a
             href="https://www.linkedin.com/in/johnny-avila-0512aa164/"
             target="_blank"
+            rel="noreferrer"
           >
-            <i class="fa-brands fa-linkedin"></i>
-          </a>
-          <a href="https://github.com/johnny-2123/Wavelength" target="_blank">
-            <i class="fa-brands fa-github"></i>
+            <motion.i
+              class="fa-brands fa-linkedin"
+              whileHover={{ scale: 1.15, ease: "easeInOut" }}
+              whileTap={{ color: "#7E87AE" }}
+            ></motion.i>
           </a>
           <a
+            href="https://github.com/johnny-2123/Wavelength"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <motion.i
+              class="fa-brands fa-github"
+              whileHover={{ scale: 1.15, ease: "easeInOut" }}
+              whileTap={{ color: "#7E87AE" }}
+            ></motion.i>
+          </a>
+          <motion.a
             href="https://wellfound.com/u/johnny-edgar-avila"
             target="_blank"
             className="wellFound"
+            rel="noreferrer"
+            whileHover={{ scale: 1.15, ease: "easeInOut" }}
+            whileTap={{ color: "#7E87AE" }}
           >
             W:
-          </a>
+          </motion.a>
         </li>
       )}
       {isLoaded && sessionUser?.id && (

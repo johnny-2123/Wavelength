@@ -23,11 +23,7 @@ export const InViewAnimation = ({ children }) => {
   }, [inView, animation, hasAnimated]);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: -100 }}
-      animate={animation}
-      ref={ref}
-    >
+    <motion.div initial={{ opacity: 0, x: -100 }} animate={animation} ref={ref}>
       {children}
     </motion.div>
   );
