@@ -9,6 +9,8 @@ div.allGamesMainDiv {
   justify-content: center;
   /* align-items: center; */
   /* outline: green thin dotted; */
+  @media screen and (max-width: 800px) {
+  }
 }
 
 div.allGamesButtons {
@@ -61,7 +63,7 @@ div.allGamesButtons button {
 .allGamesDropdownContent {
   position: absolute;
   top: 100%;
-  left: 0;
+  left: 10px;
   z-index: 1;
   display: flex;
   flex-direction: column;
@@ -88,15 +90,21 @@ div.allGamesButtons button {
 }
 
 div.allGamesMainDiv div#allGamesScroller {
-  height: 100%;
-  overflow-y: auto;
+  /* height: 100%; */
   width: 90%;
-  padding: 0rem 0rem 0.25rem 0rem;
+  padding: 0rem 0rem 0rem 0rem;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow-x: hidden;
+  overflow-y: auto;
+  flex: 1;
+  position: relative;
+  @media screen and (max-width: 800px) {
+    width: 100%;
+    padding-right: 1rem;
+  }
 }
 
 div#allGamesScroller::-webkit-scrollbar {

@@ -1,0 +1,105 @@
+div.DemoRoundResults {
+  margin: 2rem auto 2rem auto;
+  padding: 1.75rem 2rem;
+  background-color: #ffffff;
+  /* border: #555 1px solid; */
+  border-radius: 10px;
+  text-align: center;
+  width: 60%;
+  color: #333;
+  /* pointer-events: none; */
+  border: 2px #333 solid;
+  box-shadow: 10px 10px 0px #333, rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  @media screen and (max-width: 800px) {
+    width: 70%;
+  }
+}
+.DemoRoundResults:hover {
+  cursor: default;
+}
+div.DemoRoundResults div.demoRoundResultsTop {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  /* outline: red 2px dotted; */
+  padding: 0;
+}
+
+div.DemoRoundResults div.demoRoundResultsTop div {
+  /* outline: purple 2px dotted; */
+  margin: 0;
+  height: 100%;
+}
+
+h2.demoRoundResults {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-top: 0rem;
+  padding-top: 0;
+  margin-bottom: 0rem;
+  color: #555;
+
+  @media screen and (max-width: 800px) {
+    margin-bottom: 1rem;
+  }
+}
+
+h5.demoRoundResults {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #555;
+  @media screen and (max-width: 800px) {
+    margin-top: 0;
+  }
+}
+
+h6.demoRoundResults {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 1rem 0.5rem;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 125px;
+  height: 125px;
+  margin-bottom: 0.5rem;
+  border: #333 2px solid;
+  background-color: #e4736b;
+  box-shadow: 5px 5px 0px #333, rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+  @media screen and (max-width: 800px) {
+    font-size: 0.9rem;
+    width: 100px;
+    height: 100px;
+  }
+}
+
+h6.demoUserWord {
+  background-color: #334075;
+}
+
+div.DemoRoundResults p {
+  font-weight: 500;
+}
+
+.DemoRoundResults button {
+  margin: 1rem 1rem 0 1rem;
+  padding: 0.5rem 1.5rem;
+  background-color: #e4736b;
+  color: white;
+  width: 35%;
+  border: none;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  .DemoRoundResults button {
+    width: 90%;
+  }
+}

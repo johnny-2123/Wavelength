@@ -1,5 +1,5 @@
 .demoFollowingRounds {
-  margin: 1rem auto;
+  margin: 2rem auto;
   padding: 2rem 2rem;
   border-radius: 10px;
   text-align: center;
@@ -7,9 +7,10 @@
   flex-direction: column;
   align-items: center;
   background-color: white;
-  border: #a0741b 1px solid;
   width: 60%;
   pointer-events: none;
+  border: #333 2px solid;
+  box-shadow: 10px 10px 0px #333, rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .demoFollowingRounds:hover {
@@ -24,6 +25,17 @@
   width: 100%;
 }
 
+h2#demoRoundResults {
+  font-size: 1.3rem;
+  width: 100%;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  color: #333;
+  @media screen and (max-width: 800px) {
+    margin-bottom: 1rem;
+  }
+}
+
 .demoLastRoundWords {
   padding: 0rem 0;
   margin-top: 0;
@@ -36,7 +48,7 @@
 
 .demoLastRoundWords h5 {
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   margin: 0rem 0.5rem 0.5rem 0.5rem;
   color: #555;
 }
@@ -54,6 +66,8 @@
   height: 125px;
   margin-bottom: 0.5rem;
   background-color: #334075;
+  border: #333 2px solid;
+  box-shadow: 5px 5px 0px #333, rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 h6.demoFriendUserLastRoundWord {
@@ -77,12 +91,10 @@ h6.demoFriendUserLastRoundWord {
   width: 90%;
 }
 
-h2#demoRoundResults {
+h2.demoFollowingRoundsDirections {
+  font-weight: 400;
   font-size: 1rem;
-  width: 100%;
-  font-weight: 500;
-  margin: 0 0 1rem 0;
-  color: darkslategray;
+  margin-bottom: 1.5rem;
 }
 
 .demoFollowingRounds .wordInputDiv {

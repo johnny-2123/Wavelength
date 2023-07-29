@@ -40,41 +40,44 @@ const NotLoggedInUserHomePage = ({}) => {
       {/* <Landing /> */}
       <div className="notLoggedInHomePageMainDiv">
         <motion.div className="landingPageTopSection">
-          <motion.div
-            className="landingTopLeft"
-            style={{ backgroundImage: `url(${circle_orange})` }}
-            initial={{ opacity: 0, x: -100 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{
-              duration: 1,
-              delay: 0.5,
-              type: "spring",
-              bounce: 0.25,
-            }}
-          >
-            <motion.h1 id="notLoggedInHomePage">Wavelength</motion.h1>
-            <motion.h2 id="notLoggedInHomePage">
-              Challenge your mind in a game of creativity and connection.
-            </motion.h2>
-            <motion.div className="notLoggedInHomePageButtons">
-              <div>
-                <OpenModalButton
-                  buttonText="Log In"
-                  modalComponent={<LoginFormModal />}
-                />
-                <OpenModalButton
-                  buttonText="Sign Up"
-                  modalComponent={<SignupFormModal />}
-                />
-              </div>
-              <button
-                onClick={handleDemoLogin}
-                className="notLoggedInHomePageDemoButton"
-              >
-                Demo Login
-              </button>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={"landingTopLeft"}
+              className="landingTopLeft"
+              style={{ backgroundImage: `url(${circle_orange})` }}
+              initial={{ opacity: 0, x: -100 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                duration: 1,
+                delay: 0.5,
+                type: "spring",
+                bounce: 0.25,
+              }}
+            >
+              <motion.h1 id="notLoggedInHomePage">Wavelength</motion.h1>
+              <motion.h2 id="notLoggedInHomePage">
+                Challenge your mind in a game of creativity and connection.
+              </motion.h2>
+              <motion.div className="notLoggedInHomePageButtons">
+                <div>
+                  <OpenModalButton
+                    buttonText="Log In"
+                    modalComponent={<LoginFormModal />}
+                  />
+                  <OpenModalButton
+                    buttonText="Sign Up"
+                    modalComponent={<SignupFormModal />}
+                  />
+                </div>
+                <button
+                  onClick={handleDemoLogin}
+                  className="notLoggedInHomePageDemoButton"
+                >
+                  Demo Login
+                </button>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </AnimatePresence>
           <motion.div
             className="landingTopRight"
             initial={{ opacity: 0, x: 100 }}

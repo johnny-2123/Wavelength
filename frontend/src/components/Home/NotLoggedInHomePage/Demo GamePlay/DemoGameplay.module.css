@@ -1,31 +1,43 @@
 .demoGamePlayMainDiv {
   width: 100%;
-  text-align: center;
   background-color: #d85f56;
-  color: white;
 }
 
 .demoGamePlayMainDiv h2 {
   font-size: 1.8rem;
   font-weight: 500;
-  margin: 3rem auto;
+  margin: 0rem auto;
   color: white;
+}
+
+h2.gamePlayInstructions {
+  margin-top: 0;
+  padding-top: 0;
+  color: white;
+  text-align: center;
+  font-size: 1.9rem;
+  font-weight: 400;
 }
 
 h3.gamePlayInstructions {
-  font-size: 1rem;
-  font-weight: 500;
-  margin: 2rem 2rem;
-  padding: 0 5%;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin: 0rem auto;
+  padding: 1rem 3rem;
   color: white;
   z-index: 3;
+  max-width: 650px;
+  @media screen and (max-width: 800px) {
+    font-size: 1.3rem;
+  }
 }
 
-h3.gamePlayInstructions:last-of-type {
+/* h3.gamePlayInstructions:last-of-type {
   margin-bottom: 0;
   margin-top: 0;
   padding-bottom: 3rem;
-}
+} */
 
 section.roundOne {
   position: relative;
@@ -34,7 +46,12 @@ section.roundOne {
   margin-top: 0;
   border: none;
   margin-bottom: 0;
-  min-height: 650px;
+  padding: 5rem 0 4rem 0;
+  min-height: 525px;
+  @media screen and (max-width: 800px) {
+    padding-bottom: 10rem;
+    /* min-height: 675px; */
+  }
 }
 
 .custom-shape-divider-bottom-1689818294 {
@@ -56,33 +73,39 @@ section.roundOne {
 .custom-shape-divider-bottom-1689818294 .shape-fill {
   fill: #d85f56;
 }
+
 section.roundResults {
   position: relative;
   background-color: #d85f56;
   border-radius: 0;
   margin-top: 0;
   border: none;
-  min-height: 700px;
+  /* min-height: 750px; */
   margin-bottom: 0;
+  padding-bottom: 6rem;
+  @media screen and (max-width: 800px) {
+    padding-bottom: 5rem;
+  }
 }
 
-.custom-shape-divider-bottom-1689819039 {
+.custom-shape-divider-bottom-1690660452 {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   overflow: hidden;
   line-height: 0;
+  transform: rotate(180deg);
 }
 
-.custom-shape-divider-bottom-1689819039 svg {
+.custom-shape-divider-bottom-1690660452 svg {
   position: relative;
   display: block;
-  width: calc(225% + 1.3px);
-  height: 150px;
+  width: calc(122% + 1.3px);
+  height: 60px;
 }
 
-.custom-shape-divider-bottom-1689819039 .shape-fill {
+.custom-shape-divider-bottom-1690660452 .shape-fill {
   fill: #334075;
 }
 
@@ -91,9 +114,12 @@ section.followingRound {
   background-color: #334075;
   border-radius: 0;
   margin-top: 0;
-  padding-top: 2rem;
+  padding-top: 4rem;
+  padding-bottom: 3rem;
   border: none;
   min-height: 810px;
+  @media screen and (max-width: 800px) {
+  }
 }
 
 .custom-shape-divider-bottom-1689820394 {
@@ -117,43 +143,38 @@ section.followingRound {
 }
 
 section.gameResults {
+  background-color: #d85f56;
+  margin-top: 0;
   position: relative;
-  padding-top: 3rem;
-  min-height: 1675px;
+  padding: 2rem 0 8rem 0;
 }
-.custom-shape-divider-bottom-1689820750 {
+
+.custom-shape-divider-bottom-1690662897 {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   overflow: hidden;
   line-height: 0;
+  transform: rotate(180deg);
 }
 
-.custom-shape-divider-bottom-1689820750 svg {
+.custom-shape-divider-bottom-1690662897 svg {
   position: relative;
   display: block;
-  width: calc(199% + 1.3px);
-  height: 81px;
+  width: calc(125% + 1.3px);
+  height: 68px;
 }
 
-.custom-shape-divider-bottom-1689820750 .shape-fill {
+.custom-shape-divider-bottom-1690662897 .shape-fill {
   fill: #334075;
 }
+
 section.landingFooter {
-  padding-top: 2rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
   background-color: #334075;
 }
 
 @media screen and (min-width: 600px) {
-  .demoGamePlayMainDiv h2 {
-    margin-top: 4rem;
-    font-size: 2.2rem;
-  }
-
-  h3.gamePlayInstructions {
-    font-weight: 200;
-    font-size: 1.5rem;
-    padding: 0 15%;
-  }
 }

@@ -3,7 +3,7 @@ import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 export const InViewAnimation = ({ children }) => {
-  const { ref, inView } = useInView({ threshold: 0.2 });
+  const { ref, inView } = useInView({ threshold: 0.15 });
   const animation = useAnimation();
   const [hasAnimated, setHasAnimated] = useState(false);
 

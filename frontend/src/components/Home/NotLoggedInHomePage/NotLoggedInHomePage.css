@@ -7,15 +7,22 @@
 
 div.landingPageTopSection {
   position: relative;
-  padding: 0rem 2rem 2rem 2rem;
+  padding: 2rem 2rem 5rem 4rem;
   border-radius: 15px;
   display: flex;
   flex-direction: row;
   margin-top: 0;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  min-height: 80vh;
-  background-color: none;
+  min-height: 50vh;
+  /* outline: red thin dotted; */
+  margin-bottom: 0rem;
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 2rem 2rem 3.5rem 2rem;
+    min-height: 79vh;
+  }
 }
 
 div.landingTopLeft {
@@ -23,14 +30,28 @@ div.landingTopLeft {
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  height: 60vh;
-  min-height: 378px;
-  width: 55%;
-  min-width: 511px;
-  padding: 2rem 2rem;
-  background-size: contain;
+  /* border-radius: 50%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 425px;
+  height: 425px;
+  aspect-ratio: 1/1;
+  /* background-color: #d85f56; */
+  padding: 0rem 0rem;
+  margin-right: 0rem;
+  /* border: #333 3px solid; */
+  /* box-shadow: 8px 8px 0px #334075, rgba(0, 0, 0, 0.16) 0px 1px 4px; */
   background-position: center;
+  background-size: contain;
   background-repeat: no-repeat;
+
+  @media screen and (max-width: 800px) {
+    width: 475px;
+    height: 475px;
+    margin-right: 0;
+    margin-bottom: 0rem;
+  }
 }
 
 .notLoggedInHomePageMainDiv h1#notLoggedInHomePage {
@@ -38,15 +59,28 @@ div.landingTopLeft {
   font-weight: 400;
   letter-spacing: 0.2rem;
   text-align: center;
-  font-size: 3rem;
-  margin-top: 1rem;
+  font-size: 2.9rem;
+  margin-top: 3rem;
   margin-bottom: 0rem;
+  margin-right: 5rem;
   background-color: #334075;
   border-radius: 40px;
+  border: 2px #333 solid;
   border-right: #333 10px solid;
   border-bottom: #333 10px solid;
   padding: 0.4rem 4.5rem;
+
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  @media screen and (max-width: 800px) {
+    font-size: 2.7rem;
+    font-weight: 400;
+    margin: 0.5rem 0 2rem 0;
+    text-align: center;
+    padding: 0.4rem 3rem;
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
 }
 
 .notLoggedInHomePageMainDiv h2#notLoggedInHomePage {
@@ -56,6 +90,10 @@ div.landingTopLeft {
   font-size: 1.4rem;
   margin: 2.5rem auto 1.5rem auto;
   max-width: 200px;
+  @media screen and (max-width: 800px) {
+    font-size: 1.2rem;
+    margin: 0.5rem auto 2rem auto;
+  }
 }
 
 .notLoggedInHomePageSubDiv {
@@ -67,6 +105,8 @@ div.landingTopLeft {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  @media screen and (max-width: 800px) {
+  }
 }
 
 .notLoggedInHomePageButtons {
@@ -75,6 +115,11 @@ div.landingTopLeft {
   align-items: center;
   width: 60%;
   margin-bottom: 0rem;
+  margin-right: 12rem;
+  @media screen and (max-width: 800px) {
+    width: 100%;
+    margin-right: 0;
+  }
 }
 
 .notLoggedInHomePageButtons button {
@@ -82,8 +127,8 @@ div.landingTopLeft {
   border: none;
   border-bottom: #333 5px solid;
   border-right: #333 6px solid;
-  border-top: #333 1px solid;
-  border-left: #333 1px solid;
+  border-top: #333 2px solid;
+  border-left: #333 2px solid;
   border-radius: 15px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   background-color: #d85f56;
@@ -93,6 +138,17 @@ div.landingTopLeft {
   font-size: 0.9rem;
   font-weight: 300;
   transition: all 0.2s ease-in-out;
+  @media screen and (max-width: 800px) {
+    width: 9rem;
+  }
+}
+
+.notLoggedInHomePageButtons button:hover {
+  cursor: pointer;
+  background-color: #334075;
+  scale: 1.1;
+  @media screen and (max-width: 800px) {
+  }
 }
 
 .notLoggedInHomePageButtons button.notLoggedInHomePageDemoButton {
@@ -101,11 +157,8 @@ div.landingTopLeft {
   background-color: #d85f56;
   margin-bottom: 1rem;
 }
-
-.notLoggedInHomePageButtons button:hover {
-  cursor: pointer;
+.notLoggedInHomePageButtons button.notLoggedInHomePageDemoButton:hover {
   background-color: #334075;
-  scale: 1.1;
 }
 
 div.notLoggedInHomePageButtons > div {
@@ -119,6 +172,14 @@ div.landingTopRight {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin-left: 1rem;
+  @media screen and (max-width: 800px) {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    margin-left: 0;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 div.landingTopRight h3.landingWord {
@@ -134,8 +195,14 @@ div.landingTopRight h3.landingWord {
   height: 125px;
   margin-bottom: 0.5rem;
   background-color: #334075;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  border: 2px solid #333;
+  box-shadow: 5px 5px 0px #333, rgba(0, 0, 0, 0.16) 0px 1px 4px;
   transition: all 0.2s ease-in-out;
+  @media screen and (max-width: 800px) {
+    width: 100px;
+    height: 100px;
+    font-size: 0.8rem;
+  }
 }
 
 div.landingTopRight h3.landingWord:first-child {
@@ -147,6 +214,9 @@ div.landingTopRight h3.landingWord:first-child {
   color: #334075;
   font-size: 3rem;
   text-align: center;
+  @media screen and (max-width: 800px) {
+    font-size: 2rem;
+  }
 }
 
 .custom-shape-divider-bottom-1689819368 {
@@ -168,59 +238,4 @@ div.landingTopRight h3.landingWord:first-child {
 
 .custom-shape-divider-bottom-1689819368 .shape-fill {
   fill: #334075;
-}
-
-@media screen and (max-width: 800px) {
-  div.landingPageTopSection {
-    flex-direction: column;
-    justify-content: space-evenly;
-    padding: 2rem 1rem;
-  }
-
-  div.landingTopLeft {
-    width: 100%;
-    height: auto;
-    padding: 3rem;
-  }
-
-  .notLoggedInHomePageMainDiv h1#notLoggedInHomePage {
-    font-size: 2.8rem;
-    font-weight: 400;
-    margin: 0 auto;
-    margin-top: 1rem;
-    padding: 0.4rem 3rem;
-    background: none;
-    border: none;
-    box-shadow: none;
-  }
-
-  .notLoggedInHomePageMainDiv h2#notLoggedInHomePage {
-    font-size: 1.2rem;
-    margin: 0.5rem auto 1rem auto;
-  }
-
-  .notLoggedInHomePageButtons {
-    width: 100%;
-  }
-
-  .notLoggedInHomePageButtons button {
-    width: 9rem;
-  }
-
-  div.landingTopRight {
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-    justify-content: center;
-    align-items: center;
-  }
-
-  div.landingTopRight h3.landingWord {
-    width: 80px;
-    height: 80px;
-    font-size: 0.8rem;
-  }
-
-  .notLoggedInHomePageMainDiv i.fa-wave-square {
-    font-size: 2rem;
-  }
 }

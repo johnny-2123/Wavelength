@@ -1,12 +1,13 @@
 .DemoRoundOne {
-  margin: 1rem auto;
+  margin: 2rem auto;
   padding: 2.5rem 2rem;
   background-color: #ffffff;
   border-radius: 10px;
   text-align: center;
-  border: #a0741b 1px solid;
   border-radius: 10px;
   width: 60%;
+  border: 2px #333 solid;
+  box-shadow: 10px 10px 0px #333, rgba(0, 0, 0, 0.16) 0px 1px 4px;
   pointer-events: none;
 }
 
@@ -27,6 +28,9 @@ form#demoRoundOne {
   flex-direction: row;
   align-items: center;
   padding: 0.1rem;
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+  }
 }
 
 input#demoRoundOne {
@@ -34,10 +38,18 @@ input#demoRoundOne {
   font-size: 0.9rem;
   height: 1rem;
   color: #555;
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
 }
 
 button#demoRoundOne {
-  width: 40%;
+  width: 60%;
   font-size: 0.9rem;
   margin-top: 0;
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
 }
