@@ -107,7 +107,7 @@ const GamePlay = ({
 
   return (
     <div className="gamePlay">
-      <h1>Round {roundNumber}</h1>
+      <h1 className="gamePlayRound">Round {roundNumber}</h1>
       {!userWord && !showRoundResults && roundNumber === 1 && (
         <RoundOneForm
           onSubmit={handleSubmitWord}

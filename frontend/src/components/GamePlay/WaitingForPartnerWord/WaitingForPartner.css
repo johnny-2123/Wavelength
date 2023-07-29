@@ -1,46 +1,52 @@
 .waitingForFriend {
-    margin: 2rem auto;
-    padding: 0rem;
-    background-color: #ffffff;
-    border-radius: 10px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  width: 90%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px black solid;
+  box-shadow: 7px 7px 0px black, rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .waitingForFriendText {
-    font-size: 1.5rem;
-    font-weight: 500;
-    margin-bottom: 1rem;
-    color: darkslategray;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: darkslategray;
 }
 
 .userWordDiv {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .userSubmittedWord {
-    font-size: 1.4rem;
-    font-weight: 400;
-    margin-bottom: 0.5rem;
-    padding-bottom: .75rem;
-    /* border-bottom: #e4736b 1px solid; */
-    width: 80%;
-    color: darkslategray;
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.75rem;
+  /* border-bottom: #e4736b 1px solid; */
+  width: 80%;
+  color: darkslategray;
 }
 
 .userWord {
-    background-color: #334075;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 175px;
-    height: 175px;
-    margin: 0 auto .5rem auto;
+  background-color: #334075;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 175px;
+  height: 175px;
+  font-weight: 400;
+  margin: 0 auto 2rem auto;
+  border: 2px black solid;
+  box-shadow: 5px 5px 0px black, rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
