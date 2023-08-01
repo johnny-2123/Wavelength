@@ -13,7 +13,6 @@ const DemoGamePlay = () => {
   const animation = useAnimation();
 
   useEffect(() => {
-    console.log("component in view", inView);
     if (inView) {
       animation.start({
         opacity: 1,

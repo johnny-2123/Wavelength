@@ -29,7 +29,7 @@ const handleMessage = async (message, ws) => {
     case "send-game-invite":
       recipientWs = findWebSocketByUsername(data.recipient);
       if (!recipientWs) {
-        console.log(`No WebSocket found for recipient: ${data.recipient}`);
+        // console.log(`No WebSocket found for recipient: ${data.recipient}`);
         const errorMessage = JSON.stringify({
           type: "user-not-online",
           data: {

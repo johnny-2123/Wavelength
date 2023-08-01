@@ -19,13 +19,10 @@ export const uploadUserProfilePic = (file) => async (dispatch) => {
 
     if (response.ok) {
       const downloadURL = await response.text();
-      console.log("downloadURL in redux store", downloadURL);
       return downloadURL;
     } else {
-      console.log("Error uploading image:", response.statusText);
     }
   } catch (error) {
-    console.log("Error uploading image:", error);
   }
 };
 

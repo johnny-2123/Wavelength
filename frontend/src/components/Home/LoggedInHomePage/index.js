@@ -13,7 +13,6 @@ import { toast, Slide } from "react-toastify";
 import "./LoggedInHomePage.css";
 
 const LoggedInUserHomePage = ({ sessionUser }) => {
-  console.log("sessionUser", sessionUser);
   const dispatch = useDispatch();
   const history = useHistory();
   const { setModalContent, closeModal } = useModal();

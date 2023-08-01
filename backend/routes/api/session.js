@@ -31,17 +31,14 @@ router.post("/image", async (req, res) => {
   try {
     await deleteObject(imageRef);
   } catch (error) {
-    console.log("error deleting image", error);
   }
 
   try {
     await uploadBytes(imageRef, imageBuffer);
     const downloadURL = await getDownloadURL(imageRef);
-    console.log("downloadURL", downloadURL);
     user.imageUrl = downloadURL;
     await user.save();
   } catch (error) {
-    console.log(error);
   }
 
   return res.json({

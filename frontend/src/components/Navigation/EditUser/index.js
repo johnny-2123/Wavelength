@@ -5,35 +5,23 @@ import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../../config/firebase";
 import DropInAnimation from "../../Animations/DropIn";
 import "./EditUser.css";
-// console.log("storage", storage);
 
 const EditUser = ({ user, handleLogout }) => {
-  console.log("user in EditUser", user);
-  console.log("user?.guid", user?.guid);
   const [previewImage, setPreviewImage] = useState(user?.imageUrl);
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
-    console.log("file", file);
 
     if (file) {
       try {
-        console.log("before upload");
         const imageRef = ref(storage, `images/${user?.guid}.jpg`);
-        console.log("after upload");
-        console.log("imageRef", imageRef);
         await uploadBytes(imageRef, file);
 
         const downloadURL = await getDownloadURL(imageRef);
-        console.log("downloadURL", downloadURL);
         setPreviewImage(downloadURL);
 
         user.imageUrl = downloadURL;
-
-        console.log("Image uploaded successfully");
-      } catch (error) {
-        console.log("Error uploading image:", error);
-      }
+      } catch (error) {}
     }
   };
 
