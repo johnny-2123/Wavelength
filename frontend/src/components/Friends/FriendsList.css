@@ -107,8 +107,8 @@
   cursor: pointer;
   background-color: transparent;
   transition: background-color 0.3s ease;
-  margin: 0 0.5rem 0rem 1.4rem;
-  margin-left: -2rem;
+  margin: 0 0rem 0rem 1.4rem;
+  margin-left: -3rem;
   float: none;
 }
 
