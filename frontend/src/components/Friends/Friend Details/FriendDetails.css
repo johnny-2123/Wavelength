@@ -175,6 +175,7 @@ div.friendDetailsTopLeftDiv h1 {
   border-radius: 10px;
   width: 80%;
   text-align: center;
+  margin-bottom: 1.5rem;
 }
 
 .noGamesDiv h2.noGamesText {
